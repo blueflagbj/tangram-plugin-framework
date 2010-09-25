@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008/11/15 18:43:06.281.pas,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Unit3.pas=E:\平台\配置工具\ConfigTool.pas</Transaction>
+    <Transaction>2008/11/15 18:43:06.281.dfm,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Unit3.dfm=E:\平台\配置工具\ConfigTool.dfm</Transaction>
+    <Transaction>2008/11/15 18:43:56.093.pas,E:\平台\配置工具\ConfigTool.pas=E:\平台\配置工具\ConfigToolUnit.pas</Transaction>
+    <Transaction>2008/11/15 18:43:56.093.dfm,E:\平台\配置工具\ConfigTool.dfm=E:\平台\配置工具\ConfigToolUnit.dfm</Transaction>
+    <Transaction>2008/11/15 18:44:06.453.bdsproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Project1.bdsproj=E:\平台\配置工具\ConfigTool.bdsproj</Transaction>
+    <Transaction>2008/11/16 16:40:39.953.pas,E:\平台\配置工具\Unit2.pas=E:\平台\公共\RegDllExport.pas</Transaction>
+    <Transaction>2008/11/16 18:35:11.250.pas,E:\平台\配置工具\Unit2.pas=E:\平台\配置工具\editValue.pas</Transaction>
+    <Transaction>2008/11/16 18:35:11.250.dfm,E:\平台\配置工具\Unit2.dfm=E:\平台\配置工具\editValue.dfm</Transaction>
+    <Transaction>2008/11/16 21:37:30.593.pas,E:\平台\配置工具\Unit2.pas=E:\平台\配置工具\editKey.pas</Transaction>
+    <Transaction>2008/11/16 21:37:30.625.dfm,E:\平台\配置工具\Unit2.dfm=E:\平台\配置工具\editKey.dfm</Transaction>
+    <Transaction>2008/11/16 23:28:07.906.pas,E:\平台\配置工具\editKey.pas=E:\平台\配置工具\newKey.pas</Transaction>
+    <Transaction>2008/11/16 23:28:07.906.dfm,E:\平台\配置工具\editKey.dfm=E:\平台\配置工具\newKey.dfm</Transaction>
+    <Transaction>2010-06-09 21:26:25.734.pas,E:\平台\配置工具\PackageMng.pas=E:\平台\配置工具\PackageMgr.pas</Transaction>
+    <Transaction>2010-06-09 21:26:25.734.dfm,E:\平台\配置工具\PackageMng.dfm=E:\平台\配置工具\PackageMgr.dfm</Transaction>
+    <Transaction>2010-06-26 11:04:57.750.pas,F:\平台 For D2010\配置工具\ConfigToolUnit.pas=F:\平台 For D2010\配置工具\uMain.pas</Transaction>
+    <Transaction>2010-06-26 11:04:57.781.dfm,F:\平台 For D2010\配置工具\ConfigToolUnit.dfm=F:\平台 For D2010\配置工具\uMain.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
