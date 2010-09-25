@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008/11/23 23:37:53.593.bdsproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Package1.bdsproj=E:\平台\自定义包\custom.bdsproj</Transaction>
+    <Transaction>2008/11/23 23:38:09.531.bdsproj,E:\平台\自定义包\custom.bdsproj=E:\平台\自定义包\austom.bdsproj</Transaction>
+    <Transaction>2008/11/23 23:38:14.015.bdsproj,E:\平台\自定义包\austom.bdsproj=E:\平台\自定义包\Custom.bdsproj</Transaction>
+    <Transaction>2008/11/23 23:43:09.406.pas,E:\平台\自定义包\Unit2.pas=E:\平台\自定义包\CustomExport.pas</Transaction>
+    <Transaction>2008/11/28 18:00:27.484.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\FlashFormUnit.pas</Transaction>
+    <Transaction>2008/11/28 18:00:27.515.dfm,E:\平台\自定义包\Unit1.dfm=E:\平台\自定义包\FlashFormUnit.dfm</Transaction>
+    <Transaction>2008/11/28 18:00:37.812.pas,E:\平台\自定义包\FlashFormUnit.pas=E:\平台\自定义包\FlashForm.pas</Transaction>
+    <Transaction>2008/11/28 18:00:37.812.dfm,E:\平台\自定义包\FlashFormUnit.dfm=E:\平台\自定义包\FlashForm.dfm</Transaction>
+    <Transaction>2008/11/29 15:38:24.609.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\FlashFormIntf.pas</Transaction>
+    <Transaction>2008/11/29 15:42:16.640.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\WaitFormIntf.pas</Transaction>
+    <Transaction>2008/12/03 16:10:25.984.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\WaitForm.pas</Transaction>
+    <Transaction>2008/12/03 16:10:25.984.dfm,E:\平台\自定义包\Unit1.dfm=E:\平台\自定义包\WaitForm.dfm</Transaction>
+    <Transaction>2008/12/07 23:13:13.484.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\ImpFlashFormIntf.pas</Transaction>
+    <Transaction>2008/12/12 20:06:51.500.pas,E:\平台\自定义包\ImpFlashFormIntf.pas=E:\平台\自定义包\FlashFormObj.pas</Transaction>
+    <Transaction>2008/12/12 20:07:18.562.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\WaitFormObj.pas</Transaction>
+    <Transaction>2008/12/17 17:30:03.750.pas,E:\平台\接口\MessageIntf.pas=E:\平台\接口\DialogsIntf.pas</Transaction>
+    <Transaction>2008/12/17 17:30:33.015.pas,E:\平台\自定义包\SysMessageBox.pas=E:\平台\自定义包\SysDialog.pas</Transaction>
+    <Transaction>2008/12/17 17:31:50.703.pas,E:\平台\接口\DialogsIntf.pas=E:\平台\接口\DialogIntf.pas</Transaction>
+    <Transaction>2008/12/17 17:32:02.968.pas,E:\平台\自定义包\SysDialog.pas=E:\平台\自定义包\SysDialogs.pas</Transaction>
+    <Transaction>2008/12/21 15:00:35.187.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\SysEventIntf.pas</Transaction>
+    <Transaction>2008/12/21 15:06:37.125.pas,E:\平台\接口\SysEventIntf.pas=</Transaction>
+    <Transaction>2008/12/21 17:59:34.218.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\SysTools.pas</Transaction>
+    <Transaction>2008/12/21 18:00:02.765.pas,E:\平台\自定义包\SysTools.pas=E:\平台\自定义包\Tools.pas</Transaction>
+    <Transaction>2008/12/21 18:07:16.421.pas,E:\平台\自定义包\Tools.pas=E:\平台\自定义包\BaseTools.pas</Transaction>
+    <Transaction>2008/12/21 18:07:22.234.pas,E:\平台\自定义包\BaseTools.pas=E:\平台\自定义包\BaseTool.pas</Transaction>
+    <Transaction>2008/12/21 19:46:01.250.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\EncryptionIntf.pas</Transaction>
+    <Transaction>2008/12/21 20:55:29.578.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\Encryption.pas</Transaction>
+    <Transaction>2008/12/23 15:48:42.984.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\Tools.pas</Transaction>
+    <Transaction>2008/12/23 17:10:02.421.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\ToolIntf.pas</Transaction>
+    <Transaction>2008/12/23 17:17:26.203.pas,E:\平台\自定义包\BaseTool.pas=</Transaction>
+    <Transaction>2008/12/23 17:21:57.109.pas,E:\平台\自定义包\Tools.pas=E:\平台\自定义包\ToolFactory.pas</Transaction>
+    <Transaction>2008/12/23 18:11:28.359.pas,E:\平台\自定义包\Unit4.pas=E:\平台\自定义包\ToolMng.pas</Transaction>
+    <Transaction>2008/12/23 18:11:28.359.dfm,E:\平台\自定义包\Unit4.dfm=E:\平台\自定义包\ToolMng.dfm</Transaction>
+    <Transaction>2008/12/26 15:35:50.781.pas,E:\平台\接口\ToolIntf.pas=E:\平台\接口\ToolFactoryIntf.pas</Transaction>
+    <Transaction>2008/12/26 18:23:47.718.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\ToolDetail.pas</Transaction>
+    <Transaction>2008/12/26 18:23:47.734.dfm,E:\平台\自定义包\Unit1.dfm=E:\平台\自定义包\ToolDetail.dfm</Transaction>
+    <Transaction>2008/12/26 18:24:09.421.pas,E:\平台\自定义包\ToolDetail.pas=E:\平台\自定义包\ToolProperty.pas</Transaction>
+    <Transaction>2008/12/26 18:24:09.421.dfm,E:\平台\自定义包\ToolDetail.dfm=E:\平台\自定义包\ToolProperty.dfm</Transaction>
+    <Transaction>2008/12/29 18:53:47.296.pas,E:\平台\自定义包\Unit1.pas=E:\平台\接口\LogonIntf.pas</Transaction>
+    <Transaction>2008/12/29 18:55:24.375.pas,E:\平台\接口\LogonIntf.pas=E:\平台\接口\LoginIntf.pas</Transaction>
+    <Transaction>2008/12/31 17:47:27.828.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\SysLogin.pas</Transaction>
+    <Transaction>2008/12/31 18:08:24.421.pas,E:\平台\自定义包\Unit1.pas=E:\平台\自定义包\LoginForm.pas</Transaction>
+    <Transaction>2008/12/31 18:08:24.421.dfm,E:\平台\自定义包\Unit1.dfm=E:\平台\自定义包\LoginForm.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

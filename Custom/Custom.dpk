@@ -1,0 +1,50 @@
+package Custom;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION '自定义包'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl,
+  Core,
+  Base;
+
+contains
+  SysDialogs in 'SysDialogs.pas',
+  CustomExport in 'CustomExport.pas',
+  SysLog in 'SysLog.pas',
+  ProgressForm in 'ProgressForm.pas' {frm_ProgressForm},
+  _Sys in '..\Public\_Sys.pas',
+  MainFormIntf in '..\Interfaces\MainFormIntf.pas',
+  Base64EncdDecd in 'Base64EncdDecd.pas',
+  EncdDecdObj in 'EncdDecdObj.pas',
+  SplashFormObj in 'SplashFormObj.pas',
+  SplashForm in 'SplashForm.pas' {frm_Splash},
+  ProgressFormObj in 'ProgressFormObj.pas',
+  ImpSysInfoIntf in 'ImpSysInfoIntf.pas',
+  SysInfoIntf in '..\Interfaces\SysInfoIntf.pas';
+
+end.

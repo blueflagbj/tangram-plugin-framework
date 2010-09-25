@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008/11/21 14:40:04.875.bdsproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Package1.bdsproj=E:\平台\测试2\test2.bdsproj</Transaction>
+    <Transaction>2008/11/21 14:45:02.156.pas,E:\平台\测试2\Unit2.pas=E:\平台\测试2\Test2Export.pas</Transaction>
+    <Transaction>2008/11/21 16:58:13.203.pas,E:\平台\测试2\Unit2.pas=E:\平台\测试2\Test2FrameUnit.pas</Transaction>
+    <Transaction>2008/11/21 16:58:13.203.dfm,E:\平台\测试2\Unit2.dfm=E:\平台\测试2\Test2FrameUnit.dfm</Transaction>
+    <Transaction>2008/11/21 17:20:34.265.pas,E:\平台\测试2\Unit2.pas=E:\平台\测试2\RegObjUnit.pas</Transaction>
+    <Transaction>2008/11/21 17:27:25.828.pas,E:\平台\测试2\Unit3.pas=E:\平台\测试2\Test2Form2.pas</Transaction>
+    <Transaction>2008/11/21 17:27:25.828.dfm,E:\平台\测试2\Unit3.dfm=E:\平台\测试2\Test2Form2.dfm</Transaction>
+    <Transaction>2008/12/21 16:38:55.734.pas,E:\平台\测试2\Unit1.pas=E:\平台\测试2\testSysEvent.pas</Transaction>
+    <Transaction>2008/12/21 16:39:12.453.pas,E:\平台\测试2\testSysEvent.pas=</Transaction>
+    <Transaction>2008/12/21 16:40:06.265.pas,E:\平台\测试2\Unit1.pas=E:\平台\测试2\TestSysEvent.pas</Transaction>
+  </Transactions>
+</BorlandProject>
