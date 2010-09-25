@@ -1,0 +1,62 @@
+inherited frm_Splash: Tfrm_Splash
+  Left = 289
+  Top = 238
+  BorderStyle = bsNone
+  Caption = 'frm_Splash'
+  ClientHeight = 296
+  ClientWidth = 463
+  FormStyle = fsStayOnTop
+  OldCreateOrder = True
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lab_ver: TLabel
+    Left = 264
+    Top = 96
+    Width = 36
+    Height = 13
+    Caption = 'lab_ver'
+    Transparent = True
+  end
+  object lab_Title: TLabel
+    Left = 152
+    Top = 40
+    Width = 84
+    Height = 23
+    Caption = 'lab_Title'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+  end
+  object lab_Right: TLabel
+    Left = 168
+    Top = 152
+    Width = 45
+    Height = 13
+    Caption = 'lab_Right'
+    Transparent = True
+  end
+  object mm_Loading: TMemo
+    Left = 0
+    Top = 240
+    Width = 463
+    Height = 56
+    TabStop = False
+    Align = alBottom
+    BorderStyle = bsNone
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGray
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = True
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+    WordWrap = False
+  end
+end

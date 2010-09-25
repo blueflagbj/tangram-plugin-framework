@@ -1,0 +1,67 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = MainAPP.exe MainAPP2.exe Core.bpl Base.bpl Sys.bpl Custom.bpl \
+  DBObj.bpl DBSupport.bpl MidasSupport.bpl AuthorityCtrl.bpl test2.bpl test.bpl \
+  IDEWiz.bpl ConfigTool.exe PackageRequires.exe MidServer.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+MainAPP.exe: MainAPP\MainAPP.dpr
+  $(DCC)
+
+Core.bpl: Core\Core.dpk
+  $(DCC)
+
+Base.bpl: Base\Base.dpk
+  $(DCC)
+
+Custom.bpl: Custom\Custom.dpk
+  $(DCC)
+
+Sys.bpl: System\Sys.dpk
+  $(DCC)
+
+DBSupport.bpl: DBAccess\DBSupport.dpk
+  $(DCC)
+
+AuthorityCtrl.bpl: AuthorityCtrl\AuthorityCtrl.dpk
+  $(DCC)
+
+ConfigTool.exe: ConfigTool\ConfigTool.dpr
+  $(DCC)
+
+test2.bpl: Test2\test2.dpk
+  $(DCC)
+
+test.bpl: Test\test.dpk
+  $(DCC)
+
+IDEWiz.bpl: IDEWiz\IDEWiz.dpk
+  $(DCC)
+
+PackageRequires.exe: PackageRequires\PackageRequires.dpr
+  $(DCC)
+
+MidServer.exe: MadisSvr\MidServer.dpr
+  $(DCC)
+
+MidasSupport.bpl: MadisSupport\MidasSupport.dpk
+  $(DCC)
+
+DBObj.bpl: DBObj\DBObj.dpk
+  $(DCC)
+
+MainAPP2.exe: MainAPP2\MainAPP2.dpr
+  $(DCC)
+
+

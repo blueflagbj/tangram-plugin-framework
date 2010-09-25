@@ -1,0 +1,216 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{5E22D470-0D60-4433-9EAB-EA7D04648B31}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="MainAPP\MainAPP.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="MainAPP2\MainAPP2.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Core\Core.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Base\Base.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="System\Sys.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Custom\Custom.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="DBObj\DBObj.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="DBAccess\DBSupport.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="MadisSupport\MidasSupport.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AuthorityCtrl\AuthorityCtrl.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Test2\test2.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Test\test.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="IDEWiz\IDEWiz.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="ConfigTool\ConfigTool.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="PackageRequires\PackageRequires.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="MadisSvr\MidServer.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="MainAPP">
+			<MSBuild Projects="MainAPP\MainAPP.dproj"/>
+		</Target>
+		<Target Name="MainAPP:Clean">
+			<MSBuild Targets="Clean" Projects="MainAPP\MainAPP.dproj"/>
+		</Target>
+		<Target Name="MainAPP:Make">
+			<MSBuild Targets="Make" Projects="MainAPP\MainAPP.dproj"/>
+		</Target>
+		<Target Name="MainAPP2">
+			<MSBuild Projects="MainAPP2\MainAPP2.dproj"/>
+		</Target>
+		<Target Name="MainAPP2:Clean">
+			<MSBuild Targets="Clean" Projects="MainAPP2\MainAPP2.dproj"/>
+		</Target>
+		<Target Name="MainAPP2:Make">
+			<MSBuild Targets="Make" Projects="MainAPP2\MainAPP2.dproj"/>
+		</Target>
+		<Target Name="Core">
+			<MSBuild Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="Core:Clean">
+			<MSBuild Targets="Clean" Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="Core:Make">
+			<MSBuild Targets="Make" Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="Base">
+			<MSBuild Projects="Base\Base.dproj"/>
+		</Target>
+		<Target Name="Base:Clean">
+			<MSBuild Targets="Clean" Projects="Base\Base.dproj"/>
+		</Target>
+		<Target Name="Base:Make">
+			<MSBuild Targets="Make" Projects="Base\Base.dproj"/>
+		</Target>
+		<Target Name="Sys">
+			<MSBuild Projects="System\Sys.dproj"/>
+		</Target>
+		<Target Name="Sys:Clean">
+			<MSBuild Targets="Clean" Projects="System\Sys.dproj"/>
+		</Target>
+		<Target Name="Sys:Make">
+			<MSBuild Targets="Make" Projects="System\Sys.dproj"/>
+		</Target>
+		<Target Name="Custom">
+			<MSBuild Projects="Custom\Custom.dproj"/>
+		</Target>
+		<Target Name="Custom:Clean">
+			<MSBuild Targets="Clean" Projects="Custom\Custom.dproj"/>
+		</Target>
+		<Target Name="Custom:Make">
+			<MSBuild Targets="Make" Projects="Custom\Custom.dproj"/>
+		</Target>
+		<Target Name="DBObj">
+			<MSBuild Projects="DBObj\DBObj.dproj"/>
+		</Target>
+		<Target Name="DBObj:Clean">
+			<MSBuild Targets="Clean" Projects="DBObj\DBObj.dproj"/>
+		</Target>
+		<Target Name="DBObj:Make">
+			<MSBuild Targets="Make" Projects="DBObj\DBObj.dproj"/>
+		</Target>
+		<Target Name="DBSupport">
+			<MSBuild Projects="DBAccess\DBSupport.dproj"/>
+		</Target>
+		<Target Name="DBSupport:Clean">
+			<MSBuild Targets="Clean" Projects="DBAccess\DBSupport.dproj"/>
+		</Target>
+		<Target Name="DBSupport:Make">
+			<MSBuild Targets="Make" Projects="DBAccess\DBSupport.dproj"/>
+		</Target>
+		<Target Name="MidasSupport">
+			<MSBuild Projects="MadisSupport\MidasSupport.dproj"/>
+		</Target>
+		<Target Name="MidasSupport:Clean">
+			<MSBuild Targets="Clean" Projects="MadisSupport\MidasSupport.dproj"/>
+		</Target>
+		<Target Name="MidasSupport:Make">
+			<MSBuild Targets="Make" Projects="MadisSupport\MidasSupport.dproj"/>
+		</Target>
+		<Target Name="AuthorityCtrl">
+			<MSBuild Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
+		</Target>
+		<Target Name="AuthorityCtrl:Clean">
+			<MSBuild Targets="Clean" Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
+		</Target>
+		<Target Name="AuthorityCtrl:Make">
+			<MSBuild Targets="Make" Projects="AuthorityCtrl\AuthorityCtrl.dproj"/>
+		</Target>
+		<Target Name="test2">
+			<MSBuild Projects="Test2\test2.dproj"/>
+		</Target>
+		<Target Name="test2:Clean">
+			<MSBuild Targets="Clean" Projects="Test2\test2.dproj"/>
+		</Target>
+		<Target Name="test2:Make">
+			<MSBuild Targets="Make" Projects="Test2\test2.dproj"/>
+		</Target>
+		<Target Name="test">
+			<MSBuild Projects="Test\test.dproj"/>
+		</Target>
+		<Target Name="test:Clean">
+			<MSBuild Targets="Clean" Projects="Test\test.dproj"/>
+		</Target>
+		<Target Name="test:Make">
+			<MSBuild Targets="Make" Projects="Test\test.dproj"/>
+		</Target>
+		<Target Name="IDEWiz">
+			<MSBuild Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Clean">
+			<MSBuild Targets="Clean" Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Make">
+			<MSBuild Targets="Make" Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="ConfigTool">
+			<MSBuild Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="ConfigTool:Clean">
+			<MSBuild Targets="Clean" Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="ConfigTool:Make">
+			<MSBuild Targets="Make" Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="PackageRequires">
+			<MSBuild Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="PackageRequires:Clean">
+			<MSBuild Targets="Clean" Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="PackageRequires:Make">
+			<MSBuild Targets="Make" Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="MidServer">
+			<MSBuild Projects="MadisSvr\MidServer.dproj"/>
+		</Target>
+		<Target Name="MidServer:Clean">
+			<MSBuild Targets="Clean" Projects="MadisSvr\MidServer.dproj"/>
+		</Target>
+		<Target Name="MidServer:Make">
+			<MSBuild Targets="Make" Projects="MadisSvr\MidServer.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="MainAPP;MainAPP2;Core;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;IDEWiz;ConfigTool;PackageRequires;MidServer"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Core:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;IDEWiz:Clean;ConfigTool:Clean;PackageRequires:Clean;MidServer:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Core:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;IDEWiz:Make;ConfigTool:Make;PackageRequires:Make;MidServer:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

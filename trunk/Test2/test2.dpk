@@ -1,0 +1,49 @@
+package test2;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION '²âÊÔ°ü'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  Core,
+  Base,
+  dbrtl,
+  dsnap,
+  vcldb,
+  vcl;
+
+contains
+  Test2Export in 'Test2Export.pas',
+  Test2FrameUnit in 'Test2FrameUnit.pas' {Frame2: TFrame},
+  Test2Form2 in 'Test2Form2.pas' {Form3},
+  _Sys in '..\¹«¹²\_Sys.pas',
+  Test2Plugin in 'Test2Plugin.pas',
+  Test2DB in 'Test2DB.pas' {FrmTestDB},
+  Test2FrameDB in 'Test2FrameDB.pas' {Frame3: TFrame},
+  LoginForm in 'LoginForm.pas' {frm_Login},
+  ImpLoginIntf in 'ImpLoginIntf.pas';
+
+end.

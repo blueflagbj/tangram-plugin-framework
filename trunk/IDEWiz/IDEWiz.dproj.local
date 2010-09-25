@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="uContainPackageWiz.pas"/>
+    <File Path="uExptConst.pas"/>
+    <File Path="uImpIntfExpt.pas"/>
+    <File Path="uNewFormExpt.pas"/>
+    <File Path="uNewImpIntfUnit.pas"/>
+    <File Path="uNewImpIntfUnit.dfm"/>
+    <File Path="uNewPackageExpt.pas"/>
+    <File Path="uReg.pas"/>
+    <File Path="uSelPackages.pas"/>
+    <File Path="uSelPackages.dfm"/>
+    <File Path="designide.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="vcl.dcp"/>
+    <File Path="vclactnband.dcp"/>
+    <File Path="vclx.dcp"/>
+  </ProjectSortOrder>
+</BorlandProject>

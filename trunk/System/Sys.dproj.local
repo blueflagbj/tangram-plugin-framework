@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2010-06-09 21:31:21.406.pas,E:\平台\系统包\SvrInfo.pas=E:\平台\系统包\SvcInfoView.pas</Transaction>
+    <Transaction>2010-06-09 21:31:21.406.dfm,E:\平台\系统包\SvrInfo.dfm=E:\平台\系统包\SvcInfoView.dfm</Transaction>
+    <Transaction>2010-06-09 21:31:38.406.pas,E:\平台\系统包\SvcInfoView.pas=E:\平台\系统包\ViewSvcInfo.pas</Transaction>
+    <Transaction>2010-06-09 21:31:38.406.dfm,E:\平台\系统包\SvcInfoView.dfm=E:\平台\系统包\ViewSvcInfo.dfm</Transaction>
+    <Transaction>2010-07-26 22:36:43.656.pas,F:\平台 For D2010\系统包\SysMenu.pas=F:\平台 For D2010\系统包\SysPlugin.pas</Transaction>
+    <Transaction>2010-07-28 21:29:16.687.dproj,F:\平台 For D2010\系统包\Sys.dproj=F:\平台 For D2010\系统包\System.dproj</Transaction>
+    <Transaction>2010-07-28 21:29:48.781.dproj,F:\平台 For D2010\系统包\System.dproj=F:\平台 For D2010\系统包\Sys.dproj</Transaction>
+    <Transaction>2010-07-28 21:30:25.953.dproj,F:\平台 For D2010\系统包\Sys.dproj=F:\平台 For D2010\系统包\PlatForm.dproj</Transaction>
+    <Transaction>2010-07-28 21:31:07.671.dproj,F:\平台 For D2010\系统包\PlatForm.dproj=F:\平台 For D2010\系统包\Sys.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

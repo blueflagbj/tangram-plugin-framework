@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2010-06-02 21:02:16.500.dproj,E:\平台\APP\PlatForm.dproj=E:\平台\APP\MainAPP.dproj</Transaction>
+    <Transaction>2010-08-17 22:16:26.140.pas,F:\平台 For D2010\MainAPP\MainFormUnit.pas=F:\平台 For D2010\MainAPP\uMain.pas</Transaction>
+    <Transaction>2010-08-17 22:16:26.140.dfm,F:\平台 For D2010\MainAPP\MainFormUnit.dfm=F:\平台 For D2010\MainAPP\uMain.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

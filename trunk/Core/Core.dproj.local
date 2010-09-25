@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008/11/09 17:34:18.328.bdsproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Package1.bdsproj=E:\平台\基础包\_Base.bdsproj</Transaction>
+    <Transaction>2008/11/09 17:35:18.671.bdsproj,E:\平台\基础包\_Base.bdsproj=E:\平台\基础包\_SYS.bdsproj</Transaction>
+    <Transaction>2008/11/09 18:05:43.906.pas,E:\平台\基础包\Unit1.pas=E:\平台\基础包\_sys.pas</Transaction>
+    <Transaction>2008/11/09 18:10:47.328.pas,E:\平台\基础包\Unit1.pas=E:\平台\公共\IntfObj.pas</Transaction>
+    <Transaction>2008/11/09 18:10:58.578.pas,E:\平台\公共\IntfObj.pas=</Transaction>
+    <Transaction>2008/11/11 22:06:58.000.pas,E:\平台\基础包\Unit2.pas=E:\平台\基础包\_Registry.pas</Transaction>
+    <Transaction>2008/11/11 23:37:45.421.pas,E:\平台\基础包\Unit2.pas=E:\平台\接口\RegIntf.pas</Transaction>
+    <Transaction>2008/11/12 14:06:38.843.pas,E:\平台\基础包\Unit2.pas=E:\平台\接口\SYSRoot.pas</Transaction>
+    <Transaction>2008/11/12 14:15:18.593.pas,E:\平台\基础包\Unit2.pas=E:\平台\基础包\_SysRoot.pas</Transaction>
+    <Transaction>2008/11/12 14:17:59.078.pas,E:\平台\接口\SYSRoot.pas=E:\平台\接口\SYSRootIntf.pas</Transaction>
+    <Transaction>2008/11/19 16:22:59.609.pas,E:\平台\基础包\Unit3.pas=E:\平台\基础包\SYSExport.pas</Transaction>
+    <Transaction>2008/11/19 17:08:30.515.pas,E:\平台\基础包\_Registry.pas=E:\平台\基础包\Registry.pas</Transaction>
+    <Transaction>2008/11/19 17:08:35.984.pas,E:\平台\基础包\_sys.pas=E:\平台\基础包\sys.pas</Transaction>
+    <Transaction>2008/11/19 17:08:39.296.pas,E:\平台\基础包\_SysRoot.pas=E:\平台\基础包\SysRoot.pas</Transaction>
+    <Transaction>2008/11/19 17:10:48.781.bdsproj,E:\平台\基础包\_SYS.bdsproj=E:\平台\基础包\SysTem.bdsproj</Transaction>
+    <Transaction>2008/11/19 17:12:25.781.bdsproj,E:\平台\基础包\SysTem.bdsproj=E:\平台\基础包\_sys.bdsproj</Transaction>
+    <Transaction>2008/11/19 17:16:22.406.pas,E:\平台\基础包\sys.pas=E:\平台\基础包\_sys.pas</Transaction>
+    <Transaction>2008/11/19 17:17:53.359.pas,E:\平台\基础包\Registry.pas=E:\平台\基础包\_Registry.pas</Transaction>
+    <Transaction>2008/11/19 17:18:30.093.bdsproj,E:\平台\基础包\_sys.bdsproj=E:\平台\基础包\asys.bdsproj</Transaction>
+    <Transaction>2008/11/19 17:20:41.875.bdsproj,E:\平台\基础包\asys.bdsproj=E:\平台\基础包\sysK.bdsproj</Transaction>
+    <Transaction>2008/11/19 17:21:03.609.bdsproj,E:\平台\基础包\sysK.bdsproj=E:\平台\基础包\SysKernel.bdsproj</Transaction>
+    <Transaction>2008/11/19 18:29:26.671.pas,E:\平台\基础包\SYSExport.pas=E:\平台\基础包\SYSExport1.pas</Transaction>
+    <Transaction>2008/11/19 18:29:39.406.pas,E:\平台\基础包\SYSExport1.pas=E:\平台\基础包\SysExport.pas</Transaction>
+    <Transaction>2008/11/19 19:05:48.453.pas,E:\平台\基础包\Unit3.pas=E:\平台\公共\PackageExport.pas</Transaction>
+    <Transaction>2008/11/19 22:16:18.125.pas,E:\平台\基础包\Unit2.pas=E:\平台\接口\MessageIntf.pas</Transaction>
+    <Transaction>2008/11/19 22:43:22.484.pas,E:\平台\基础包\Unit2.pas=E:\平台\公共\SysConst.pas</Transaction>
+    <Transaction>2008/11/19 22:56:40.218.pas,E:\平台\公共\SysConst.pas=E:\平台\公共\_SysConst.pas</Transaction>
+    <Transaction>2008/11/19 22:57:49.234.pas,E:\平台\公共\_SysConst.pas=E:\平台\公共\SystemConst.pas</Transaction>
+    <Transaction>2008/11/19 22:58:26.296.pas,E:\平台\公共\SystemConst.pas=E:\平台\公共\_SysConst.pas</Transaction>
+    <Transaction>2008/11/20 00:43:37.765.pas,E:\平台\基础包\Unit2.pas=E:\平台\基础包\SysMessageBox.pas</Transaction>
+    <Transaction>2008/11/21 01:01:51.281.pas,E:\平台\基础包\Unit2.pas=E:\平台\接口\LogIntf.pas</Transaction>
+    <Transaction>2008/11/21 15:36:21.968.pas,E:\平台\基础包\Unit2.pas=E:\平台\基础包\SysLog.pas</Transaction>
+    <Transaction>2008/11/21 23:53:03.484.pas,E:\平台\基础包\Unit2.pas=E:\平台\基础包\DBIntf.pas</Transaction>
+    <Transaction>2008/11/21 23:54:12.437.pas,E:\平台\基础包\DBIntf.pas=</Transaction>
+    <Transaction>2008/11/23 23:40:38.843.pas,E:\平台\基础包\SysMessageBox.pas=</Transaction>
+    <Transaction>2008/11/23 23:54:11.375.pas,E:\平台\基础包\SysLog.pas=</Transaction>
+    <Transaction>2008/12/12 14:38:45.312.pas,E:\平台\接口\MessageIntf.pas=</Transaction>
+    <Transaction>2008/12/12 14:39:35.984.pas,E:\平台\接口\LogIntf.pas=</Transaction>
+    <Transaction>2008/12/13 12:50:40.140.pas,E:\平台\基础包\Unit1.pas=E:\平台\接口\HandleLifecycleIntf.pas</Transaction>
+    <Transaction>2008/12/17 18:11:54.375.pas,E:\平台\接口\DBIntf.pas=</Transaction>
+    <Transaction>2008/12/21 15:32:24.390.pas,E:\平台\基础包\Unit1.pas=E:\平台\基础包\SysEvent.pas</Transaction>
+    <Transaction>2008/12/21 15:56:41.031.pas,E:\平台\基础包\Unit1.pas=E:\平台\接口\HandleSysEventIntf.pas</Transaction>
+    <Transaction>2008/12/24 17:39:21.765.pas,E:\平台\基础包\SysEvent.pas=E:\平台\基础包\EventFactory.pas</Transaction>
+    <Transaction>2008/12/24 17:56:54.312.pas,E:\平台\接口\HandleSysEventIntf.pas=</Transaction>
+    <Transaction>2009/01/03 15:14:04.078.pas,E:\平台\接口\HandleLifecycleIntf.pas=E:\平台\接口\LifecycleHandlerIntf.pas</Transaction>
+    <Transaction>2010-06-09 21:10:58.203.pas,E:\平台\核心包\SysSvr.pas=E:\平台\核心包\SysSvc.pas</Transaction>
+    <Transaction>2010-06-09 21:17:50.531.pas,E:\平台\核心包\SysFactoryMng.pas=E:\平台\核心包\SysFactoryMgr.pas</Transaction>
+    <Transaction>2010-06-09 21:17:56.531.pas,E:\平台\核心包\SysPackageMng.pas=E:\平台\核心包\SysPackageMgr.pas</Transaction>
+    <Transaction>2010-06-09 21:32:17.625.pas,E:\平台\核心包\uSvrInfoObj.pas=E:\平台\核心包\uSvcInfoObj.pas</Transaction>
+    <Transaction>2010-07-16 23:58:16.390.pas,F:\平台 For D2010\核心包\Unit1.pas=F:\平台 For D2010\核心包\PlugInBase.pas</Transaction>
+    <Transaction>2010-07-17 00:08:39.343.pas,F:\平台 For D2010\核心包\Unit1.pas=F:\平台 For D2010\接口\RegisterPlugInIntf.pas</Transaction>
+    <Transaction>2010-07-17 00:09:07.000.pas,F:\平台 For D2010\接口\RegisterPlugInIntf.pas=F:\平台 For D2010\接口\RegPlugInIntf.pas</Transaction>
+    <Transaction>2010-07-17 00:12:43.453.pas,F:\平台 For D2010\接口\RegPlugInIntf.pas=F:\平台 For D2010\接口\RegPlugInntf.pas</Transaction>
+    <Transaction>2010-07-17 00:12:58.000.pas,F:\平台 For D2010\接口\RegPlugInntf.pas=F:\平台 For D2010\接口\RegPlugnIntf.pas</Transaction>
+    <Transaction>2010-07-17 00:13:06.390.pas,F:\平台 For D2010\接口\RegPlugnIntf.pas=F:\平台 For D2010\接口\RegPluginIntf.pas</Transaction>
+    <Transaction>2010-07-17 00:14:32.875.pas,F:\平台 For D2010\核心包\PlugInBase.pas=F:\平台 For D2010\核心包\PlugnBase.pas</Transaction>
+    <Transaction>2010-07-17 00:14:36.781.pas,F:\平台 For D2010\核心包\PlugnBase.pas=F:\平台 For D2010\核心包\PluginBase.pas</Transaction>
+    <Transaction>2010-07-17 00:34:04.484.pas,F:\平台 For D2010\核心包\SysPackageMgr.pas=F:\平台 For D2010\核心包\SysPluginMgr.pas</Transaction>
+    <Transaction>2010-09-14 21:58:06.328.pas,F:\平台 For D2010\接口\SysPackageIntf.pas=F:\平台 For D2010\接口\SysModuleMrgIntf.pas</Transaction>
+    <Transaction>2010-09-14 21:59:38.703.pas,F:\平台 For D2010\接口\SysModuleMrgIntf.pas=F:\平台 For D2010\接口\SysModuleInfoIntf.pas</Transaction>
+    <Transaction>2010-09-14 21:59:55.375.pas,F:\平台 For D2010\接口\SysModuleInfoIntf.pas=F:\平台 For D2010\接口\ModuleInfoIntf.pas</Transaction>
+  </Transactions>
+</BorlandProject>
