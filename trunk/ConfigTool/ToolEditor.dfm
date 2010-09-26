@@ -151,9 +151,7 @@ object frm_ToolEditor: Tfrm_ToolEditor
     Width = 75
     Height = 25
     Caption = #21462#28040
-    DoubleBuffered = True
     Kind = bkCancel
-    ParentDoubleBuffered = False
     TabOrder = 1
   end
   object btn_OK: TBitBtn
@@ -163,7 +161,6 @@ object frm_ToolEditor: Tfrm_ToolEditor
     Height = 25
     Caption = #30830#23450
     Default = True
-    DoubleBuffered = True
     Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
@@ -182,7 +179,6 @@ object frm_ToolEditor: Tfrm_ToolEditor
       333A333333333333333338330000333333333333333333333333333333333333
       0000}
     NumGlyphs = 2
-    ParentDoubleBuffered = False
     TabOrder = 2
     OnClick = btn_OKClick
   end
