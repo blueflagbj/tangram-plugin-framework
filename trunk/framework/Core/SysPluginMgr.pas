@@ -261,7 +261,7 @@ begin
     end;
 
     SplashForm.Hide;
-    FactoryManager.UnRegistryFactory(ISplashForm);
+    FactoryManager.UnRegisterFactory(ISplashForm);
     SplashForm := nil;
   end;
   // ¼ì²éµÇÂ¼

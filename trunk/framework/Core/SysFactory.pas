@@ -85,7 +85,7 @@ begin
     Raise Exception.CreateFmt(Err_IntfExists,[GUIDToString(IID)]);
 
   FIntfGUID:=IID;
-  FactoryManager.RegistryFactory(Self);
+  FactoryManager.RegisterFactory(Self);
 end;
 
 destructor TBaseFactory.Destroy;

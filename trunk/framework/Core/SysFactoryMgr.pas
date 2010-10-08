@@ -29,9 +29,9 @@ Type
     FSysFactoryList:TSysFactoryList;
   protected
   public
-    procedure RegistryFactory(aIntfFactory:ISysFactory);
-    procedure UnRegistryFactory(aIntfFactory:ISysFactory); overload;
-    procedure UnRegistryFactory(IID:TGUID); overload;
+    procedure RegisterFactory(aIntfFactory:ISysFactory);
+    procedure UnRegisterFactory(aIntfFactory:ISysFactory); overload;
+    procedure UnRegisterFactory(IID:TGUID); overload;
     procedure ReleaseInstances;
     function FindFactory(const IID:TGUID): ISysFactory;
     property FactoryList:TSysFactoryList Read FSysFactoryList;
@@ -125,7 +125,7 @@ begin
   Result:=FSysFactoryList.FindFactory(IID);
 end;
 
-procedure TSysFactoryManager.RegistryFactory(aIntfFactory: ISysFactory);
+procedure TSysFactoryManager.RegisterFactory(aIntfFactory: ISysFactory);
 begin
   FSysFactoryList.Add(aIntfFactory);
 end;
@@ -137,7 +137,7 @@ begin
     FSysFactoryList.Items[i].ReleaseInstance;
 end;
 
-procedure TSysFactoryManager.UnRegistryFactory(aIntfFactory: ISysFactory);
+procedure TSysFactoryManager.UnRegisterFactory(aIntfFactory: ISysFactory);
 begin
   if Assigned(aIntfFactory) then
   begin
@@ -146,9 +146,9 @@ begin
   end;
 end;
 
-procedure TSysFactoryManager.UnRegistryFactory(IID: TGUID);
+procedure TSysFactoryManager.UnRegisterFactory(IID: TGUID);
 begin
-  self.UnRegistryFactory(FSysFactoryList.GetFactory(IID));
+  self.UnRegisterFactory(FSysFactoryList.GetFactory(IID));
 end;
 
 initialization
