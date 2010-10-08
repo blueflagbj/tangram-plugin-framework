@@ -74,7 +74,7 @@ begin
       
     FIIDList.Add(GUIDToString(IIDs[i]));
   end;
-  FactoryManager.RegistryFactory(self);
+  FactoryManager.RegisterFactory(self);
 end;
 
 procedure TBaseFactoryEx.CreateInstance(const IID: TGUID; out Obj);
