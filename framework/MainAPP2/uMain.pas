@@ -78,8 +78,7 @@ type
     //注册快捷菜单面板
     procedure RegPanel(FrameClass:TCustomFrameClass);
   public
-    ////关闭（释放）所有从包里创建的窗口
-    procedure ReleaseForms;
+
   end;
 
   ERegShortCutException=Class(Exception);
@@ -169,19 +168,6 @@ end;
 procedure Tfrm_Main.FormShow(Sender: TObject);
 begin
   ShowShortCutForm;
-end;
-
-procedure Tfrm_Main.ReleaseForms;
-var i:integer;
-    tab:TTabSheet;
-begin
-  //注意：由于每个窗体的Parent都设成PageControl的Tab，所以当我们释放Tab时
-  //窗体就自动被释放了
-  for i:=self.Page_Form.PageCount-1 downto 0 do
-  begin
-    tab:=self.Page_Form.Pages[i];
-    tab.Free;
-  end;
 end;
 
 procedure Tfrm_Main.HandleException(Sender: TObject; E: Exception);
