@@ -107,7 +107,6 @@
 			<DCCReference Include="ExceptionHandle.pas">
 				<Form> frm_Exception </Form>
 			</DCCReference>
-			<DCCReference Include="..\公共\PackageExport.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

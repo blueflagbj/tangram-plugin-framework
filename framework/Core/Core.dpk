@@ -36,7 +36,7 @@ contains
   SysFactoryMgr in 'SysFactoryMgr.pas',
   _Registry in '_Registry.pas',
   RegIntf in '..\Interfaces\RegIntf.pas',
-  PackageExport in '..\Public\PackageExport.pas',
+  PackageExport in '..\..\Public\PackageExport.pas',
   RegObj in '..\Public\RegObj.pas',
   SysFactory in 'SysFactory.pas',
   SvcInfoIntf in '..\Interfaces\SvcInfoIntf.pas',

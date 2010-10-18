@@ -1,0 +1,72 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{28634015-A468-4FB3-B91B-92B5A4D42850}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="Core\Core.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="ConfigTool\ConfigTool.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="PackageRequires\PackageRequires.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="IDEWiz\IDEWiz.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="Core">
+			<MSBuild Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="Core:Clean">
+			<MSBuild Targets="Clean" Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="Core:Make">
+			<MSBuild Targets="Make" Projects="Core\Core.dproj"/>
+		</Target>
+		<Target Name="ConfigTool">
+			<MSBuild Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="ConfigTool:Clean">
+			<MSBuild Targets="Clean" Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="ConfigTool:Make">
+			<MSBuild Targets="Make" Projects="ConfigTool\ConfigTool.dproj"/>
+		</Target>
+		<Target Name="PackageRequires">
+			<MSBuild Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="PackageRequires:Clean">
+			<MSBuild Targets="Clean" Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="PackageRequires:Make">
+			<MSBuild Targets="Make" Projects="PackageRequires\PackageRequires.dproj"/>
+		</Target>
+		<Target Name="IDEWiz">
+			<MSBuild Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Clean">
+			<MSBuild Targets="Clean" Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Make">
+			<MSBuild Targets="Make" Projects="IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="Core;ConfigTool;PackageRequires;IDEWiz"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="Core:Clean;ConfigTool:Clean;PackageRequires:Clean;IDEWiz:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="Core:Make;ConfigTool:Make;PackageRequires:Make;IDEWiz:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
