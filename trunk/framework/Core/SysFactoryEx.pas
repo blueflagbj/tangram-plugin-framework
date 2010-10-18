@@ -30,14 +30,16 @@ Type
 
   TObjFactoryEx=Class(TBaseFactoryEx)
   private
+    FOwnsObj:Boolean;
     FInstance:TObject;
   protected
     {ISysFactory}
     procedure CreateInstance(const IID : TGUID; out Obj);override;
+    procedure ReleaseInstance;override;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
   public
-    Constructor Create(Const IIDs:Array of TGUID;Instance:TObject);
+    Constructor Create(Const IIDs:Array of TGUID;Instance:TObject;OwnsObj:Boolean=False);
     Destructor Destroy;override;
   end;
 
@@ -106,13 +108,17 @@ end;
 { TObjFactoryEx }
 
 constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
-  Instance: TObject);
+  Instance: TObject;OwnsObj:Boolean);
 begin
+  if Instance=nil then exit;
   if (Instance is TInterfacedObject) then
     Raise Exception.Create('不要用TObjFactoryEx注册TInterfacedObject及其子类实现的接口！');
+  if length(IIDs)=0 then
+    Raise Exception.Create('TObjFactoryEx注册参数IIDs不能为空！');
 
-  Inherited Create(IIDs);
+  FOwnsObj:=OwnsObj;
   self.FInstance:=Instance;
+  Inherited Create(IIDs);
 end;
 
 procedure TObjFactoryEx.CreateInstance(const IID: TGUID; out Obj);
@@ -164,11 +170,21 @@ begin
   end;
 end;
 
+procedure TObjFactoryEx.ReleaseInstance;
+begin
+  inherited;
+  if FOwnsObj then
+    FreeAndNil(self.FInstance);
+end;
+
 { TSingletonFactoryEx }
 
 constructor TSingletonFactoryEx.Create(IIDs: array of TGUID;
   IntfCreatorFunc: TIntfCreatorFunc);
 begin
+  if length(IIDs)=0 then
+    Raise Exception.Create('TSingletonFactoryEx注册参数IIDs不能为空！');
+
   FInstance:=nil;
   FIntfCreatorFunc:=IntfCreatorFunc;
   Inherited Create(IIDs);

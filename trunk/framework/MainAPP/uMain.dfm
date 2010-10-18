@@ -1,9 +1,9 @@
 object frm_Main: Tfrm_Main
   Left = 206
   Top = 166
+  Width = 602
+  Height = 425
   Caption = #20027#31383#20307
-  ClientHeight = 391
-  ClientWidth = 594
   Color = clAppWorkSpace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

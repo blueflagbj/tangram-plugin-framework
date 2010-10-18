@@ -55,8 +55,7 @@ type
     {ISvrInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);
   public
-    //关闭（释放）所有从包里创建的窗口
-    procedure ReleaseForms;
+
   end;
 
   ERegShortCutException=Class(Exception);
@@ -149,21 +148,6 @@ end;
 procedure Tfrm_Main.FormShow(Sender: TObject);
 begin
   ShowShortCutForm;
-end;
-
-procedure Tfrm_Main.ReleaseForms;
-var i:integer;
-begin
-  for i :=self.MDIChildCount - 1 downto 0 do
-  begin
-    try
-      self.MDIChildren[i].Close;
-    Except
-      on E:Exception do
-        Application.ShowException(E);
-    end;
-    self.MDIChildren[i].Free;
-  end;
 end;
 
 procedure Tfrm_Main.HandleException(Sender: TObject; E: Exception);
