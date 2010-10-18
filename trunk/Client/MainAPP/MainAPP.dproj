@@ -102,12 +102,11 @@
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="uMain.pas">
-				<Form>frm_Main</Form>
+				<Form> frm_Main </Form>
 			</DCCReference>
 			<DCCReference Include="ExceptionHandle.pas">
-				<Form>frm_Exception</Form>
+				<Form> frm_Exception </Form>
 			</DCCReference>
-			<DCCReference Include="..\Public\PackageExport.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

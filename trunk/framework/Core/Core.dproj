@@ -119,7 +119,7 @@
 			<DCCReference Include="SysFactoryMgr.pas"/>
 			<DCCReference Include="_Registry.pas"/>
 			<DCCReference Include="..\Interfaces\RegIntf.pas"/>
-			<DCCReference Include="..\Public\PackageExport.pas"/>
+			<DCCReference Include="..\..\Public\PackageExport.pas"/>
 			<DCCReference Include="..\Public\RegObj.pas"/>
 			<DCCReference Include="SysFactory.pas"/>
 			<DCCReference Include="..\Interfaces\SvcInfoIntf.pas"/>

@@ -12,7 +12,7 @@ begin
   Application.Initialize;
   {$IFDEF VER210}
   ReportMemoryLeaksOnShutdown := DebugHook <> 0;
-  Application.MainFormOnTaskbar := True;
+  //Application.MainFormOnTaskbar := True;
   {$ENDIF}
   Application.Title := '¿ò¼ÜÖ÷³ÌÐò';
   Application.HintHidePause := 1000 * 30;
