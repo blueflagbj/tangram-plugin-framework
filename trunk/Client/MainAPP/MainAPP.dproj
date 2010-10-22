@@ -23,6 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\Interfaces;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_ExeOutput>..\bin\</DCC_ExeOutput>
 			<UsePackages>true</UsePackages>
 			<DCC_DependencyCheckOutputName>..\bin\MainAPP.exe</DCC_DependencyCheckOutputName>
