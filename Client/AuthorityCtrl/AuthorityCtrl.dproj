@@ -23,6 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\AuthorityCtrl.bpl</DCC_DependencyCheckOutputName>
@@ -99,7 +100,7 @@
 			<DCCReference Include="Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="vcldb.dcp"/>
-			<DCCReference Include="..\接口\AuthoritySvrIntf.pas"/>
+			<DCCReference Include="..\Interfaces\AuthoritySvrIntf.pas"/>
 			<DCCReference Include="ImpAuthoritySvrIntf.pas"/>
 			<DCCReference Include="uAuthorityPlugin.pas"/>
 			<DCCReference Include="uAuthorityCtrlExport.pas"/>
