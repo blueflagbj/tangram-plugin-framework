@@ -1,8 +1,7 @@
 program MainAPP2;
 
 uses
-  //FastMM4,//一定要引用FastMM4，不然点"关闭"窗口时会出现一个abstract错误，
-          //目前暂未找到原因
+  //FastMM4,
   uTangramFramework,
   uMain in 'uMain.pas' { frm_Main },
   ExceptionHandle in 'ExceptionHandle.pas' { frm_Exception };

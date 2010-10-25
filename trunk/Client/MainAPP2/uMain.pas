@@ -13,6 +13,8 @@ uses
   Dialogs,MainFormIntf, Menus, ExtCtrls, ComCtrls, ToolWin, Buttons,SvcInfoIntf,
   ImgList, StdCtrls;
 
+Const Msg_ClosePage=WM_USER+100;
+
 type
   PShortCutItem=^RShortCutItem;
   RShortCutItem=Record
@@ -52,6 +54,8 @@ type
     procedure RegShotcutItem(PItem:PShortCutItem);
     function FindTab(const tabName:string):TTabSheet;
     procedure CloseActivePage;
+
+    procedure ClosePage(var Message: TMessage); message Msg_ClosePage;
   protected
     {IMainForm}
     //×¢²áÆÕÍ¨²Ëµ¥
@@ -352,9 +356,7 @@ begin
   if Assigned(tab) then
   begin
     idx:=tab.TabIndex;
-    tab.Free;
-    if idx>0 then
-      self.Page_Form.ActivePageIndex:=idx-1;
+    PostMessage(self.Handle,Msg_ClosePage,idx,0);
   end;
 end;
 
@@ -376,6 +378,15 @@ procedure Tfrm_Main.Page_FormMouseDown(Sender: TObject;
 begin
   if (Button=mbLeft) and (ssDouble in Shift) then
     self.CloseActivePage;
+end;
+
+procedure Tfrm_Main.ClosePage(var Message: TMessage);
+var idx:Integer;
+begin
+  idx:=Message.WParam;
+  self.Page_Form.Pages[idx].Free;
+  if idx>0 then
+    self.Page_Form.ActivePageIndex:=idx-1;
 end;
 
 end.
