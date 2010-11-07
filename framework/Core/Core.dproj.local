@@ -62,5 +62,6 @@
     <Transaction>2010-09-14 21:58:06.328.pas,F:\平台 For D2010\接口\SysPackageIntf.pas=F:\平台 For D2010\接口\SysModuleMrgIntf.pas</Transaction>
     <Transaction>2010-09-14 21:59:38.703.pas,F:\平台 For D2010\接口\SysModuleMrgIntf.pas=F:\平台 For D2010\接口\SysModuleInfoIntf.pas</Transaction>
     <Transaction>2010-09-14 21:59:55.375.pas,F:\平台 For D2010\接口\SysModuleInfoIntf.pas=F:\平台 For D2010\接口\ModuleInfoIntf.pas</Transaction>
+    <Transaction>2010/11/07 10:45:33.531.pas,F:\tangram-plugin-framework\framework\Core\Unit1.pas=F:\tangram-plugin-framework\framework\Core\uHashList.pas</Transaction>
   </Transactions>
 </BorlandProject>
