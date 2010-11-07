@@ -47,6 +47,7 @@ contains
   uSvcInfoObj in 'uSvcInfoObj.pas',
   SysFactoryEx in 'SysFactoryEx.pas',
   PluginBase in 'PluginBase.pas',
-  RegPluginIntf in '..\Interfaces\RegPluginIntf.pas';
+  RegPluginIntf in '..\Interfaces\RegPluginIntf.pas',
+  uHashList in 'uHashList.pas';
 
 end.

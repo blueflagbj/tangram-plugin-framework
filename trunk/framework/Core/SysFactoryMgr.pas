@@ -8,7 +8,7 @@ unit SysFactoryMgr;
 
 interface
 
-uses SysUtils,Classes,FactoryIntf,SvcInfoIntf;
+uses SysUtils,Classes,FactoryIntf,SvcInfoIntf,uHashList;
 
 Type
   TSysFactoryList = class(TInterfaceList)
@@ -27,6 +27,7 @@ Type
   TSysFactoryManager=Class(TObject)
   private
     FSysFactoryList:TSysFactoryList;
+    IndexList:ThashList;
   protected
   public
     procedure RegisterFactory(aIntfFactory:ISysFactory);
@@ -107,11 +108,13 @@ end;
 constructor TSysFactoryManager.Create;
 begin
   FSysFactoryList:=TSysFactoryList.Create;
+  IndexList:=THashList.Create(256);
 end;
 
 destructor TSysFactoryManager.Destroy;
 begin
   FSysFactoryList.Free;
+  IndexList.Free;
   inherited;
 end;
 
@@ -121,8 +124,18 @@ begin
 end;
 
 function TSysFactoryManager.FindFactory(const IID: TGUID): ISysFactory;
+var IIDStr:String;
+    PFactory:Pointer;
 begin
-  Result:=FSysFactoryList.FindFactory(IID);
+  IIDStr:=GUIDToString(IID);
+  PFactory:=IndexList.ValueOf(IIDStr);
+  if PFactory<>nil then
+    Result:=ISysFactory(PFactory)
+  else begin
+    Result:=FSysFactoryList.FindFactory(IID);
+    if Result<>nil then
+      IndexList.Add(IIDStr,Pointer(Result));
+  end;
 end;
 
 procedure TSysFactoryManager.RegisterFactory(aIntfFactory: ISysFactory);
