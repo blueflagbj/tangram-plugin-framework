@@ -99,31 +99,11 @@ begin
 end;
 
 constructor TTest2Plugin.Create(Intf: IInterface);
-var MenuEventBinder:IMenuEventBinder;
-    Icon:TGraphic;
-    MainForm:IMainForm;
+var  MainForm:IMainForm;
 begin
   MainForm:=Intf as IMainForm;
   MainForm.RegShortCut('接口使用',self.UseIntfClick);
   MainForm.RegShortCut('数据库操作',self.UseDBClick);
-
-  MenuEventBinder:=SysService as IMenuEventBinder;
-
-  MenuEventBinder.RegMenuEvent(ID_Test2Menu1,self.MenuOnclick);
-  //第一个工具栏按扭
-  Icon:=self.CreateIconFromStrData(ImgData2);
-  try
-    MenuEventBinder.RegToolEvent(ID_ToolButton1,self.DBConfigClick,Icon);//绑定事件
-  finally
-    Icon.Free;
-  end;
-  //第二个工具栏按扭
-  Icon:=self.CreateIconFromStrData(ImgData);
-  try
-    MenuEventBinder.RegToolEvent(ID_ToolButton2,self.ToolOnclick,Icon);//绑定事件
-  finally
-    Icon.Free;
-  end;
 end;
 
 function TTest2Plugin.CreateIconFromStrData(const StrData: String): TGraphic;
@@ -186,9 +166,26 @@ begin
 end;
 
 procedure TTest2Plugin.Init;
+var MenuEventBinder:IMenuEventBinder;
+    Icon:TGraphic;
 begin
-  inherited;
+  MenuEventBinder:=SysService as IMenuEventBinder;
 
+  MenuEventBinder.RegMenuEvent(ID_Test2Menu1,self.MenuOnclick);
+  //第一个工具栏按扭
+  Icon:=self.CreateIconFromStrData(ImgData2);
+  try
+    MenuEventBinder.RegToolEvent(ID_ToolButton1,self.DBConfigClick,Icon);//绑定事件
+  finally
+    Icon.Free;
+  end;
+  //第二个工具栏按扭
+  Icon:=self.CreateIconFromStrData(ImgData);
+  try
+    MenuEventBinder.RegToolEvent(ID_ToolButton2,self.ToolOnclick,Icon);//绑定事件
+  finally
+    Icon.Free;
+  end;
 end;
 
 end.

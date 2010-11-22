@@ -12,8 +12,8 @@ begin
   Application.Initialize;
   {$IFDEF VER210}
   ReportMemoryLeaksOnShutdown := DebugHook <> 0;
-  //Application.MainFormOnTaskbar := True;
   {$ENDIF}
+  Application.MainFormOnTaskbar := True;
   Application.Title := '¿ò¼ÜÖ÷³ÌÐò';
   Application.HintHidePause := 1000 * 30;
   Application.CreateForm(Tfrm_Main, frm_Main);

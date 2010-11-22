@@ -60,10 +60,10 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<Parameters>
-						<Parameters Name="HostApplication">F:\平台 For D2010\编译\ConfigTool.exe</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+						<Parameters Name="HostApplication">F:\client\MainAPP2.exe</Parameters>
 					</Parameters>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
@@ -138,6 +138,7 @@
 				<Form>frm_Login</Form>
 			</DCCReference>
 			<DCCReference Include="ImpLoginIntf.pas"/>
+			<DCCReference Include="..\..\MidServer\Interfaces\RemoteMethodIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

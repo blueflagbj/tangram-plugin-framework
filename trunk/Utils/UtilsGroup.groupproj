@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{A4DD3294-8EE4-4497-BADA-B9AF895CCB47}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="EncdDecd\EncdDecd.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="NativeXML\NativeXMLLib.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="EncdDecd">
+			<MSBuild Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="EncdDecd:Clean">
+			<MSBuild Targets="Clean" Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="EncdDecd:Make">
+			<MSBuild Targets="Make" Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="NativeXMLLib">
+			<MSBuild Projects="NativeXML\NativeXMLLib.dproj"/>
+		</Target>
+		<Target Name="NativeXMLLib:Clean">
+			<MSBuild Targets="Clean" Projects="NativeXML\NativeXMLLib.dproj"/>
+		</Target>
+		<Target Name="NativeXMLLib:Make">
+			<MSBuild Targets="Make" Projects="NativeXML\NativeXMLLib.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="EncdDecd;NativeXMLLib"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="EncdDecd:Clean;NativeXMLLib:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="EncdDecd:Make;NativeXMLLib:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

@@ -1,9 +1,9 @@
 object frm_Main: Tfrm_Main
   Left = 206
   Top = 166
-  Width = 602
-  Height = 425
   Caption = #20027#31383#20307
+  ClientHeight = 385
+  ClientWidth = 633
   Color = clAppWorkSpace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object frm_Main: Tfrm_Main
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 372
-    Width = 594
+    Top = 366
+    Width = 633
     Height = 19
     Panels = <
       item
@@ -37,11 +37,13 @@ object frm_Main: Tfrm_Main
       item
         Width = 200
       end>
+    ExplicitTop = 1
+    ExplicitWidth = 115
   end
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 594
+    Width = 633
     Height = 29
     Caption = 'ToolBar1'
     Color = clBtnFace
@@ -50,6 +52,7 @@ object frm_Main: Tfrm_Main
     ParentColor = False
     TabOrder = 1
     Transparent = False
+    ExplicitWidth = 115
   end
   object MainMenu: TMainMenu
     Left = 24

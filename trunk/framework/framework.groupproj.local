@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="Core.bpl"/>
+		<Projects ActiveProject="ConfigTool.exe"/>
 	</Default.Personality>
 </BorlandProject>
