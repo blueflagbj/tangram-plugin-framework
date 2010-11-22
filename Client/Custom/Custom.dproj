@@ -126,8 +126,6 @@
 			</DCCReference>
 			<DCCReference Include="..\Public\_Sys.pas"/>
 			<DCCReference Include="..\Interfaces\MainFormIntf.pas"/>
-			<DCCReference Include="Base64EncdDecd.pas"/>
-			<DCCReference Include="EncdDecdObj.pas"/>
 			<DCCReference Include="SplashFormObj.pas"/>
 			<DCCReference Include="SplashForm.pas">
 				<Form>frm_Splash</Form>

@@ -33,7 +33,7 @@ Type
   
 implementation
 
-uses SysSvc,SysFactory,RegIntf,DBConfig,EncdDecdIntf,_sys;
+uses SysSvc,SysFactory,RegIntf,DBConfig,EncdDecdIntf,_sys,ActiveX;
 
 Const Key_DBConn='SYSTEM\DBCONNECTION';
       Key_ConnStr='CONNSTR';
@@ -132,10 +132,14 @@ end;
 
 procedure CreateDBConnection(out anInstance: IInterface);
 begin
+  CoInitialize(nil);
   anInstance:=TDBConnection.Create;
+  CoUnInitialize;
 end;
 
 initialization
   TSingletonFactory.Create(IDBConnection,@CreateDBConnection);
+
 finalization
+
 end.

@@ -39,8 +39,6 @@ contains
   ProgressForm in 'ProgressForm.pas' {frm_ProgressForm},
   _Sys in '..\Public\_Sys.pas',
   MainFormIntf in '..\Interfaces\MainFormIntf.pas',
-  Base64EncdDecd in 'Base64EncdDecd.pas',
-  EncdDecdObj in 'EncdDecdObj.pas',
   SplashFormObj in 'SplashFormObj.pas',
   SplashForm in 'SplashForm.pas' {frm_Splash},
   ProgressFormObj in 'ProgressFormObj.pas',

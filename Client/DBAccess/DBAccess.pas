@@ -36,7 +36,7 @@ Type
 
 implementation
 
-uses SysSvc,SysFactory;
+uses SysSvc,SysFactory,ActiveX;
 
 { TDBOperation }
 
@@ -121,12 +121,13 @@ begin
   try
     SQLStr:=Format(SQL,[TableName]);
     Provider.ResolveToDataSet:=False;
+    Provider.UpdateMode := upWhereChanged;
     TmpQry.Connection:=FConnection;
     Provider.DataSet:=TmpQry;
     TmpQry.SQL.Text:=SQLStr;
     TmpQry.Open;
 
-    Provider.ApplyUpdates(Cds.Delta,0,ECount);
+    Provider.ApplyUpdates(Cds.Delta,-1,ECount);
     Cds.MergeChangeLog;
   finally
     tmpQry.Free;
@@ -154,7 +155,9 @@ end;
 
 procedure CreateDBOperation(out anInstance: IInterface);
 begin
+  CoInitialize(nil);
   anInstance:=TDBOperation.Create;
+  CoUnInitialize;
 end;
 
 initialization

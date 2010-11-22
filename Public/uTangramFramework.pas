@@ -24,6 +24,8 @@ Type
     procedure SetTitle(const Value: string);
     function ReadHintHidePause: Integer;
     procedure WriteHintHidePause(const Value: Integer);
+    function GetMainFormOnTaskbar: Boolean;
+    procedure SetMainFormOnTaskbar(const Value: Boolean);
   public
     property Title: string read GetTitle write SetTitle;
     property HintHidePause: Integer read ReadHintHidePause write WriteHintHidePause;
@@ -31,7 +33,7 @@ Type
     procedure CreateForm(InstanceClass: TComponentClass; var Reference);
     procedure Run;
     property FormApp:TApplication Read GetFormApp;
-
+    property MainFormOnTaskbar:Boolean Read GetMainFormOnTaskbar Write SetMainFormOnTaskbar;
     Constructor Create;
     Destructor Destroy;override;
   end;
@@ -81,6 +83,13 @@ begin
   Result:=Forms.Application;
 end;
 
+function TTangramApp.GetMainFormOnTaskbar: Boolean;
+begin
+  {$IFDEF VER210}
+  Result:=Forms.Application.MainFormOnTaskbar;
+  {$ENDIF}
+end;
+
 function TTangramApp.GetTitle: string;
 begin
   Result:=Forms.Application.Title;
@@ -102,6 +111,13 @@ begin
   ProLoad(Forms.Application.MainForm);
   ProInit;
   Forms.Application.Run;
+end;
+
+procedure TTangramApp.SetMainFormOnTaskbar(const Value: Boolean);
+begin
+  {$IFDEF VER210}
+  Forms.Application.MainFormOnTaskbar:=Value;
+  {$ENDIF}
 end;
 
 procedure TTangramApp.SetTitle(const Value: string);

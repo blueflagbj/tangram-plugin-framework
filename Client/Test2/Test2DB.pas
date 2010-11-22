@@ -56,10 +56,13 @@ end;
 procedure TFrmTestDB.BitBtn1Click(Sender: TObject);
 var DBAC:IDBAccess;
     SqlStr:String;
+    c:Integer;
 begin
+  c:=GetTickCount;
   DBAC:=SysService as IDBAccess;
   SqlStr:='select * from [test]';
   DBAC.QuerySQL(Cds,SqlStr);
+  BitBtn1.Caption:=Format('≤È—Ø(”√ ±%d∫¡√Î)',[GetTickCount-c]);
 end;
 
 procedure TFrmTestDB.Button1Click(Sender: TObject);

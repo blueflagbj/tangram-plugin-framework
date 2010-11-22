@@ -3,4 +3,21 @@
 	<Transactions>
     <Transaction>2008/11/24 00:07:39.375.bdsproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\Package1.bdsproj=E:\平台\数据库支持包\DBSupport.bdsproj</Transaction>
   </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="adortl.dcp"/>
+    <File Path="Base.dcp"/>
+    <File Path="Core.dcp"/>
+    <File Path="dbrtl.dcp"/>
+    <File Path="dsnap.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="..\..\Client"/>
+    <File Path="..\Interfaces"/>
+    <File Path="..\Interfaces\DBIntf.pas"/>
+    <File Path="..\Interfaces\InvokeServerIntf.pas"/>
+    <File Path="DBAccess.pas"/>
+    <File Path="DBConfig.pas"/>
+    <File Path="DBConfig.dfm"/>
+    <File Path="DBConnection.pas"/>
+    <File Path="DBExport.pas"/>
+  </ProjectSortOrder>
 </BorlandProject>

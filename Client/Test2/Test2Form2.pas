@@ -22,6 +22,8 @@ type
     Button12: TButton;
     Button3: TButton;
     Button13: TButton;
+    Button14: TButton;
+    Button15: TButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -38,6 +40,8 @@ type
     procedure Button12Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button13Click(Sender: TObject);
+    procedure Button14Click(Sender: TObject);
+    procedure Button15Click(Sender: TObject);
   private
   protected
     Class procedure RegAuthority(aIntf:IAuthorityRegistrar);override;
@@ -51,7 +55,7 @@ var
 
 implementation
 uses _sys,TestIntf,MainFormIntf,RegIntf,DialogIntf,ProgressFormIntf,LogIntf,
-    EncdDecdIntf,SysSvc,SysInfoIntf;
+    EncdDecdIntf,SysSvc,SysInfoIntf,RemoteMethodIntf;
 
 const //权限的KEY
    Key1='{8453785E-7EB9-4DEE-B876-D0C3CD5EBC20}';
@@ -243,6 +247,39 @@ end;
 procedure TForm3.Button13Click(Sender: TObject);
 begin
   (SysService as IFormMgr).CloseForm(self);
+end;
+
+procedure TForm3.Button14Click(Sender: TObject);
+var Method:IRemoteMethod;
+    c:Integer;
+begin
+  c:=GetTickCount;
+  Method:=SysService as IRemoteMethod;
+
+  Method.MethodName:='TBusiness1.Return';
+  Method.Param['s']:='我是中国人abc';
+  if Method.Execute then
+  begin
+    Button14.Caption:=inttostr(GetTickCount-c);
+    showmessage(Method.Param['Result']);
+    //Button14.Caption:=Method.Param['a'];
+
+  end else Sys.Dialogs.ShowError(Method.Error);
+end;
+
+procedure TForm3.Button15Click(Sender: TObject);
+var Method:IRemoteMethod;
+    i,c:Integer;
+begin
+  c:=GetTickCount;
+  for i := 1 to 100000 do
+  begin
+    Method:=SysService as IRemoteMethod;
+    method:=nil;
+  end;
+  //有20个接口(IRemoteMethod是第19个)，取10000次花200-219毫秒
+  Button15.Caption:='总花(毫秒)'+inttostr(GetTickCount-c);
+
 end;
 
 end.
