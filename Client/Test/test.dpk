@@ -32,10 +32,10 @@ requires
   rtl;
 
 contains
-  TestExport in 'TestExport.pas',
   MDIForm in 'MDIForm.pas' {frmMDI},
   TestIntf in '..\Interfaces\TestIntf.pas',
   TestObj in 'TestObj.pas',
-  _Sys in '..\public\_Sys.pas';
+  _Sys in '..\public\_Sys.pas',
+  TestPlugin in 'TestPlugin.pas';
 
 end.

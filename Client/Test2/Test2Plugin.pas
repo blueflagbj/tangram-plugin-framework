@@ -8,7 +8,8 @@ unit Test2Plugin;
 
 interface
 
-uses Classes,Graphics,MainFormIntf,MenuRegIntf,PluginBase;
+uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
+     uTangramModule,PluginBase,RegIntf;
 
 Type
   TTest2Plugin=Class(TPlugin)
@@ -22,12 +23,15 @@ Type
 
     function CreateIconFromStrData(const StrData:String):TGraphic;
   public
-    Constructor Create(Intf: IInterface); override;
+    Constructor Create; override;
     Destructor Destroy; override;
 
     procedure Init; override;
     procedure final; override;
     procedure Register(Flags: Integer; Intf: IInterface); override;
+
+    class procedure RegisterModule(Reg:IRegistry);override;
+    class procedure UnRegisterModule(Reg:IRegistry);override;
 
     Class procedure RegMenu(Reg:IMenuReg);
     Class procedure UnRegMenu(Reg:IMenuReg);
@@ -71,6 +75,8 @@ const
           +'bGIsiIAIfyLCYiwAAAj3YiIiIAAAAI98IiJAAAAACIfGiAAAAAAACIgAAAAA/hAAAP4QAAD+EAAA'
           +'+DkAAOA5AADAEAAAgAAAAIAAAAAAAAAAAAAAAAAAAACADwAAgA8AAMAfAADgPwAA+P8AAA==';
 
+  InstallKey = 'SYSTEM\LOADPACKAGE\USER';
+  ValueKey = 'Package=%s;load=True';
 { TTest2Plugin }
 
 procedure TTest2Plugin.Register(Flags: Integer; Intf: IInterface);
@@ -82,6 +88,39 @@ begin
   end;
 end;
 
+class procedure TTest2Plugin.RegisterModule(Reg: IRegistry);
+var
+  ModuleFullName, ModuleName, Value: String;
+begin
+  // MessageBox(GetActiveWindow,'已经安装过了！','aa',MB_OK+MB_ICONWARNING);
+  // 注册菜单
+  self.RegMenu(Reg as IMenuReg);
+
+  if Reg.OpenKey(InstallKey, True) then
+  begin
+    ModuleFullName := sysutils.GetModuleName(HInstance);
+    ModuleName := ExtractFileName(ModuleFullName);
+    Value := Format(ValueKey, [ModuleFullName]);
+    Reg.WriteString(ModuleName, Value);
+    Reg.SaveData;
+  end;
+end;
+
+class procedure TTest2Plugin.UnRegisterModule(Reg: IRegistry);
+var
+  ModuleName: String;
+begin
+  // 取消注册菜单
+  self.UnRegMenu(Reg as IMenuReg);
+
+  if Reg.OpenKey(InstallKey) then
+  begin
+    ModuleName := ExtractFileName(sysutils.GetModuleName(HInstance));
+    if Reg.DeleteValue(ModuleName) then
+      Reg.SaveData;
+  end;
+end;
+
 class procedure TTest2Plugin.RegMenu(Reg: IMenuReg);
 begin
   Reg.RegMenu(ID_Test2Menu1     ,'文件\Test2包');
@@ -89,6 +128,8 @@ begin
   Reg.RegToolItem(ID_ToolLine   ,'-','');//加一个分隔线
   Reg.RegToolItem(ID_ToolButton2,'测试2','这是Test2包注册的工具栏！');
 end;
+
+
 
 class procedure TTest2Plugin.UnRegMenu(Reg: IMenuReg);
 begin
@@ -98,10 +139,10 @@ begin
   Reg.UnRegToolItem(ID_ToolButton2);
 end;
 
-constructor TTest2Plugin.Create(Intf: IInterface);
+constructor TTest2Plugin.Create;
 var  MainForm:IMainForm;
 begin
-  MainForm:=Intf as IMainForm;
+  MainForm:=SysService as IMainForm;
   MainForm.RegShortCut('接口使用',self.UseIntfClick);
   MainForm.RegShortCut('数据库操作',self.UseDBClick);
 end;
@@ -187,5 +228,9 @@ begin
     Icon.Free;
   end;
 end;
+
+initialization
+  RegisterPluginClass(TTest2Plugin);
+finalization
 
 end.

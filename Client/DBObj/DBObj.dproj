@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\DBObj.bpl</DCC_DependencyCheckOutputName>
@@ -105,9 +105,9 @@
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="dbrtl.dcp"/>
 			<DCCReference Include="dsnap.dcp"/>
-			<DCCReference Include="uDBObjExport.pas"/>
 			<DCCReference Include="DataRecord.pas"/>
 			<DCCReference Include="ListFiller.pas"/>
+			<DCCReference Include="uDBPlugin.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

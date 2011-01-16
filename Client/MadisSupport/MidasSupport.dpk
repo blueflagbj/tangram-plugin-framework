@@ -36,7 +36,6 @@ requires
   adortl;
 
 contains
-  uMidasSupportExport in 'uMidasSupportExport.pas',
   DBIntf in '..\½Ó¿Ú\DBIntf.pas',
   uDM in 'uDM.pas' {dm: TDataModule},
   uConfig in 'uConfig.pas' {frmConfig},

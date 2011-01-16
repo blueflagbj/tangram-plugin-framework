@@ -64,7 +64,7 @@ var
 
 implementation
 
-uses ShortCutFormUnit,ExceptionHandle;
+uses ShortCutFormUnit,ExceptionHandle,SysFactoryEx,SysSvc;
 {$R *.dfm}
 
 { Tfrm_Main }
@@ -134,6 +134,7 @@ procedure Tfrm_Main.FormCreate(Sender: TObject);
 begin
   Application.OnException:=HandleException;
   FShortCutList:=TList.Create;
+  TObjFactoryEx.Create([IMainForm,IFormMgr,IShortCutClick],self);
 end;
 
 procedure Tfrm_Main.FormDestroy(Sender: TObject);

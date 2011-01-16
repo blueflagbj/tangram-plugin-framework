@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\Custom.bpl</DCC_DependencyCheckOutputName>
@@ -119,7 +119,6 @@
 			<DCCReference Include="Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="SysDialogs.pas"/>
-			<DCCReference Include="CustomExport.pas"/>
 			<DCCReference Include="SysLog.pas"/>
 			<DCCReference Include="ProgressForm.pas">
 				<Form>frm_ProgressForm</Form>
@@ -133,6 +132,7 @@
 			<DCCReference Include="ProgressFormObj.pas"/>
 			<DCCReference Include="ImpSysInfoIntf.pas"/>
 			<DCCReference Include="..\Interfaces\SysInfoIntf.pas"/>
+			<DCCReference Include="uCustomPlugin.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

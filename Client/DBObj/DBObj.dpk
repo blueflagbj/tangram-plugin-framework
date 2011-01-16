@@ -34,8 +34,8 @@ requires
   dsnap;
 
 contains
-  uDBObjExport in 'uDBObjExport.pas',
   DataRecord in 'DataRecord.pas',
-  ListFiller in 'ListFiller.pas';
+  ListFiller in 'ListFiller.pas',
+  uDBPlugin in 'uDBPlugin.pas';
 
 end.

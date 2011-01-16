@@ -37,10 +37,10 @@ requires
 
 contains
   DBIntf in '..\Interfaces\DBIntf.pas',
-  DBExport in 'DBExport.pas',
   DBConnection in 'DBConnection.pas',
   DBConfig in 'DBConfig.pas' {Frm_DBConfig},
   InvokeServerIntf in '..\Interfaces\InvokeServerIntf.pas',
-  DBAccess in 'DBAccess.pas';
+  DBAccess in 'DBAccess.pas',
+  uDBSupportPlugin in 'uDBSupportPlugin.pas';
 
 end.

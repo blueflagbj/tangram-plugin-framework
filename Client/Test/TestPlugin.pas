@@ -1,15 +1,13 @@
-unit mPlugin;
+unit TestPlugin;
 
 interface
 
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf,uDM,SysFactoryEx;
+     uTangramModule,PluginBase,RegIntf;
 
 Type
-  TmPlugin=Class(TPlugin)
+  TTestPlugin=Class(TPlugin)
   private
-    dm:Tdm;
-    procedure SortCutClick(pIntf:IShortCutClick);
   public
     Constructor Create; override;
     Destructor Destroy; override;
@@ -21,54 +19,51 @@ Type
     class procedure RegisterModule(Reg:IRegistry);override;
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
-
 implementation
+uses Dialogs;
+const InstallKey='SYSTEM\LOADPACKAGE\USER';
+      ValueKey='Package=%s;load=True';
+{ TTestPlugin }
 
-uses uFrame,DBIntf,InvokeServerIntf,SysSvc;
-
-const
-  InstallKey='SYSTEM\LOADPACKAGE\DBSUPPORT';
-  ValueKey='Package=%s;load=True';
-{ TTest2Menu }
-
-constructor TmPlugin.Create;
-begin
-  (SysService as IMainForm).RegShortCut('Midas远程方法调用',self.SortCutClick);
-
-  dm:=Tdm.Create(nil);
-  TObjFactoryEx.Create([IDBConnection,IDBAccess,IInvokeServer],dm);
-end;
-
-destructor TmPlugin.Destroy;
-begin
-  dm.Free;
-  inherited;
-end;
-
-procedure TmPlugin.final;
+constructor TTestPlugin.Create;
 begin
   inherited;
 
 end;
 
-procedure TmPlugin.Init;
+destructor TTestPlugin.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TTestPlugin.final;
 begin
   inherited;
 
 end;
 
-procedure TmPlugin.Register(Flags: Integer; Intf: IInterface);
+procedure TTestPlugin.Init;
 begin
   inherited;
 
 end;
 
-class procedure TmPlugin.RegisterModule(Reg: IRegistry);
+procedure TTestPlugin.Register(Flags: Integer; Intf: IInterface);
+begin
+  inherited;
+
+end;
+
+class procedure TTestPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName,ModuleName,Value:String;
 begin
-  //注册包
+  showmessage('安装');
   if Reg.OpenKey(InstallKey,True) then
   begin
+    //s:=inttostr(HInstance);
+    //MessageBox(GetActiveWindow,pchar(s),'ok',0);
+    //exit;
     ModuleFullName:=SysUtils.GetModuleName(HInstance);
     ModuleName:=ExtractFileName(ModuleFullName);
     Value:=Format(ValueKey,[ModuleFullName]);
@@ -77,15 +72,9 @@ begin
   end;
 end;
 
-procedure TmPlugin.SortCutClick(pIntf: IShortCutClick);
-begin
-  pIntf.RegPanel(TFrame4);
-end;
-
-class procedure TmPlugin.UnRegisterModule(Reg: IRegistry);
+class procedure TTestPlugin.UnRegisterModule(Reg: IRegistry);
 var ModuleName:String;
 begin
-  //取消注册包
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
@@ -95,7 +84,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TmPlugin);
+  RegisterPluginClass(TTestPlugin);
 finalization
+
 end.
- 

@@ -8,6 +8,8 @@ unit PluginBase;
 
 interface
 
+uses RegIntf;
+
 Type
   TPluginClass = Class of TPlugin;
 
@@ -20,19 +22,22 @@ Type
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
   public
-    Constructor Create(Intf: IInterface); virtual;
+    Constructor Create; virtual;
     Destructor Destroy; override;
 
     procedure Init; virtual;
     procedure final; virtual;
     procedure Register(Flags: Integer; Intf: IInterface); virtual;
+
+    class procedure RegisterModule(Reg:IRegistry);virtual;
+    class procedure UnRegisterModule(Reg:IRegistry);virtual;
   End;
 
 implementation
 
 { TPlugIn }
 
-constructor TPlugin.Create(Intf: IInterface);
+constructor TPlugin.Create;
 begin
 
 end;
@@ -72,6 +77,16 @@ begin
 end;
 
 procedure TPlugin.Register(Flags: Integer; Intf: IInterface);
+begin
+
+end;
+
+class procedure TPlugin.RegisterModule(Reg: IRegistry);
+begin
+
+end;
+
+class procedure TPlugin.UnRegisterModule(Reg: IRegistry);
 begin
 
 end;

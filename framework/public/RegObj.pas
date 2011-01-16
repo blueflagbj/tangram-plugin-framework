@@ -78,6 +78,8 @@ Type
 
 implementation
 
+//uses msxmldom,xmldom;
+
 const
   MenuKey = 'SYSTEM\MENU';
   ToolKey = 'SYSTEM\TOOL';
@@ -85,6 +87,14 @@ const
 constructor TRegObj.Create;
 begin
   CoInitialize(nil);
+
+  {try
+    //下面这两句用于解决加载DLL报No matching DOM Vendor: ""错误的问题
+    //引用msxmldom,xmldom两单元
+    MSXML_DOM:=TMSDOMImplementationFactory.Create;
+    RegisterDOMVendor(MSXML_DOM);
+  Except
+  end;  }
 end;
 
 function TRegObj.DeleteKey(const key: Widestring): Boolean;

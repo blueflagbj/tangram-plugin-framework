@@ -34,7 +34,6 @@ requires
 
 contains
   SysDialogs in 'SysDialogs.pas',
-  CustomExport in 'CustomExport.pas',
   SysLog in 'SysLog.pas',
   ProgressForm in 'ProgressForm.pas' {frm_ProgressForm},
   _Sys in '..\Public\_Sys.pas',
@@ -43,6 +42,7 @@ contains
   SplashForm in 'SplashForm.pas' {frm_Splash},
   ProgressFormObj in 'ProgressFormObj.pas',
   ImpSysInfoIntf in 'ImpSysInfoIntf.pas',
-  SysInfoIntf in '..\Interfaces\SysInfoIntf.pas';
+  SysInfoIntf in '..\Interfaces\SysInfoIntf.pas',
+  uCustomPlugin in 'uCustomPlugin.pas';
 
 end.

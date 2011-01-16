@@ -27,16 +27,15 @@ package test2;
 {$IMPLICITBUILD OFF}
 
 requires
-  rtl,
   Core,
   Base,
+  rtl,
   dbrtl,
   dsnap,
   vcldb,
   vcl;
 
 contains
-  Test2Export in 'Test2Export.pas',
   Test2FrameUnit in 'Test2FrameUnit.pas' {Frame2: TFrame},
   Test2Form2 in 'Test2Form2.pas' {Form3},
   _Sys in '..\¹«¹²\_Sys.pas',

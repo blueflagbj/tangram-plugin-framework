@@ -46,5 +46,7 @@
     <Transaction>2008/12/31 18:08:24.421.dfm,E:\平台\自定义包\Unit1.dfm=E:\平台\自定义包\LoginForm.dfm</Transaction>
     <Transaction>2010-11-11 00:07:35.593.pas,F:\tangram-plugin-framework\Client\Custom\EncdDecdObj.pas=</Transaction>
     <Transaction>2010-11-11 00:09:14.656.pas,F:\tangram-plugin-framework\Client\Custom\Base64EncdDecd.pas=</Transaction>
+    <Transaction>2011-01-15 12:19:02.734.pas,F:\tangram-plugin-framework\Client\Custom\Unit1.pas=F:\tangram-plugin-framework\Client\Custom\uCustomPlugin.pas</Transaction>
+    <Transaction>2011-01-15 12:21:39.375.pas,F:\tangram-plugin-framework\Client\Custom\CustomExport.pas=</Transaction>
   </Transactions>
 </BorlandProject>

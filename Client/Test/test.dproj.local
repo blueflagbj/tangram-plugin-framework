@@ -15,5 +15,7 @@
     <Transaction>2008/12/27 20:57:49.390.dfm,E:\平台\测试\Unit1.dfm=E:\平台\测试\ToolConfig.dfm</Transaction>
     <Transaction>2009/04/13 21:47:46.406.pas,E:\平台\测试\TestFormUnit.pas=</Transaction>
     <Transaction>2009/04/13 21:47:46.406.dfm,E:\平台\测试\TestFormUnit.dfm=</Transaction>
+    <Transaction>2011-01-14 00:03:09.765.pas,F:\tangram-plugin-framework\Client\Test\Unit1.pas=F:\tangram-plugin-framework\Client\Test\TestPlugin.pas</Transaction>
+    <Transaction>2011-01-14 00:06:35.906.pas,F:\tangram-plugin-framework\Client\Test\TestExport.pas=</Transaction>
   </Transactions>
 </BorlandProject>

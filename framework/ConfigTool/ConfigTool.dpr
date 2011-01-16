@@ -1,7 +1,7 @@
 program ConfigTool;
 
 uses
-  Forms,
+  uTangramFrameWork,//Forms
   uMain in 'uMain.pas' {frm_Main},
   ABOUT in 'ABOUT.pas' {AboutBox},
   editValue in 'editValue.pas' {frm_EditValue},

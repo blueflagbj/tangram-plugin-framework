@@ -1,15 +1,11 @@
-unit mPlugin;
+unit uCustomPlugin;
 
 interface
-
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf,uDM,SysFactoryEx;
-
+     uTangramModule,PluginBase,RegIntf;
 Type
-  TmPlugin=Class(TPlugin)
+  TCustomPlugin=Class(TPlugin)
   private
-    dm:Tdm;
-    procedure SortCutClick(pIntf:IShortCutClick);
   public
     Constructor Create; override;
     Destructor Destroy; override;
@@ -21,52 +17,45 @@ Type
     class procedure RegisterModule(Reg:IRegistry);override;
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
-
 implementation
 
-uses uFrame,DBIntf,InvokeServerIntf,SysSvc;
+const InstallKey='SYSTEM\LOADPACKAGE';
+      ValueKey='Package=%s;load=True';//($APP_PATH)\
+{ TCustomPlugin }
 
-const
-  InstallKey='SYSTEM\LOADPACKAGE\DBSUPPORT';
-  ValueKey='Package=%s;load=True';
-{ TTest2Menu }
-
-constructor TmPlugin.Create;
-begin
-  (SysService as IMainForm).RegShortCut('Midas远程方法调用',self.SortCutClick);
-
-  dm:=Tdm.Create(nil);
-  TObjFactoryEx.Create([IDBConnection,IDBAccess,IInvokeServer],dm);
-end;
-
-destructor TmPlugin.Destroy;
-begin
-  dm.Free;
-  inherited;
-end;
-
-procedure TmPlugin.final;
+constructor TCustomPlugin.Create;
 begin
   inherited;
 
 end;
 
-procedure TmPlugin.Init;
+destructor TCustomPlugin.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TCustomPlugin.final;
 begin
   inherited;
 
 end;
 
-procedure TmPlugin.Register(Flags: Integer; Intf: IInterface);
+procedure TCustomPlugin.Init;
 begin
   inherited;
 
 end;
 
-class procedure TmPlugin.RegisterModule(Reg: IRegistry);
+procedure TCustomPlugin.Register(Flags: Integer; Intf: IInterface);
+begin
+  inherited;
+
+end;
+
+class procedure TCustomPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName,ModuleName,Value:String;
 begin
-  //注册包
   if Reg.OpenKey(InstallKey,True) then
   begin
     ModuleFullName:=SysUtils.GetModuleName(HInstance);
@@ -77,15 +66,9 @@ begin
   end;
 end;
 
-procedure TmPlugin.SortCutClick(pIntf: IShortCutClick);
-begin
-  pIntf.RegPanel(TFrame4);
-end;
-
-class procedure TmPlugin.UnRegisterModule(Reg: IRegistry);
+class procedure TCustomPlugin.UnRegisterModule(Reg: IRegistry);
 var ModuleName:String;
 begin
-  //取消注册包
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
@@ -95,7 +78,6 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TmPlugin);
+  RegisterPluginClass(TCustomPlugin);
 finalization
 end.
- 

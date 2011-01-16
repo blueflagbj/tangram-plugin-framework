@@ -34,7 +34,6 @@ requires
   vcl;
 
 contains
-  SysExport in 'SysExport.pas',
   MenuEventBinderIntf in '..\Interfaces\MenuEventBinderIntf.pas',
   MenuDispatcher in 'MenuDispatcher.pas',
   SysPlugin in 'SysPlugin.pas',

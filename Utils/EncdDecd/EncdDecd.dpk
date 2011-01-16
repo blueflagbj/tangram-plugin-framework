@@ -30,8 +30,8 @@ requires
   Core;
 
 contains
-  uEcdDecdExport in 'uEcdDecdExport.pas',
   Base64EncdDecd in 'Base64EncdDecd.pas',
-  EncdDecdObj in 'EncdDecdObj.pas';
+  EncdDecdObj in 'EncdDecdObj.pas',
+  uEncdDecdPlugin in 'uEncdDecdPlugin.pas';
 
 end.

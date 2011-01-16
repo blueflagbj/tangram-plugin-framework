@@ -91,7 +91,7 @@ var
 
 implementation
 
-uses ExceptionHandle;
+uses SysFactoryEx,SysSvc,ExceptionHandle;
 {$R *.dfm}
 
 { Tfrm_Main }
@@ -158,6 +158,8 @@ begin
   FCurShortCutPanel:=nil;
   Application.OnException:=HandleException;
   FShortCutList:=TList.Create;
+
+  TObjFactoryEx.Create([IMainForm,IFormMgr,IShortCutClick],self);
 end;
 
 procedure Tfrm_Main.FormDestroy(Sender: TObject);

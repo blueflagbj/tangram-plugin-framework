@@ -8,7 +8,7 @@ unit SysPlugin;
 
 interface
 
-uses SysUtils,Classes,Windows,MenuRegIntf,PluginBase;
+uses SysUtils,Classes,Windows,MenuRegIntf,PluginBase,RegIntf,uTangramModule;
 
 Type
   TSysPlugin=Class(TPlugin)
@@ -19,12 +19,14 @@ Type
     procedure AboutClick(Sender: TObject);
   protected
   public
-    Constructor Create(Intf: IInterface);override;
+    Constructor Create;override;
     Destructor Destroy;override;
 
     procedure Init; override;
     procedure final; override;
     //procedure Register(Flags: Integer; Intf: IInterface); override;
+    class procedure RegisterModule(Reg:IRegistry);override;
+    class procedure UnRegisterModule(Reg:IRegistry);override;
 
     Class procedure RegMenu(Reg:IMenuReg);
     Class procedure UnRegMenu(Reg:IMenuReg);
@@ -36,6 +38,9 @@ uses SysSvc,SysFactory,SysFactoryEx,ViewSvcInfo,MainFormIntf,
      MenuEventBinderIntf,MenuDispatcher,SysAbout;
 
 const
+  InstallKey='SYSTEM\LOADPACKAGE';
+  ValueKey='Package=%s;load=True';
+
    Key_ExitApp     ='ID_52E96456-AB56-4425-9907-49BC58BCD521';
    Key_ConfigTool  ='ID_45E78B02-1029-4916-8D83-6C4381DDB255';
    Key_SvcInfo     ='ID_B5641F93-5CCC-4E58-8EBD-D39D3612374F';
@@ -44,6 +49,22 @@ const
    
 { TSysPlugin }
 
+class procedure TSysPlugin.RegisterModule(Reg: IRegistry);
+var ModuleFullName,ModuleName,Value:String;
+begin
+  //注册菜单
+  self.RegMenu(Reg as IMenuReg);
+  //注册包
+  if Reg.OpenKey(InstallKey,True) then
+  begin
+    ModuleFullName:=SysUtils.GetModuleName(HInstance);
+    ModuleName:=ExtractFileName(ModuleFullName);
+    Value:=Format(ValueKey,[ModuleFullName]);
+    Reg.WriteString(ModuleName,Value);
+    Reg.SaveData;
+  end;
+end;
+
 class procedure TSysPlugin.RegMenu(Reg: IMenuReg);
 begin
   Reg.RegMenu(Key_Line,        '文件\-');
@@ -51,6 +72,20 @@ begin
   Reg.RegMenu(Key_SvcInfo,     '工具\系统接口');
   Reg.RegMenu(Key_ConfigTool,  '工具\配置工具');
   Reg.RegMenu(Key_About,       '帮助\关于');
+end;
+
+class procedure TSysPlugin.UnRegisterModule(Reg: IRegistry);
+var ModuleName:String;
+begin
+  //取消注册菜单
+  self.UnRegMenu(Reg as IMenuReg);
+  //取消注册包
+  if Reg.OpenKey(InstallKey) then
+  begin
+    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+    if Reg.DeleteValue(ModuleName) then
+      Reg.SaveData;
+  end;
 end;
 
 class procedure TSysPlugin.UnRegMenu(Reg: IMenuReg);
@@ -62,13 +97,8 @@ begin
   Reg.UnRegMenu(Key_About);
 end;
 
-constructor TSysPlugin.Create(Intf: IInterface);
-var MainFormObj:TComponent;
+constructor TSysPlugin.Create;
 begin
-  //注册主窗体实现的IMainForm和IFormMgr接口
-  MainFormObj:=(Intf as IInterfaceComponentReference).GetComponent;
-  TObjFactoryEx.Create([IMainForm,IFormMgr],MainFormObj);
-
   TObjFactory.Create(IMenuEventBinder,TMenuDispatcher.Create,True);
 end;
 
@@ -121,5 +151,9 @@ procedure TSysPlugin.AboutClick(Sender: TObject);
 begin
   TFrm_About.Execute;
 end;
+
+initialization
+  RegisterPluginClass(TSysPlugin);
+finalization
 
 end.
