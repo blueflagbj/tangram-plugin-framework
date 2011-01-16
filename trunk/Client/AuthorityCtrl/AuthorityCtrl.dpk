@@ -36,7 +36,6 @@ contains
   AuthoritySvrIntf in '..\Interfaces\AuthoritySvrIntf.pas',
   ImpAuthoritySvrIntf in 'ImpAuthoritySvrIntf.pas',
   uAuthorityPlugin in 'uAuthorityPlugin.pas',
-  uAuthorityCtrlExport in 'uAuthorityCtrlExport.pas',
   uUserMgr in 'uUserMgr.pas' {frmUserMgr},
   uRoleMgr in 'uRoleMgr.pas' {FrmRoleMgr},
   uEdtRole in 'uEdtRole.pas' {FrmEdtRole},

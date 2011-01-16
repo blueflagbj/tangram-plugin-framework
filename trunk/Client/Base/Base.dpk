@@ -34,7 +34,6 @@ requires
   dsnap;
 
 contains
-  uBaseForm in 'uBaseForm.pas' {BaseForm},
-  BaseExport in 'BaseExport.pas';
+  uBaseForm in 'uBaseForm.pas' {BaseForm};
 
 end.

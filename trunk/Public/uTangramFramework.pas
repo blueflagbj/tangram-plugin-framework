@@ -9,15 +9,12 @@ unit uTangramFramework;
 
 interface
 
-uses SysUtils,Classes,Forms,Windows,PackageExport;
+uses SysUtils,Classes,Forms,Windows,SysModuleMgr;
 
 Type
   TTangramApp=Class
   private
-    ProLoad: TLoad;
-    ProInit: TInit;
-    ProFinal: TFinal;
-    FCorePackageHandle: HMODULE;
+    FModuleMgr:TModuleMgr;
 
     function GetFormApp: TApplication;
     function GetTitle: string;
@@ -44,21 +41,8 @@ implementation
 { TTangramApp }
 
 constructor TTangramApp.Create;
-var
-  CorePackageFile: String[255];
 begin
-  // 加载核心包
-  FCorePackageHandle:=0;
-  CorePackageFile := ShortString(ExtractFilePath(Paramstr(0)) + 'Core.bpl');
-  if FileExists(String(CorePackageFile)) then
-  begin
-    FCorePackageHandle := LoadPackage(String(CorePackageFile));
-    @ProLoad := GetProcAddress(FCorePackageHandle, 'Load');
-    @ProInit := GetProcAddress(FCorePackageHandle, 'Init');
-    @ProFinal := GetProcAddress(FCorePackageHandle, 'Final');
-  end else
-    Forms.Application.MessageBox(pchar('找不到框架核心包[' + String(CorePackageFile)
-          + ']，程序无法启动！'), '启动错误', MB_OK + MB_ICONERROR);
+  FModuleMgr:=TModuleMgr.Create;
 end;
 
 procedure TTangramApp.CreateForm(InstanceClass: TComponentClass;
@@ -69,12 +53,8 @@ end;
 
 destructor TTangramApp.Destroy;
 begin
-  // 释放包
-  if FCorePackageHandle<>0 then
-  begin
-    ProFinal;
-    UnLoadPackage(FCorePackageHandle);
-  end;
+  FModuleMgr.final;
+  FModuleMgr.Free;
   inherited;
 end;
 
@@ -107,9 +87,8 @@ end;
 
 procedure TTangramApp.Run;
 begin
-  if FCorePackageHandle=0 then exit;
-  ProLoad(Forms.Application.MainForm);
-  ProInit;
+  FModuleMgr.LoadModules;
+  FModuleMgr.Init;
   Forms.Application.Run;
 end;
 

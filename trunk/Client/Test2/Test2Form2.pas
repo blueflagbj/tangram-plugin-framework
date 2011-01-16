@@ -268,18 +268,17 @@ begin
 end;
 
 procedure TForm3.Button15Click(Sender: TObject);
-var Method:IRemoteMethod;
+var test:Itest;
     i,c:Integer;
 begin
   c:=GetTickCount;
   for i := 1 to 100000 do
   begin
-    Method:=SysService as IRemoteMethod;
-    method:=nil;
+    test:=SysService as Itest;
+    test:=nil;
   end;
   //有20个接口(IRemoteMethod是第19个)，取10000次花200-219毫秒
   Button15.Caption:='总花(毫秒)'+inttostr(GetTickCount-c);
-
 end;
 
 end.

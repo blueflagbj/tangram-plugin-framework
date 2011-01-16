@@ -53,8 +53,8 @@ implementation
 
 {$R *.dfm}
 Type
-  TPro_UnInstallPackage=procedure(Reg:IRegistry);
-  TPro_InstallPackage=procedure(Reg:IRegistry);
+  TPro_UnInstallModule=procedure(Reg:IRegistry);
+  TPro_InstallModule=procedure(Reg:IRegistry);
 
 const
   PackageKey='SYSTEM\LOADPACKAGE';
@@ -63,15 +63,15 @@ const
 
 procedure Tfrm_PackageMgr.Installpackage(const PckageFile: string);
 var HHandle:HMODULE;
-    Pro_InstallPackage:TPro_InstallPackage;
+    Pro_InstallModule:TPro_InstallModule;
 begin
   HHandle:=SafeLoadLibrary(PckageFile);
   try
     if HHandle<>0 then
     begin
-      @Pro_InstallPackage:=GetProcAddress(HHandle,'InstallPackage');
-      if Assigned(@Pro_InstallPackage) then
-        Pro_InstallPackage(self.Reg)
+      @Pro_InstallModule:=GetProcAddress(HHandle,'InstallModule');
+      if Assigned(@Pro_InstallModule) then
+        Pro_InstallModule(self.Reg)
       else Raise Exception.CreateFmt('[%s]不是系统支持的包！',[PckageFile]);
     end;
   finally
@@ -81,15 +81,15 @@ end;
 
 procedure Tfrm_PackageMgr.UnInstallPackage(const PckageFile: string);
 var HHandle:HMODULE;
-    Pro_UnInstallPackage:TPro_UnInstallPackage;
+    Pro_UnInstallModule:TPro_UnInstallModule;
 begin
   HHandle:=SafeLoadLibrary(PckageFile);
   try
     if HHandle<>0 then
     begin
-      @Pro_UnInstallPackage:=GetProcAddress(HHandle,'UnInstallPackage');
-      if Assigned(@Pro_UnInstallPackage) then
-        Pro_UnInstallPackage(self.Reg)
+      @Pro_UnInstallModule:=GetProcAddress(HHandle,'UnInstallModule');
+      if Assigned(@Pro_UnInstallModule) then
+        Pro_UnInstallModule(self.Reg)
       else Raise Exception.CreateFmt('[%s]不是系统支持的包！',[PckageFile]);
     end;
   finally

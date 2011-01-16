@@ -23,9 +23,9 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_BplOutput>..\bin\</DCC_BplOutput>
+			<DCC_BplOutput>..\Bin</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
-			<DCC_DependencyCheckOutputName>..\bin\Core.bpl</DCC_DependencyCheckOutputName>
+			<DCC_DependencyCheckOutputName>..\Bin\Core.bpl</DCC_DependencyCheckOutputName>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
 			<DCC_Description>框架核心包</DCC_Description>
 			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
@@ -63,7 +63,7 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<Parameters>
-						<Parameters Name="HostApplication">$(PlatFormPath)\bin\MainApp2.exe</Parameters>
+						<Parameters Name="HostApplication">$(PlatFormPath)\Client\bin\MainApp2.exe</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
@@ -117,21 +117,18 @@
 			<DCCReference Include="xmlrtl.dcp"/>
 			<DCCReference Include="SysSvc.pas"/>
 			<DCCReference Include="SysFactoryMgr.pas"/>
-			<DCCReference Include="_Registry.pas"/>
 			<DCCReference Include="..\Interfaces\RegIntf.pas"/>
-			<DCCReference Include="..\..\Public\PackageExport.pas"/>
 			<DCCReference Include="..\Public\RegObj.pas"/>
 			<DCCReference Include="SysFactory.pas"/>
 			<DCCReference Include="..\Interfaces\SvcInfoIntf.pas"/>
-			<DCCReference Include="SysPluginMgr.pas"/>
+			<DCCReference Include="SysModuleMgr.pas"/>
 			<DCCReference Include="..\Interfaces\ModuleInfoIntf.pas"/>
 			<DCCReference Include="FactoryIntf.pas"/>
-			<DCCReference Include="CoreExport.pas"/>
 			<DCCReference Include="uSvcInfoObj.pas"/>
 			<DCCReference Include="SysFactoryEx.pas"/>
 			<DCCReference Include="PluginBase.pas"/>
-			<DCCReference Include="..\Interfaces\RegPluginIntf.pas"/>
 			<DCCReference Include="uHashList.pas"/>
+			<DCCReference Include="..\..\Public\uTangramModule.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

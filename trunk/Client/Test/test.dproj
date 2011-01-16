@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DependencyCheckOutputName>..\bin\test.bpl</DCC_DependencyCheckOutputName>
@@ -62,7 +62,7 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<Parameters>
-						<Parameters Name="HostApplication">F:\平台 For D2010\编译\ConfigTool.exe</Parameters>
+						<Parameters Name="HostApplication">F:\tangram-plugin-framework\framework\bin\ConfigTool.exe</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
@@ -119,13 +119,13 @@
 			<DCCReference Include="Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="rtl.dcp"/>
-			<DCCReference Include="TestExport.pas"/>
 			<DCCReference Include="MDIForm.pas">
 				<Form>frmMDI</Form>
 			</DCCReference>
 			<DCCReference Include="..\Interfaces\TestIntf.pas"/>
 			<DCCReference Include="TestObj.pas"/>
 			<DCCReference Include="..\public\_Sys.pas"/>
+			<DCCReference Include="TestPlugin.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

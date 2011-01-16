@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\MidasSupport.bpl</DCC_DependencyCheckOutputName>
@@ -107,7 +107,6 @@
 			<DCCReference Include="dsnap.dcp"/>
 			<DCCReference Include="dsnapcon.dcp"/>
 			<DCCReference Include="adortl.dcp"/>
-			<DCCReference Include="uMidasSupportExport.pas"/>
 			<DCCReference Include="..\接口\DBIntf.pas"/>
 			<DCCReference Include="uDM.pas">
 				<Form>dm</Form>

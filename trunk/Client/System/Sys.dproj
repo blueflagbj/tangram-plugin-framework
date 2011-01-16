@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
@@ -101,7 +101,6 @@
 			<DCCReference Include="Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="vcl.dcp"/>
-			<DCCReference Include="SysExport.pas"/>
 			<DCCReference Include="..\Interfaces\MenuEventBinderIntf.pas"/>
 			<DCCReference Include="MenuDispatcher.pas"/>
 			<DCCReference Include="SysPlugin.pas"/>

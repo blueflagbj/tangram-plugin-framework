@@ -28,10 +28,10 @@ implementation
 
 uses SysFactoryMgr,FactoryIntf;
 
-procedure Create_SvcInfoObj(out anInstance: IInterface);
+{procedure Create_SvcInfoObj(out anInstance: IInterface);
 begin
   anInstance:=TSvcInfoObj.Create;
-end;
+end;}
 
 { TSvcInfoObj }
 
@@ -71,6 +71,6 @@ begin
 end;
 
 initialization
-  TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
+  //TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
 finalization
 end.

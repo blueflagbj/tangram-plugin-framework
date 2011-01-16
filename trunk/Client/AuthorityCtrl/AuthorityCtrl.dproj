@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\AuthorityCtrl.bpl</DCC_DependencyCheckOutputName>
@@ -57,6 +57,7 @@
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+						<Parameters Name="HostApplication">$(PlatFormPath)\Client\bin\MainApp2.exe</Parameters>
 					</Parameters>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
@@ -103,7 +104,6 @@
 			<DCCReference Include="..\Interfaces\AuthoritySvrIntf.pas"/>
 			<DCCReference Include="ImpAuthoritySvrIntf.pas"/>
 			<DCCReference Include="uAuthorityPlugin.pas"/>
-			<DCCReference Include="uAuthorityCtrlExport.pas"/>
 			<DCCReference Include="uUserMgr.pas">
 				<Form>frmUserMgr</Form>
 			</DCCReference>

@@ -53,9 +53,9 @@
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="Core.dcp"/>
-			<DCCReference Include="uEcdDecdExport.pas"/>
 			<DCCReference Include="Base64EncdDecd.pas"/>
 			<DCCReference Include="EncdDecdObj.pas"/>
+			<DCCReference Include="uEncdDecdPlugin.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
