@@ -86,12 +86,13 @@ type
     procedure DeleteValue(CurListItem:TListItem);
   public
   end;
+
 var
   frm_Main: Tfrm_Main;
 
 implementation
 
-uses RegObj,editValue,newKey,PackageMgr,About,MenuEditor,ToolEditor;
+uses RegObj,editValue,newKey,ModuleMgr,About,MenuEditor,ToolEditor;
 {$R *.dfm}
 
 procedure Tfrm_Main.AddKey(node: TtreeNode);
@@ -495,9 +496,9 @@ end;
 
 procedure Tfrm_Main.N15Click(Sender: TObject);
 begin
-  frm_PackageMgr:=Tfrm_PackageMgr.Create(nil,self.Reg);
-  frm_PackageMgr.ShowModal;
-  frm_PackageMgr.Free;
+  frm_ModuleMgr:=Tfrm_ModuleMgr.Create(nil,self.Reg);
+  frm_ModuleMgr.ShowModal;
+  frm_ModuleMgr.Free;
 end;
 
 procedure Tfrm_Main.N21Click(Sender: TObject);

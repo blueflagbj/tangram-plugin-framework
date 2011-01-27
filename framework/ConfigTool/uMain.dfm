@@ -1,9 +1,9 @@
 object frm_Main: Tfrm_Main
   Left = 263
   Top = 191
-  Width = 729
-  Height = 519
   Caption = #26694#26550#37197#32622#24037#20855
+  ClientHeight = 492
+  ClientWidth = 721
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,13 +22,14 @@ object frm_Main: Tfrm_Main
     Left = 233
     Top = 0
     Width = 5
-    Height = 446
+    Height = 473
+    ExplicitHeight = 446
   end
   object lv_Value: TListView
     Left = 238
     Top = 0
     Width = 483
-    Height = 446
+    Height = 473
     Align = alClient
     Columns = <
       item
@@ -51,7 +52,7 @@ object frm_Main: Tfrm_Main
     Left = 0
     Top = 0
     Width = 233
-    Height = 446
+    Height = 473
     Align = alLeft
     HideSelection = False
     Images = ImgList
@@ -66,7 +67,7 @@ object frm_Main: Tfrm_Main
   end
   object statu_Msg: TStatusBar
     Left = 0
-    Top = 446
+    Top = 473
     Width = 721
     Height = 19
     Panels = <>
@@ -103,7 +104,7 @@ object frm_Main: Tfrm_Main
     object N7: TMenuItem
       Caption = #24037#20855
       object N15: TMenuItem
-        Caption = #21253#31649#29702
+        Caption = #27169#22359#31649#29702
         OnClick = N15Click
       end
       object N21: TMenuItem

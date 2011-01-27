@@ -11,6 +11,7 @@ const
 function GetFirstModuleSupporting(const IID: TGUID): IOTAModule;
 
 implementation
+
 function GetFirstModuleSupporting(const IID: TGUID): IOTAModule;
 var
   ModuleServices: IOTAModuleServices;
