@@ -1,8 +1,9 @@
 unit uDBPlugin;
 
 interface
-uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+
+uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;
+
 Type
   TDBPlugin=Class(TPlugin)
   private
@@ -18,9 +19,11 @@ Type
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
 implementation
+
 const
-  InstallKey='SYSTEM\LOADPACKAGE\DBSUPPORT';
-  ValueKey='Package=%s;load=True';
+  InstallKey='SYSTEM\LOADMODULE\DBSUPPORT';
+  ValueKey='Module=%s;load=True';
+
 { TDBPlugin }
 
 constructor TDBPlugin.Create;
@@ -56,7 +59,7 @@ end;
 class procedure TDBPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName,ModuleName,Value:String;
 begin
-  //注册包
+  //注册模块
   if Reg.OpenKey(InstallKey,True) then
   begin
     ModuleFullName:=SysUtils.GetModuleName(HInstance);
@@ -70,7 +73,7 @@ end;
 class procedure TDBPlugin.UnRegisterModule(Reg: IRegistry);
 var ModuleName:String;
 begin
-  //取消注册包
+  //取消注册模块
   if Reg.OpenKey(InstallKey) then
   begin
     ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
@@ -82,4 +85,5 @@ end;
 initialization
   RegisterPluginClass(TDBPlugin);
 finalization
+
 end.

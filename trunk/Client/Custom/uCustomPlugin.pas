@@ -19,8 +19,8 @@ Type
   End;
 implementation
 
-const InstallKey='SYSTEM\LOADPACKAGE';
-      ValueKey='Package=%s;load=True';//($APP_PATH)\
+const InstallKey='SYSTEM\LOADMODULE';
+      ValueKey='Module=%s;load=True';//($APP_PATH)\
 { TCustomPlugin }
 
 constructor TCustomPlugin.Create;

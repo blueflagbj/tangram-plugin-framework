@@ -36,8 +36,8 @@ implementation
 uses SysSvc,MenuEventBinderIntf,uUserMgr,uRoleMgr,uConst;
 
 const
-  InstallKey='SYSTEM\LOADPACKAGE\SYS';
-  ValueKey='Package=%s;load=True';
+  InstallKey='SYSTEM\LOADMODULE\SYS';
+  ValueKey='Module=%s;load=True';
 
   Key_RoleMgr     ='ID_79DF059E-63F3-4C06-829D-888A53B1A471';
   Key_UserMgr     ='ID_D0F119E7-3404-4213-91A7-7790B9CDD7FB';

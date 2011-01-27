@@ -27,8 +27,8 @@ implementation
 uses uFrame,DBIntf,InvokeServerIntf,SysSvc;
 
 const
-  InstallKey='SYSTEM\LOADPACKAGE\DBSUPPORT';
-  ValueKey='Package=%s;load=True';
+  InstallKey='SYSTEM\LOADMODULE\DBSUPPORT';
+  ValueKey='Module=%s;load=True';
 { TTest2Menu }
 
 constructor TmPlugin.Create;

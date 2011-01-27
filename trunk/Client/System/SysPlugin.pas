@@ -38,8 +38,8 @@ uses SysSvc,SysFactory,SysFactoryEx,ViewSvcInfo,MainFormIntf,
      MenuEventBinderIntf,MenuDispatcher,SysAbout;
 
 const
-  InstallKey='SYSTEM\LOADPACKAGE';
-  ValueKey='Package=%s;load=True';
+  InstallKey='SYSTEM\LOADMODULE';
+  ValueKey='Module=%s;load=True';
 
    Key_ExitApp     ='ID_52E96456-AB56-4425-9907-49BC58BCD521';
    Key_ConfigTool  ='ID_45E78B02-1029-4916-8D83-6C4381DDB255';

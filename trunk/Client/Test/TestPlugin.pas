@@ -20,9 +20,9 @@ Type
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
 implementation
-uses Dialogs;
-const InstallKey='SYSTEM\LOADPACKAGE\USER';
-      ValueKey='Package=%s;load=True';
+
+const InstallKey='SYSTEM\LOADMODULE\USER';
+      ValueKey='Module=%s;load=True';
 { TTestPlugin }
 
 constructor TTestPlugin.Create;
@@ -58,7 +58,6 @@ end;
 class procedure TTestPlugin.RegisterModule(Reg: IRegistry);
 var ModuleFullName,ModuleName,Value:String;
 begin
-  showmessage('°²×°');
   if Reg.OpenKey(InstallKey,True) then
   begin
     //s:=inttostr(HInstance);

@@ -19,8 +19,8 @@ Type
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
 implementation
-const InstallKey='SYSTEM\LOADPACKAGE\DBSUPPORT';
-      ValueKey='Package=%s;load=True';
+const InstallKey='SYSTEM\LOADMODULE\DBSUPPORT';
+      ValueKey='Module=%s;load=True';
 { TDBSupportPlugin }
 
 constructor TDBSupportPlugin.Create;
