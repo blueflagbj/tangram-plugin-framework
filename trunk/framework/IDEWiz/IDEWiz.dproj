@@ -105,6 +105,7 @@
 				<Form>frmSelPackages</Form>
 			</DCCReference>
 			<DCCReference Include="uContainPackageWiz.pas"/>
+			<DCCReference Include="uNewDLLExpt.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

@@ -6,10 +6,12 @@ procedure Register;
 
 implementation
 
-uses uNewPackageExpt,uImpIntfExpt,uNewFormExpt,uContainPackageWiz;
+uses uNewPackageExpt,uImpIntfExpt,uNewFormExpt,uContainPackageWiz,
+     uNewDLLExpt;
 
 procedure Register;
 begin
+  RegNewDLLExpt;
   RegNewPackageExpt;
   RegImpIntfExpt;
   RegNewFormExpt;

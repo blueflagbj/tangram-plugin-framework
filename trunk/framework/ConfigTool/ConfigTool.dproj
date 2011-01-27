@@ -109,8 +109,8 @@
 				<Form>frm_newKey</Form>
 			</DCCReference>
 			<DCCReference Include="..\public\RegObj.pas"/>
-			<DCCReference Include="PackageMgr.pas">
-				<Form>frm_PackageMgr</Form>
+			<DCCReference Include="ModuleMgr.pas">
+				<Form>frm_ModuleMgr</Form>
 			</DCCReference>
 			<DCCReference Include="MenuEditor.pas">
 				<Form>Frm_MenuEditor</Form>

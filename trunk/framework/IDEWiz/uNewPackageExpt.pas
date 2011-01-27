@@ -146,8 +146,8 @@ begin
 end;
 
 procedure TNewPackageExpt.Execute;
-begin (BorlandIDEServices as IOTAModuleServices)
-  .CreateModule(self);
+begin
+  (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
 end;
 
 function TNewPackageExpt.GetAuthor: string;
@@ -157,7 +157,7 @@ end;
 
 function TNewPackageExpt.GetComment: string;
 begin
-  Result := '业务包向导';
+  Result := '包模块向导';
 end;
 
 function TNewPackageExpt.GetCreatorType: string;
@@ -192,7 +192,7 @@ end;
 
 function TNewPackageExpt.GetName: string;
 begin
-  Result := '业务包';
+  Result := 'BPL模块';
 end;
 
 function TNewPackageExpt.GetOptionFileName: string;
@@ -246,15 +246,15 @@ begin
 end;
 
 procedure TNewPackageExpt.NewDefaultModule;
-begin (BorlandIDEServices as IOTAModuleServices)
-  .CreateModule(TPackageExportModule.Create);
+begin
+  (BorlandIDEServices as IOTAModuleServices).CreateModule(TPackageExportModule.Create);
 end;
 
 procedure TNewPackageExpt.NewDefaultProjectModule(const Project: IOTAProject);
 begin
   // 添加包引用在这里加才有效，在NewProjectResource无效....
   Project.AddFile('Core.dcp', False);
-  Project.AddFile('Base.dcp', False);
+  //Project.AddFile('Base.dcp', False);
 end;
 
 function TNewPackageExpt.NewOptionSource(const ProjectName: string): IOTAFile;
@@ -384,39 +384,77 @@ end;
 function TPackageExportModule.NewImplSource(const ModuleIdent, FormIdent,
   AncestorIdent: string): IOTAFile;
 var
-  s: String;
+  s,ClsName: String;
 begin
-  s := 'unit ' + ModuleIdent + ';' + #13#10 + #13#10 + 'interface' + #13#10 +
-    #13#10 + 'uses SysUtils,RegIntf,RegPluginIntf;' + #13#10 + #13#10 +
-    'procedure InstallPackage(Reg:IRegistry);//安装包' + #13#10 +
-    'procedure UnInstallPackage(Reg:IRegistry);//卸载包' + #13#10 +
-    'procedure RegisterPlugIn(Reg:IRegPlugin);//注册插件'#13#10 + #13#10 +
-    'exports' + #13#10 + '  InstallPackage,' + #13#10 +
-    '  UnInstallPackage,' + #13#10 + '  RegisterPlugIn;' + #13#10 + #13#10 +
-    'implementation' + #13#10 + #13#10 + 'uses MenuRegIntf;' + #13#10 +
-    #13#10 + 'const' + #13#10 +
-    '  InstallKey=''SYSTEM\LOADPACKAGE\USER'';//这里要改成相应的KEY' + #13#10 +
-    '  ValueKey=''Package=%s;load=True'';' + #13#10 + #13#10 +
-    'procedure InstallPackage(Reg:IRegistry);' + #13#10 +
-    'var ModuleFullName,ModuleName,Value:String;' + #13#10 + 'begin' + #13#10 +
-    '  //注册包' + #13#10 + '  if Reg.OpenKey(InstallKey,True) then' + #13#10 +
-    '  begin' + #13#10 +
-    '    ModuleFullName:=SysUtils.GetModuleName(HInstance);' + #13#10 +
-    '    ModuleName:=ExtractFileName(ModuleFullName); ' + #13#10 +
-    '    Value:=Format(ValueKey,[ModuleFullName]); ' + #13#10 +
-    '    Reg.WriteString(ModuleName,Value);' + #13#10 + '    Reg.SaveData;' +
-    #13#10 + '  end;' + #13#10 + 'end;' + #13#10 + #13#10 +
-    'procedure UnInstallPackage(Reg:IRegistry);' + #13#10 +
-    'var ModuleName:String;' + #13#10 + 'begin' + #13#10 + '  //取消注册包' +
-    #13#10 + '  if Reg.OpenKey(InstallKey) then' + #13#10 + '  begin' +
-    #13#10 +
-    '    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance)); ' +
-    #13#10 + '    if Reg.DeleteValue(ModuleName) then' + #13#10 +
-    '      Reg.SaveData;' + #13#10 + '  end;' + #13#10 + 'end;' + #13#10 +
-    #13#10 + 'procedure RegisterPlugIn(Reg:IRegPlugin);' + #13#10 + 'begin' +
-    #13#10 + '  //这里注册插件(TPlugin)类...' + #13#10 + 'end;' + #13#10 + #13#10 +
-    #13#10 + 'initialization' + #13#10 + #13#10 + 'finalization' + #13#10 +
-    #13#10 + 'end.';
+  ClsName:='TMyPlugin';
+  s:='unit '+ModuleIdent+';'+#13#10+#13#10
+    +'interface'+#13#10+#13#10
+    +'uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;'+#13#10+#13#10
+    +'Type'+#13#10
+    +'  '+ClsName+'=Class(TPlugin)'+#13#10
+    +'  private '+#13#10
+    +'  public '+#13#10
+    +'    Constructor Create; override;'+#13#10
+    +'    Destructor Destroy; override;'+#13#10+#13#10
+    +'    procedure Init; override;'+#13#10
+    +'    procedure final; override;'+#13#10
+    +'    procedure Register(Flags: Integer; Intf: IInterface); override;'+#13#10+#13#10
+    +'    class procedure RegisterModule(Reg:IRegistry);override;'+#13#10
+    +'    class procedure UnRegisterModule(Reg:IRegistry);override;'+#13#10
+    +'  End;'+#13#10+#13#10
+    +'implementation'+#13#10+#13#10
+    +'const'+#13#10
+    +'  InstallKey=''SYSTEM\LOADMODULE\USER'';'+#13#10
+    +'  ValueKey=''Module=%s;load=True'';'+#13#10+#13#10
+    +'{ '+ClsName+' }'+#13#10+#13#10
+    +'constructor '+ClsName+'.Create;'+#13#10
+    +'begin '+#13#10
+    +'  inherited;'+#13#10+#13#10
+    +'end;'+#13#10+#13#10
+    +'destructor '+ClsName+'.Destroy;'+#13#10
+    +'begin'+#13#10+#13#10
+    +'  inherited;'+#13#10
+    +'end;'+#13#10+#13#10
+    +'procedure '+ClsName+'.final;'+#13#10
+    +'begin'+#13#10
+    +'  inherited;'+#13#10+#13#10
+    +'end;'+#13#10+#13#10
+    +'procedure '+ClsName+'.Init;'+#13#10
+    +'begin'+#13#10
+    +'  inherited;'+#13#10+#13#10
+    +'end;'+#13#10+#13#10
+    +'procedure '+ClsName+'.Register(Flags: Integer; Intf: IInterface);'+#13#10
+    +'begin'+#13#10
+    +'  inherited;'+#13#10+#13#10
+    +'end;'+#13#10+#13#10
+    +'class procedure '+ClsName+'.RegisterModule(Reg: IRegistry);'+#13#10
+    +'var ModuleFullName,ModuleName,Value:String;'+#13#10
+    +'begin'+#13#10
+    +'  //注册模块'+#13#10
+    +'  if Reg.OpenKey(InstallKey,True) then '+#13#10
+    +'  begin '+#13#10
+    +'    ModuleFullName:=SysUtils.GetModuleName(HInstance);'+#13#10
+    +'    ModuleName:=ExtractFileName(ModuleFullName);'+#13#10
+    +'    Value:=Format(ValueKey,[ModuleFullName]); '+#13#10
+    +'    Reg.WriteString(ModuleName,Value); '+#13#10
+    +'    Reg.SaveData; '+#13#10
+    +'  end;'+#13#10
+    +'end;'+#13#10+#13#10
+    +'class procedure '+ClsName+'.UnRegisterModule(Reg: IRegistry);'+#13#10
+    +'var ModuleName:String; '+#13#10
+    +'begin '+#13#10
+    +'  //取消注册模块'+#13#10
+    +'  if Reg.OpenKey(InstallKey) then'+#13#10
+    +'  begin '+#13#10
+    +'    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));'+#13#10
+    +'    if Reg.DeleteValue(ModuleName) then '+#13#10
+    +'    Reg.SaveData;'+#13#10
+    +'  end;'+#13#10
+    +'end; '+#13#10+#13#10
+    +'initialization'+#13#10
+    +'  RegisterPluginClass('+ClsName+');'+#13#10
+    +'finalization'+#13#10+#13#10
+    +'end.'+#13#10;
   Result := StringToIOTAFile(s);
 end;
 
