@@ -24,7 +24,7 @@ Exports
 
 
 implementation
-uses Dialogs;
+
 var FPluginClass:TPluginClass;
 
 procedure RegisterPluginClass(PluginClass:TPluginClass);
@@ -37,7 +37,6 @@ end;
 
 procedure InstallModule(Reg:IRegistry);
 begin
-  showmessage('a');
   if FPluginClass<>nil then
     FPluginClass.RegisterModule(Reg);
 end;
