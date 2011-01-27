@@ -51,6 +51,9 @@
 			<Projects Include="..\framework\ConfigTool\ConfigTool.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\framework\IDEWiz\IDEWiz.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -203,14 +206,23 @@
 		<Target Name="ConfigTool:Make">
 			<MSBuild Targets="Make" Projects="..\framework\ConfigTool\ConfigTool.dproj"/>
 		</Target>
+		<Target Name="IDEWiz">
+			<MSBuild Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Clean">
+			<MSBuild Targets="Clean" Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
+		</Target>
+		<Target Name="IDEWiz:Make">
+			<MSBuild Targets="Make" Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="MainAPP;MainAPP2;Core;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer;Test3;DllModule;ConfigTool"/>
+			<CallTarget Targets="MainAPP;MainAPP2;Core;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer;Test3;DllModule;ConfigTool;IDEWiz"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Core:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean;Test3:Clean;DllModule:Clean;ConfigTool:Clean"/>
+			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Core:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean;Test3:Clean;DllModule:Clean;ConfigTool:Clean;IDEWiz:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Core:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make;Test3:Make;DllModule:Make;ConfigTool:Make"/>
+			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Core:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make;Test3:Make;DllModule:Make;ConfigTool:Make;IDEWiz:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

@@ -75,8 +75,8 @@ const
           +'bGIsiIAIfyLCYiwAAAj3YiIiIAAAAI98IiJAAAAACIfGiAAAAAAACIgAAAAA/hAAAP4QAAD+EAAA'
           +'+DkAAOA5AADAEAAAgAAAAIAAAAAAAAAAAAAAAAAAAACADwAAgA8AAMAfAADgPwAA+P8AAA==';
 
-  InstallKey = 'SYSTEM\LOADPACKAGE\USER';
-  ValueKey = 'Package=%s;load=True';
+  InstallKey = 'SYSTEM\LOADMODULE\USER';
+  ValueKey = 'Module=%s;load=True';
 { TTest2Plugin }
 
 procedure TTest2Plugin.Register(Flags: Integer; Intf: IInterface);
