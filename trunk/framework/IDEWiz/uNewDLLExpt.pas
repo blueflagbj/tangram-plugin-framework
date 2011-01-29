@@ -110,7 +110,7 @@ implementation
 uses uExptConst;
 
 const
-  DLLName = 'NewDLL.dll';
+  DLLName = 'NewDLL.dpr';
 
 procedure RegNewDLLExpt;
 begin
@@ -182,7 +182,7 @@ end;
 
 function TNewDLLExpt.GetGlyph: Cardinal;
 begin
-  Result := LoadIcon(HInstance, 'P');//加载图标
+  Result := LoadIcon(HInstance, 'D');//加载图标
 end;
 
 function TNewDLLExpt.GetIDString: string;
@@ -262,7 +262,11 @@ end;
 
 procedure TNewDLLExpt.NewProjectResource(const Project: IOTAProject);
 begin
-
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.AsBoolean['UsePackages']:=True;
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.Value['DCC_UsePackage']:='vcl;rtl;Core;';
+   //D2009以上下面方法不能用了
+ // Project.ProjectOptions.Values['UsePackages']:=True;
+  //Project.ProjectOptions.Values['Packages']:='rtl;Core';
 end;
 
 function TNewDLLExpt.NewProjectSource(const ProjectName: string): IOTAFile;

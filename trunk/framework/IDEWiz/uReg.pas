@@ -7,14 +7,15 @@ procedure Register;
 implementation
 
 uses uNewPackageExpt,uImpIntfExpt,uNewFormExpt,uContainPackageWiz,
-     uNewDLLExpt;
+     uNewDLLExpt,uHostAppExpt;
 
 procedure Register;
 begin
+  RegNewHostExpt;
   RegNewDLLExpt;
   RegNewPackageExpt;
   RegImpIntfExpt;
-  RegNewFormExpt;
+  //RegNewFormExpt;
   RegContainPackageWiz
 end;
 
