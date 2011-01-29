@@ -21,7 +21,7 @@ Type
   IModuleInfo=Interface
   ['{6911685D-171C-4262-9506-702080533F4C}']
     procedure GetModuleInfo(ModuleInfoGetter:IModuleInfoGetter);
-    procedure PluginRegister(Flags:Integer;Intf:IInterface);
+    procedure PluginNotify(Flags:Integer;Intf:IInterface);
   End;
 implementation
 

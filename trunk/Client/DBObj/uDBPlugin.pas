@@ -13,7 +13,7 @@ Type
 
     procedure Init; override;
     procedure final; override;
-    procedure Register(Flags: Integer; Intf: IInterface); override;
+    procedure Notify(Flags: Integer; Intf: IInterface); override;
 
     class procedure RegisterModule(Reg:IRegistry);override;
     class procedure UnRegisterModule(Reg:IRegistry);override;
@@ -50,7 +50,7 @@ begin
 
 end;
 
-procedure TDBPlugin.Register(Flags: Integer; Intf: IInterface);
+procedure TDBPlugin.Notify(Flags: Integer; Intf: IInterface);
 begin
   inherited;
 
