@@ -54,7 +54,7 @@ Type
     function _Release: Integer; stdcall;
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
-    procedure PluginRegister(Flags: Integer; Intf: IInterface);
+    procedure PluginNotify(Flags: Integer; Intf: IInterface);
     { ISvcInfo }
     function GetModuleName: String;
     function GetTitle: String;
@@ -238,7 +238,7 @@ begin
   end;
 end;
 
-procedure TModuleMgr.PluginRegister(Flags: Integer; Intf: IInterface);
+procedure TModuleMgr.PluginNotify(Flags: Integer; Intf: IInterface);
 var
   i: Integer;
   PluginLoader: TModuleLoader;
@@ -250,7 +250,7 @@ begin
       Continue;
 
     try
-      PluginLoader.Plugin.Register(Flags, Intf);
+      PluginLoader.Plugin.Notify(Flags, Intf);
     except
       on E: Exception do
         WriteErrFmt('处理插件Register方法出错([%s])：%s',

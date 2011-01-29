@@ -27,7 +27,7 @@ Type
 
     procedure Init; virtual;
     procedure final; virtual;
-    procedure Register(Flags: Integer; Intf: IInterface); virtual;
+    procedure Notify(Flags: Integer; Intf: IInterface); virtual;
 
     class procedure RegisterModule(Reg:IRegistry);virtual;
     class procedure UnRegisterModule(Reg:IRegistry);virtual;
@@ -76,7 +76,7 @@ begin
 
 end;
 
-procedure TPlugin.Register(Flags: Integer; Intf: IInterface);
+procedure TPlugin.Notify(Flags: Integer; Intf: IInterface);
 begin
 
 end;
