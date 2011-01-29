@@ -41,6 +41,7 @@ contains
   uExptConst in 'uExptConst.pas',
   uSelPackages in 'uSelPackages.pas' {frmSelPackages},
   uContainPackageWiz in 'uContainPackageWiz.pas',
-  uNewDLLExpt in 'uNewDLLExpt.pas';
+  uNewDLLExpt in 'uNewDLLExpt.pas',
+  uHostAppExpt in 'uHostAppExpt.pas';
 
 end.
