@@ -194,7 +194,7 @@ function TImpIntfExpt.GetOwner: IOTAModule;
 begin
   Result:=ToolsAPI.GetActiveProject;
   if (Result = nil) then
-    Result := GetFirstModuleSupporting(IOTAProject) as IOTAProject;
+    Result := GetFirstModuleSupporting(IOTAProject) as IOTAModule;
 end;
 
 function TImpIntfExpt.GetPage: string;

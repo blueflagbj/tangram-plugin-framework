@@ -13,7 +13,8 @@ uses
 
 Type
   TNewHostExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
-    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50) //
+    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50,
+    IOTAProjectCreator80) //
   private
   public
     constructor Create;
@@ -58,6 +59,8 @@ Type
     { Called to create a new default module(s) for the given project.  This
       interface method is the preferred mechanism. }
     procedure NewDefaultProjectModule(const Project: IOTAProject);
+    {IOTAProjectCreator80}
+    function GetProjectPersonality: string;
   end;
 
   THostExportModule = Class(TInterfacedObject, IOTACreator, IOTAModuleCreator)
@@ -109,7 +112,8 @@ implementation
 uses uExptConst;
 
 const
-  HostName = 'NewHostApp.dpr';
+  HostName     = 'NewHostApp.dpr';
+  MainFormName ='FrmMain';//主窗体名称
 
 procedure RegNewHostExpt;
 begin
@@ -145,8 +149,8 @@ begin
 end;
 
 procedure TNewHostExpt.Execute;
-begin (BorlandIDEServices as IOTAModuleServices)
-  .CreateModule(self);
+begin
+ (BorlandIDEServices as IOTAModuleServices).CreateModule(self);
 end;
 
 function TNewHostExpt.GetAuthor: string;
@@ -224,6 +228,11 @@ begin
   Result := PageName;
 end;
 
+function TNewHostExpt.GetProjectPersonality: string;
+begin
+  Result:= sDelphiPersonality;
+end;
+
 function TNewHostExpt.GetShowSource: Boolean;
 begin
   Result := True;
@@ -275,7 +284,11 @@ begin
     + 'uses' + #13#10
     + 'uTangramFramework;' + #13#10
     + '{$R *.res}' + #13#10 + #13#10
-    + 'begin ' + #13#10
+    + 'begin ' + #13#10  //GetFormName
+    + '  Application.Initialize;'+#13#10
+    + '  Application.MainFormOnTaskbar := True; '+#13#10
+    //+ '  Application.CreateForm(T'+MainFormName+','+MainFormName+');'+#13#10 //这句会自动加上...
+    + '  Application.Run;'+#13#10
     + 'end.' + #13#10;
   Result := StringToIOTAFile(s);
 end;
@@ -309,7 +322,7 @@ end;
 
 function THostExportModule.GetFormName: string;
 begin
-  Result:='FrmMain';
+  Result:=MainFormName;
 end;
 
 function THostExportModule.GetImplFileName: string;
