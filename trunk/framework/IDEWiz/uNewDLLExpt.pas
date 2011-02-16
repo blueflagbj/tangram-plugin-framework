@@ -13,7 +13,8 @@ uses
 
 Type
   TNewDLLExpt = class(TInterfacedObject, IOTAWizard, IOTARepositoryWizard,
-    IOTAProjectWizard, IOTACreator, IOTAProjectCreator, IOTAProjectCreator50) //
+    IOTAProjectWizard, IOTACreator, IOTAProjectCreator,IOTAProjectCreator50,
+    IOTAProjectCreator80) //
   private
   public
     constructor Create;
@@ -58,6 +59,9 @@ Type
     { Called to create a new default module(s) for the given project.  This
       interface method is the preferred mechanism. }
     procedure NewDefaultProjectModule(const Project: IOTAProject);
+
+    {IOTAProjectCreator80}
+    function GetProjectPersonality: string;
   end;
 
   TDLLExportModule = Class(TInterfacedObject, IOTACreator,
@@ -225,6 +229,11 @@ begin
   Result:=PageName;
 end;
 
+function TNewDLLExpt.GetProjectPersonality: string;
+begin
+  Result:= sDelphiPersonality;
+end;
+
 function TNewDLLExpt.GetShowSource: Boolean;
 begin
   Result:=True;
@@ -334,6 +343,7 @@ begin
     Result := GetFirstModuleSupporting(IOTAProject) as IOTAProject;
 end;
 
+
 function TDLLExportModule.GetShowForm: Boolean;
 begin
   Result := False;
@@ -360,7 +370,7 @@ function TDLLExportModule.NewImplSource(const ModuleIdent, FormIdent,
 var
   s,ClsName: String;
 begin
-  ClsName:='TMyPlugin';
+  ClsName:='TUserPlugin';
   s:='unit '+ModuleIdent+';'+#13#10+#13#10
     +'interface'+#13#10+#13#10
     +'uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;'+#13#10+#13#10
@@ -372,32 +382,37 @@ begin
     +'    Destructor Destroy; override;'+#13#10+#13#10
     +'    procedure Init; override;'+#13#10
     +'    procedure final; override;'+#13#10
-    +'    procedure Register(Flags: Integer; Intf: IInterface); override;'+#13#10+#13#10
+    +'    procedure Notify(Flags: Integer; Intf: IInterface); override;'+#13#10+#13#10
     +'    class procedure RegisterModule(Reg:IRegistry);override;'+#13#10
     +'    class procedure UnRegisterModule(Reg:IRegistry);override;'+#13#10
     +'  End;'+#13#10+#13#10
     +'implementation'+#13#10+#13#10
+    +'uses SysSvc;'+#13#10+#13#10
     +'const'+#13#10
     +'  InstallKey=''SYSTEM\LOADMODULE\USER'';'+#13#10
     +'  ValueKey=''Module=%s;load=True'';'+#13#10+#13#10
     +'{ '+ClsName+' }'+#13#10+#13#10
     +'constructor '+ClsName+'.Create;'+#13#10
     +'begin '+#13#10
-    +'  inherited;'+#13#10+#13#10
+    +'  inherited;'+#13#10
+    +'  //当前模块加载后执行，不要在这里取接口...'+#13#10
     +'end;'+#13#10+#13#10
     +'destructor '+ClsName+'.Destroy;'+#13#10
-    +'begin'+#13#10+#13#10
+    +'begin'+#13#10
+    +'  //当前模块卸载前执行，不要在这里取接口...'+#13#10
+    +'  inherited;'+#13#10
+    +'end;'+#13#10+#13#10
+    +'procedure '+ClsName+'.Init;'+#13#10
+    +'begin'+#13#10
+    +'  //初始化，所有模块加载完成后会执行到这里，在这取接口是安全的...'+#13#10
     +'  inherited;'+#13#10
     +'end;'+#13#10+#13#10
     +'procedure '+ClsName+'.final;'+#13#10
     +'begin'+#13#10
-    +'  inherited;'+#13#10+#13#10
+    +'  //终始化，卸载模块前会执行到这里，这里取接口是安全的...'+#13#10
+    +'  inherited;'+#13#10
     +'end;'+#13#10+#13#10
-    +'procedure '+ClsName+'.Init;'+#13#10
-    +'begin'+#13#10
-    +'  inherited;'+#13#10+#13#10
-    +'end;'+#13#10+#13#10
-    +'procedure '+ClsName+'.Register(Flags: Integer; Intf: IInterface);'+#13#10
+    +'procedure '+ClsName+'.Notify(Flags: Integer; Intf: IInterface);'+#13#10
     +'begin'+#13#10
     +'  inherited;'+#13#10+#13#10
     +'end;'+#13#10+#13#10
