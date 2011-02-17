@@ -52,7 +52,7 @@
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
-			<DCCReference Include="Core.dcp"/>
+			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="Base64EncdDecd.pas"/>
 			<DCCReference Include="EncdDecdObj.pas"/>
 			<DCCReference Include="uEncdDecdPlugin.pas"/>

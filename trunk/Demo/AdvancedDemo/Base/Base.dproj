@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\Public;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\DCP;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>..\Public;..\Interfaces;..\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\Base.bpl</DCC_DependencyCheckOutputName>
@@ -118,7 +118,7 @@
 			<DelphiCompile Include="Base.dpk">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="Core.dcp"/>
+			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="vcl.dcp"/>
 			<DCCReference Include="dbrtl.dcp"/>

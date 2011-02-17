@@ -28,7 +28,7 @@ package MidasSupport;
 
 requires
   rtl,
-  Core,
+  Tangram_Core,
   Base,
   dbrtl,
   dsnap,

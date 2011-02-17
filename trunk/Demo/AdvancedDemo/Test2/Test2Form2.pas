@@ -55,7 +55,7 @@ var
 
 implementation
 uses _sys,TestIntf,MainFormIntf,RegIntf,DialogIntf,ProgressFormIntf,LogIntf,
-    EncdDecdIntf,SysSvc,SysInfoIntf,RemoteMethodIntf;
+    EncdDecdIntf,SysSvc,SysInfoIntf;//,RemoteMethodIntf
 
 const //È¨ÏÞµÄKEY
    Key1='{8453785E-7EB9-4DEE-B876-D0C3CD5EBC20}';
@@ -250,10 +250,10 @@ begin
 end;
 
 procedure TForm3.Button14Click(Sender: TObject);
-var Method:IRemoteMethod;
-    c:Integer;
+//var Method:IRemoteMethod;
+//    c:Integer;
 begin
-  c:=GetTickCount;
+{  c:=GetTickCount;
   Method:=SysService as IRemoteMethod;
 
   Method.MethodName:='TBusiness1.Return';
@@ -264,7 +264,7 @@ begin
     showmessage(Method.Param['Result']);
     //Button14.Caption:=Method.Param['a'];
 
-  end else Sys.Dialogs.ShowError(Method.Error);
+  end else Sys.Dialogs.ShowError(Method.Error);}
 end;
 
 procedure TForm3.Button15Click(Sender: TObject);

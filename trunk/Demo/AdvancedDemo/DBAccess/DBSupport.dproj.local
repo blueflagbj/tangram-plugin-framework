@@ -7,7 +7,7 @@
     <Transaction>2011-01-15 12:58:07.593.pas,F:\tangram-plugin-framework\Client\DBAccess\DBExport.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
-    <File Path="..\..\Client"/>
+    <File Path="..\..\AdvancedDemo"/>
     <File Path="..\Interfaces"/>
     <File Path="..\Interfaces\DBIntf.pas"/>
     <File Path="..\Interfaces\InvokeServerIntf.pas"/>

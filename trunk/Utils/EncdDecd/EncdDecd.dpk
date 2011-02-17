@@ -27,7 +27,7 @@ package EncdDecd;
 
 requires
   rtl,
-  Core;
+  Tangram_Core;
 
 contains
   Base64EncdDecd in 'Base64EncdDecd.pas',

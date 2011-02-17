@@ -27,7 +27,7 @@ package test2;
 {$IMPLICITBUILD OFF}
 
 requires
-  Core,
+  Tangram_Core,
   Base,
   rtl,
   dbrtl,
@@ -43,7 +43,6 @@ contains
   Test2DB in 'Test2DB.pas' {FrmTestDB},
   Test2FrameDB in 'Test2FrameDB.pas' {Frame3: TFrame},
   LoginForm in 'LoginForm.pas' {frm_Login},
-  ImpLoginIntf in 'ImpLoginIntf.pas',
-  RemoteMethodIntf in '..\..\MidServer\Interfaces\RemoteMethodIntf.pas';
+  ImpLoginIntf in 'ImpLoginIntf.pas';
 
 end.

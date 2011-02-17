@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>..\DCP;..\Interfaces;..\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\AuthorityCtrl.bpl</DCC_DependencyCheckOutputName>
@@ -98,7 +98,7 @@
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
-			<DCCReference Include="Core.dcp"/>
+			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="vcldb.dcp"/>
 			<DCCReference Include="..\Interfaces\AuthoritySvrIntf.pas"/>

@@ -9,9 +9,6 @@
 			<Projects Include="MainAPP2\MainAPP2.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\framework\Core\Core.dproj">
-				<Dependencies/>
-			</Projects>
 			<Projects Include="Base\Base.dproj">
 				<Dependencies/>
 			</Projects>
@@ -42,18 +39,6 @@
 			<Projects Include="MadisSvr\MidServer.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Test3\Test3.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="TestDLL\DllModule.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="..\framework\ConfigTool\ConfigTool.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="..\framework\IDEWiz\IDEWiz.dproj">
-				<Dependencies/>
-			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -79,15 +64,6 @@
 		</Target>
 		<Target Name="MainAPP2:Make">
 			<MSBuild Targets="Make" Projects="MainAPP2\MainAPP2.dproj"/>
-		</Target>
-		<Target Name="Core">
-			<MSBuild Projects="..\framework\Core\Core.dproj"/>
-		</Target>
-		<Target Name="Core:Clean">
-			<MSBuild Targets="Clean" Projects="..\framework\Core\Core.dproj"/>
-		</Target>
-		<Target Name="Core:Make">
-			<MSBuild Targets="Make" Projects="..\framework\Core\Core.dproj"/>
 		</Target>
 		<Target Name="Base">
 			<MSBuild Projects="Base\Base.dproj"/>
@@ -179,50 +155,14 @@
 		<Target Name="MidServer:Make">
 			<MSBuild Targets="Make" Projects="MadisSvr\MidServer.dproj"/>
 		</Target>
-		<Target Name="Test3">
-			<MSBuild Projects="Test3\Test3.dproj"/>
-		</Target>
-		<Target Name="Test3:Clean">
-			<MSBuild Targets="Clean" Projects="Test3\Test3.dproj"/>
-		</Target>
-		<Target Name="Test3:Make">
-			<MSBuild Targets="Make" Projects="Test3\Test3.dproj"/>
-		</Target>
-		<Target Name="DllModule">
-			<MSBuild Projects="TestDLL\DllModule.dproj"/>
-		</Target>
-		<Target Name="DllModule:Clean">
-			<MSBuild Targets="Clean" Projects="TestDLL\DllModule.dproj"/>
-		</Target>
-		<Target Name="DllModule:Make">
-			<MSBuild Targets="Make" Projects="TestDLL\DllModule.dproj"/>
-		</Target>
-		<Target Name="ConfigTool">
-			<MSBuild Projects="..\framework\ConfigTool\ConfigTool.dproj"/>
-		</Target>
-		<Target Name="ConfigTool:Clean">
-			<MSBuild Targets="Clean" Projects="..\framework\ConfigTool\ConfigTool.dproj"/>
-		</Target>
-		<Target Name="ConfigTool:Make">
-			<MSBuild Targets="Make" Projects="..\framework\ConfigTool\ConfigTool.dproj"/>
-		</Target>
-		<Target Name="IDEWiz">
-			<MSBuild Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
-		</Target>
-		<Target Name="IDEWiz:Clean">
-			<MSBuild Targets="Clean" Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
-		</Target>
-		<Target Name="IDEWiz:Make">
-			<MSBuild Targets="Make" Projects="..\framework\IDEWiz\IDEWiz.dproj"/>
-		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="MainAPP;MainAPP2;Core;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer;Test3;DllModule;ConfigTool;IDEWiz"/>
+			<CallTarget Targets="MainAPP;MainAPP2;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Core:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean;Test3:Clean;DllModule:Clean;ConfigTool:Clean;IDEWiz:Clean"/>
+			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Core:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make;Test3:Make;DllModule:Make;ConfigTool:Make;IDEWiz:Make"/>
+			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>
