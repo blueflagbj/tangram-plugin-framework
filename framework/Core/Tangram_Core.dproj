@@ -1,11 +1,11 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{76917a77-da88-46d6-914e-199e35cd89ae}</ProjectGuid>
-			<MainSource>Sys.dpk</MainSource>
+			<ProjectGuid>{42d4e084-3800-4b34-8f99-46841982213f}</ProjectGuid>
+			<MainSource>Tangram_Core.dpk</MainSource>
 			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 			<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-			<DCC_DependencyCheckOutputName>..\编译\Sys.bpl</DCC_DependencyCheckOutputName>
+			<DCC_DependencyCheckOutputName>..\编译\Core.bpl</DCC_DependencyCheckOutputName>
 			<ProjectVersion>12.0</ProjectVersion>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 		</PropertyGroup>
@@ -23,14 +23,12 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>..\DCP;..\Interfaces;..\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_BplOutput>..\Bin</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
-			<DCC_BplOutput>..\bin\</DCC_BplOutput>
-			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
-			<DCC_DependencyCheckOutputName>..\bin\Sys.bpl</DCC_DependencyCheckOutputName>
-			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-			<DCC_Description>系统包</DCC_Description>
+			<DCC_DependencyCheckOutputName>..\Bin\Tangram_Core.bpl</DCC_DependencyCheckOutputName>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_Description>框架核心包</DCC_Description>
+			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 			<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 			<GenDll>true</GenDll>
 			<DesignOnlyPackage>false</DesignOnlyPackage>
@@ -41,13 +39,23 @@
 			<DCC_DebugInformation>False</DCC_DebugInformation>
 			<DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
 			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_ObjOutput>$(PlatFormPath)\DCU</DCC_ObjOutput>
+			<DCC_HppOutput>$(PlatFormPath)\DCU</DCC_HppOutput>
+			<DCC_BplOutput>..\bin\</DCC_BplOutput>
+			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
+			<DCC_UnitSearchPath>$(PlatFormPath)\DCU;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_ResourcePath>$(PlatFormPath)\接口;$(PlatFormPath)\DCU;$(DCC_ResourcePath)</DCC_ResourcePath>
+			<DCC_ObjPath>$(PlatFormPath)\接口;$(PlatFormPath)\DCU;$(DCC_ObjPath)</DCC_ObjPath>
+			<DCC_IncludePath>$(PlatFormPath)\接口;$(PlatFormPath)\DCU;$(DCC_IncludePath)</DCC_IncludePath>
 			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2)'!=''">
 			<Version>7.0</Version>
-			<DCC_ResourcePath>$(PlatFormPath)\接口;$(PlatFormPath)\公共;$(DCC_ResourcePath)</DCC_ResourcePath>
-			<DCC_ObjPath>$(PlatFormPath)\接口;$(PlatFormPath)\公共;$(DCC_ObjPath)</DCC_ObjPath>
-			<DCC_IncludePath>$(PlatFormPath)\接口;$(PlatFormPath)\公共;$(DCC_IncludePath)</DCC_IncludePath>
+			<DCC_BplOutput>..\bin\</DCC_BplOutput>
+			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
+			<DCC_ResourcePath>$(PlatFormPath)\接口;$(DCC_ResourcePath)</DCC_ResourcePath>
+			<DCC_ObjPath>$(PlatFormPath)\接口;$(DCC_ObjPath)</DCC_ObjPath>
+			<DCC_IncludePath>$(PlatFormPath)\接口;$(DCC_IncludePath)</DCC_IncludePath>
 		</PropertyGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
@@ -55,6 +63,7 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<Parameters>
+						<Parameters Name="HostApplication">$(PlatFormPath)\Client\bin\MainApp2.exe</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
@@ -62,8 +71,8 @@
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
-						<VersionInfo Name="MajorVer">1</VersionInfo>
-						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="MajorVer">2</VersionInfo>
+						<VersionInfo Name="MinorVer">3</VersionInfo>
 						<VersionInfo Name="Release">0</VersionInfo>
 						<VersionInfo Name="Build">0</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
@@ -75,41 +84,51 @@
 						<VersionInfo Name="CodePage">936</VersionInfo>
 					</VersionInfo>
 					<VersionInfoKeys>
-						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="CompanyName">wei</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
-						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="FileVersion">2.3.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName">Core包</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
-						<VersionInfoKeys Name="ProductName"/>
-						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
-						<VersionInfoKeys Name="Comments"/>
+						<VersionInfoKeys Name="ProductName">tangram plugin framework</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">2.3.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments">框架核心包</VersionInfoKeys>
 					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcboffice2k140.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcbofficexp140.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
 					<Source>
-						<Source Name="MainSource">Sys.dpk</Source>
+						<Source Name="MainSource">Tangram_Core.dpk</Source>
 					</Source>
 				</Delphi.Personality>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>
 		<ItemGroup>
-			<DelphiCompile Include="Sys.dpk">
+			<DelphiCompile Include="Tangram_Core.dpk">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
-			<DCCReference Include="Tangram_Core.dcp"/>
-			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="vcl.dcp"/>
-			<DCCReference Include="..\Interfaces\MenuEventBinderIntf.pas"/>
-			<DCCReference Include="MenuDispatcher.pas"/>
-			<DCCReference Include="SysPlugin.pas"/>
-			<DCCReference Include="SysAbout.pas">
-				<Form>Frm_About</Form>
-			</DCCReference>
-			<DCCReference Include="ViewSvcInfo.pas">
-				<Form>frm_SvcInfo</Form>
-			</DCCReference>
+			<DCCReference Include="xmlrtl.dcp"/>
+			<DCCReference Include="SysSvc.pas"/>
+			<DCCReference Include="SysFactoryMgr.pas"/>
+			<DCCReference Include="..\Interfaces\RegIntf.pas"/>
+			<DCCReference Include="..\Public\RegObj.pas"/>
+			<DCCReference Include="SysFactory.pas"/>
+			<DCCReference Include="..\Interfaces\SvcInfoIntf.pas"/>
+			<DCCReference Include="SysModuleMgr.pas"/>
+			<DCCReference Include="..\Interfaces\ModuleInfoIntf.pas"/>
+			<DCCReference Include="FactoryIntf.pas"/>
+			<DCCReference Include="uSvcInfoObj.pas"/>
+			<DCCReference Include="SysFactoryEx.pas"/>
+			<DCCReference Include="PluginBase.pas"/>
+			<DCCReference Include="uHashList.pas"/>
+			<DCCReference Include="..\..\Public\uTangramModule.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

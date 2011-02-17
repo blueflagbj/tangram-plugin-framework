@@ -28,7 +28,7 @@ package DBSupport;
 {$DEFINE DEBUG}
 
 requires
-  Core,
+  Tangram_Core,
   Base,
   rtl,
   dbrtl,

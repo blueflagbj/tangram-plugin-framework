@@ -23,7 +23,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(PlatFormPath)\Client\DCP;$(PlatFormPath)\Client\Interfaces;$(PlatFormPath)\Client\Public;$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>..\DCP;..\Interfaces;..\Public;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_BplOutput>..\bin\</DCC_BplOutput>
 			<DCC_DcpOutput>..\DCP\</DCC_DcpOutput>
 			<DCC_DependencyCheckOutputName>..\bin\test2.bpl</DCC_DependencyCheckOutputName>
@@ -110,7 +110,7 @@
 			<DelphiCompile Include="test2.dpk">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="Core.dcp"/>
+			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="dbrtl.dcp"/>
@@ -137,7 +137,6 @@
 				<Form>frm_Login</Form>
 			</DCCReference>
 			<DCCReference Include="ImpLoginIntf.pas"/>
-			<DCCReference Include="..\..\MidServer\Interfaces\RemoteMethodIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

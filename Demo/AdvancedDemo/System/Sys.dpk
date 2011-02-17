@@ -29,7 +29,7 @@ package Sys;
 
 requires
   rtl,
-  Core,
+  Tangram_Core,
   Base,
   vcl;
 

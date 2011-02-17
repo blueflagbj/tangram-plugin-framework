@@ -29,7 +29,7 @@ package Custom;
 requires
   rtl,
   vcl,
-  Core,
+  Tangram_Core,
   Base;
 
 contains

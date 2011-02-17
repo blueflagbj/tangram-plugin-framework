@@ -27,7 +27,7 @@ package test;
 {$IMPLICITBUILD OFF}
 
 requires
-  Core,
+  Tangram_Core,
   Base,
   rtl;
 

@@ -27,7 +27,7 @@ package Base;
 {$IMPLICITBUILD OFF}
 
 requires
-  Core,
+  Tangram_Core,
   rtl,
   vcl,
   dbrtl,

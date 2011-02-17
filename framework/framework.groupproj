@@ -3,7 +3,7 @@
 			<ProjectGuid>{28634015-A468-4FB3-B91B-92B5A4D42850}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="Core\Core.dproj">
+			<Projects Include="Core\Tangram_Core.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="ConfigTool\ConfigTool.dproj">
@@ -23,14 +23,14 @@
 				<Default.Personality/>
 			</BorlandProject>
 		</ProjectExtensions>
-		<Target Name="Core">
-			<MSBuild Projects="Core\Core.dproj"/>
+		<Target Name="Tangram_Core">
+			<MSBuild Projects="Core\Tangram_Core.dproj"/>
 		</Target>
-		<Target Name="Core:Clean">
-			<MSBuild Targets="Clean" Projects="Core\Core.dproj"/>
+		<Target Name="Tangram_Core:Clean">
+			<MSBuild Targets="Clean" Projects="Core\Tangram_Core.dproj"/>
 		</Target>
-		<Target Name="Core:Make">
-			<MSBuild Targets="Make" Projects="Core\Core.dproj"/>
+		<Target Name="Tangram_Core:Make">
+			<MSBuild Targets="Make" Projects="Core\Tangram_Core.dproj"/>
 		</Target>
 		<Target Name="ConfigTool">
 			<MSBuild Projects="ConfigTool\ConfigTool.dproj"/>
@@ -60,13 +60,13 @@
 			<MSBuild Targets="Make" Projects="IDEWiz\IDEWiz.dproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="Core;ConfigTool;PackageRequires;IDEWiz"/>
+			<CallTarget Targets="Tangram_Core;ConfigTool;PackageRequires;IDEWiz"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="Core:Clean;ConfigTool:Clean;PackageRequires:Clean;IDEWiz:Clean"/>
+			<CallTarget Targets="Tangram_Core:Clean;ConfigTool:Clean;PackageRequires:Clean;IDEWiz:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="Core:Make;ConfigTool:Make;PackageRequires:Make;IDEWiz:Make"/>
+			<CallTarget Targets="Tangram_Core:Make;ConfigTool:Make;PackageRequires:Make;IDEWiz:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

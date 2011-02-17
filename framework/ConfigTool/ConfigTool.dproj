@@ -26,7 +26,7 @@
 			<DCC_UnitSearchPath>$(PlatFormPath)\FrameWork\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<UsePackages>true</UsePackages>
 			<DCC_ExeOutput>..\bin\</DCC_ExeOutput>
-			<DCC_UsePackage>vclx;vcl;Core</DCC_UsePackage>
+			<DCC_UsePackage>vclx;vcl;Tangram_Core</DCC_UsePackage>
 			<DCC_DependencyCheckOutputName>..\bin\ConfigTool.exe</DCC_DependencyCheckOutputName>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
