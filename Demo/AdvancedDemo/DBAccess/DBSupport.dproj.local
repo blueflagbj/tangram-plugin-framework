@@ -7,6 +7,12 @@
     <Transaction>2011-01-15 12:58:07.593.pas,F:\tangram-plugin-framework\Client\DBAccess\DBExport.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="adortl.dcp"/>
+    <File Path="Base.dcp"/>
+    <File Path="dbrtl.dcp"/>
+    <File Path="dsnap.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="Tangram_Core.dcp"/>
     <File Path="..\..\AdvancedDemo"/>
     <File Path="..\Interfaces"/>
     <File Path="..\Interfaces\DBIntf.pas"/>
@@ -16,11 +22,5 @@
     <File Path="DBConfig.dfm"/>
     <File Path="DBConnection.pas"/>
     <File Path="uDBSupportPlugin.pas"/>
-    <File Path="adortl.dcp"/>
-    <File Path="Base.dcp"/>
-    <File Path="Core.dcp"/>
-    <File Path="dbrtl.dcp"/>
-    <File Path="dsnap.dcp"/>
-    <File Path="rtl.dcp"/>
   </ProjectSortOrder>
 </BorlandProject>

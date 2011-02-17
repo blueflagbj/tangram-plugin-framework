@@ -273,7 +273,7 @@ begin
  (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
   .BaseConfiguration.AsBoolean['UsePackages'] := True;
  (Project.ProjectOptions as IOTAProjectOptionsConfigurations)
-  .BaseConfiguration.Value['DCC_UsePackage'] := 'vcl;rtl;Core;';
+  .BaseConfiguration.Value['DCC_UsePackage'] := 'vcl;rtl;Tangram_Core;';
 end;
 
 function TNewHostExpt.NewProjectSource(const ProjectName: string): IOTAFile;

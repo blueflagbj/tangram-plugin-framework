@@ -261,7 +261,7 @@ end;
 
 procedure TNewDLLExpt.NewDefaultProjectModule(const Project: IOTAProject);
 begin
-  //Project.AddFile('Core.dcp', False);
+  //Project.AddFile('Tangram_Core.dcp', False);
 end;
 
 function TNewDLLExpt.NewOptionSource(const ProjectName: string): IOTAFile;
@@ -272,10 +272,10 @@ end;
 procedure TNewDLLExpt.NewProjectResource(const Project: IOTAProject);
 begin
   (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.AsBoolean['UsePackages']:=True;
-  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.Value['DCC_UsePackage']:='vcl;rtl;Core;';
+  (Project.ProjectOptions as IOTAProjectOptionsConfigurations).BaseConfiguration.Value['DCC_UsePackage']:='vcl;rtl;Tangram_Core;';
    //D2009以上下面方法不能用了
  // Project.ProjectOptions.Values['UsePackages']:=True;
-  //Project.ProjectOptions.Values['Packages']:='rtl;Core';
+  //Project.ProjectOptions.Values['Packages']:='rtl;Tangram_Core';
 end;
 
 function TNewDLLExpt.NewProjectSource(const ProjectName: string): IOTAFile;
