@@ -437,7 +437,7 @@ begin
     +'  begin '+#13#10
     +'    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));'+#13#10
     +'    if Reg.DeleteValue(ModuleName) then '+#13#10
-    +'    Reg.SaveData;'+#13#10
+    +'      Reg.SaveData;'+#13#10
     +'  end;'+#13#10
     +'end; '+#13#10+#13#10
     +'initialization'+#13#10
