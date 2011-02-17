@@ -261,7 +261,7 @@ end;
 procedure TNewPackageExpt.NewDefaultProjectModule(const Project: IOTAProject);
 begin
   // 添加包引用在这里加才有效，在NewProjectResource无效....
-  Project.AddFile('Core.dcp', False);
+  Project.AddFile('Tangram_Core.dcp', False);
   //Project.AddFile('Base.dcp', False);
 end;
 
@@ -272,7 +272,7 @@ end;
 
 procedure TNewPackageExpt.NewProjectResource(const Project: IOTAProject);
 begin
-  // Project.AddFile('Core.dcp',False);
+  // Project.AddFile('Tangram_Core.dcp',False);
   // Project.AddFile('Base.dcp',False);
 end;
 
