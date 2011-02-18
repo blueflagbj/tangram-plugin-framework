@@ -2,7 +2,8 @@ Program SimpleHost;
 
 uses
   uTangramFramework,
-  uMain in 'uMain.pas' {FrmMain};
+  uMain in 'uMain.pas' {FrmMain},
+  uIntf in '..\Interfaces\uIntf.pas';
 
 {$R *.res}
 
