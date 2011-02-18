@@ -53,6 +53,10 @@
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="ubplPlugin.pas"/>
+			<DCCReference Include="ufrmBPL.pas">
+				<Form>frmBPL</Form>
+			</DCCReference>
+			<DCCReference Include="uIntfObj3.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

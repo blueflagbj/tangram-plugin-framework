@@ -30,6 +30,8 @@ requires
   Tangram_Core;
 
 contains
-  ubplPlugin in 'ubplPlugin.pas';
+  ubplPlugin in 'ubplPlugin.pas',
+  ufrmBPL in 'ufrmBPL.pas' {frmBPL},
+  uIntfObj3 in 'uIntfObj3.pas';
 
 end.

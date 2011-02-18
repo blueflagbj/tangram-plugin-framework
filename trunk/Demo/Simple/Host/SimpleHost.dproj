@@ -50,6 +50,7 @@
 			<DCCReference Include="uMain.pas">
 				<Form>FrmMain</Form>
 			</DCCReference>
+			<DCCReference Include="..\Interfaces\uIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
