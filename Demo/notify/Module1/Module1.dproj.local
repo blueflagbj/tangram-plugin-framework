@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2011-02-21 23:18:25.062.pas,F:\tangram-plugin-framework\Demo\notify\Unit1.pas=F:\tangram-plugin-framework\Demo\notify\Module1\uModule1Plugin.pas</Transaction>
+    <Transaction>2011-02-21 23:18:29.890.dproj,F:\tangram-plugin-framework\Demo\notify\NewDLL.dproj=F:\tangram-plugin-framework\Demo\notify\Module1\Module1.dproj</Transaction>
+    <Transaction>2011-02-22 00:03:44.734.pas,F:\tangram-plugin-framework\Demo\notify\Module1\Unit1.pas=F:\tangram-plugin-framework\Demo\notify\Module1\uFrmEmail.pas</Transaction>
+    <Transaction>2011-02-22 00:03:44.734.dfm,F:\tangram-plugin-framework\Demo\notify\Module1\Unit1.dfm=F:\tangram-plugin-framework\Demo\notify\Module1\uFrmEmail.dfm</Transaction>
+    <Transaction>2011-02-22 00:04:15.359.pas,F:\tangram-plugin-framework\Demo\notify\Module1\uFrmEmail.pas=F:\tangram-plugin-framework\Demo\notify\Module1\uFrmSendEmail.pas</Transaction>
+    <Transaction>2011-02-22 00:04:15.359.dfm,F:\tangram-plugin-framework\Demo\notify\Module1\uFrmEmail.dfm=F:\tangram-plugin-framework\Demo\notify\Module1\uFrmSendEmail.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
