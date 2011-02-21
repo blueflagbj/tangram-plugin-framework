@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Doc Version="2.0">
+	<SYSTEM>
+		<LOADMODULE>
+			<USER MODULE1.DLL="Module=($APP_PATH)\MODULE1.DLL;Load=True" MODULE2.DLL="Module=($APP_PATH)\MODULE2.DLL;Load=True"/></LOADMODULE>
+	</SYSTEM>
+</Doc>

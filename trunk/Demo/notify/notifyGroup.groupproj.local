@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+	</Transactions>
+	<Default.Personality>
+		<Projects ActiveProject="Host.exe"/>
+	</Default.Personality>
+</BorlandProject>
