@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Doc Version="2.0">
+	<SYSTEM>
+		<LOADMODULE>
+			<USER MODULE1.DLL="Module=F:\tangram-plugin-framework\Demo\login&amp;splash\bin\Module1.dll;load=True"/></LOADMODULE>
+	</SYSTEM>
+</Doc>

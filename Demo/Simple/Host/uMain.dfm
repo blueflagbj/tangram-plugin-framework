@@ -1,6 +1,6 @@
 object FrmMain: TFrmMain
-  Left = 0
-  Top = 0
+  Left = 219
+  Top = 230
   Caption = 'Simple Demo'
   ClientHeight = 277
   ClientWidth = 551
@@ -11,6 +11,7 @@ object FrmMain: TFrmMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesigned
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
