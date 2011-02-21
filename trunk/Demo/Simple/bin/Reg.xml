@@ -2,6 +2,6 @@
 <Doc Version="2.0">
 	<SYSTEM>
 		<LOADMODULE>
-			<USER BPLMODULE1.BPL="Module=F:\tangram-plugin-framework\Demo\Simple\bin\bplModule1.bpl;load=True" DLLMODULE1.DLL="Module=F:\tangram-plugin-framework\Demo\Simple\bin\DllModule1.dll;load=True"/></LOADMODULE>
+			<USER BPLMODULE1.BPL="Module=($APP_PATH)\BPLMODULE1.BPL;Load=True" DLLMODULE1.DLL="Module=($APP_PATH)\DLLMODULE1.DLL;Load=True"/></LOADMODULE>
 	</SYSTEM>
 </Doc>
