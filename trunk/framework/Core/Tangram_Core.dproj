@@ -118,7 +118,7 @@
 			<DCCReference Include="SysSvc.pas"/>
 			<DCCReference Include="SysFactoryMgr.pas"/>
 			<DCCReference Include="..\Interfaces\RegIntf.pas"/>
-			<DCCReference Include="..\Public\RegObj.pas"/>
+			<DCCReference Include="..\Units\RegObj.pas"/>
 			<DCCReference Include="SysFactory.pas"/>
 			<DCCReference Include="..\Interfaces\SvcInfoIntf.pas"/>
 			<DCCReference Include="SysModuleMgr.pas"/>
@@ -128,7 +128,7 @@
 			<DCCReference Include="SysFactoryEx.pas"/>
 			<DCCReference Include="PluginBase.pas"/>
 			<DCCReference Include="uHashList.pas"/>
-			<DCCReference Include="..\..\Public\uTangramModule.pas"/>
+			<DCCReference Include="..\Units\uTangramModule.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

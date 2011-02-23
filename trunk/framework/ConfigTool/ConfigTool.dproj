@@ -108,7 +108,7 @@
 			<DCCReference Include="newKey.pas">
 				<Form>frm_newKey</Form>
 			</DCCReference>
-			<DCCReference Include="..\public\RegObj.pas"/>
+			<DCCReference Include="..\Units\RegObj.pas"/>
 			<DCCReference Include="ModuleMgr.pas">
 				<Form>frm_ModuleMgr</Form>
 			</DCCReference>
