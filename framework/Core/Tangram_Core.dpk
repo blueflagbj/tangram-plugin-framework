@@ -35,7 +35,7 @@ contains
   SysSvc in 'SysSvc.pas',
   SysFactoryMgr in 'SysFactoryMgr.pas',
   RegIntf in '..\Interfaces\RegIntf.pas',
-  RegObj in '..\Public\RegObj.pas',
+  RegObj in '..\Units\RegObj.pas',
   SysFactory in 'SysFactory.pas',
   SvcInfoIntf in '..\Interfaces\SvcInfoIntf.pas',
   SysModuleMgr in 'SysModuleMgr.pas',
@@ -45,7 +45,7 @@ contains
   SysFactoryEx in 'SysFactoryEx.pas',
   PluginBase in 'PluginBase.pas',
   uHashList in 'uHashList.pas',
-  uTangramModule in '..\..\Public\uTangramModule.pas';
+  uTangramModule in '..\Units\uTangramModule.pas';
 
 end.
 
