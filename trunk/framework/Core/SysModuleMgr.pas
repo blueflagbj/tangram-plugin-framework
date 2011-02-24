@@ -9,7 +9,7 @@ unit SysModuleMgr;
 interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
-  ModuleInfoIntf, SvcInfoIntf, PluginBase;
+  ModuleInfoIntf, SvcInfoIntf, PluginBase,ModuleLoaderIntf,StrUtils;
 
 Type
   TGetPluginClassPro = function :TPluginClass;
@@ -36,7 +36,8 @@ Type
     property ModuleType:TModuleType Read GetModuleType;
   End;
 
-  TModuleMgr = Class(TPersistent, IInterface, IModuleInfo, ISvcInfo)
+  TModuleMgr = Class(TPersistent, IInterface, IModuleInfo,
+    IModuleLoader, ISvcInfoEx)
   private
     SplashForm: ISplashForm;
     Tick: Integer;
@@ -45,7 +46,10 @@ Type
     function FormatPath(const s: string): string;
     procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
       const Key: String);
+    {IModuleLoader}
     procedure LoadModuleFromFile(const ModuleFile: string);
+    procedure LoadModulesFromDir(const Dir:String='');
+    procedure LoadFinish;
   protected
     FRefCount: Integer;
     { IInterface }
@@ -55,11 +59,8 @@ Type
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
     procedure PluginNotify(Flags: Integer; Intf: IInterface);
-    { ISvcInfo }
-    function GetModuleName: String;
-    function GetTitle: String;
-    function GetVersion: String;
-    function GetComments: String;
+    { ISvcInfoEx }
+    procedure GetSvcInfo(Intf:ISvcInfoGetter);
   public
     Constructor Create;
     Destructor Destroy; override;
@@ -72,7 +73,10 @@ Type
 implementation
 
 uses uConst, SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
-  SysFactory,IniFiles,RegObj,uSvcInfoObj;
+  SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj;
+
+{$WARN SYMBOL_DEPRECATED OFF}
+{$WARN SYMBOL_PLATFORM OFF}
 
 procedure CreateRegObj(out anInstance: IInterface);
 var RegFile,IniFile,AppPath:String;
@@ -152,24 +156,21 @@ end;
 
 { TModuleMgr }
 
-function TModuleMgr.GetComments: String;
+procedure TModuleMgr.GetSvcInfo(Intf: ISvcInfoGetter);
+var SvrInfo:TSvcInfoRec;
 begin
-  Result := '用于获取当前系统加载包的信息及初始化包。';
-end;
+  SvrInfo.ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+  SvrInfo.GUID:=GUIDToString(IModuleInfo);
+  SvrInfo.Title:='模块信息接口(IModuleInfo)';
+  SvrInfo.Version:='20100512.001';
+  SvrInfo.Comments:= '用于获取当前系统加载包的信息及初始化包。';
+  Intf.SvcInfo(SvrInfo);
 
-function TModuleMgr.GetModuleName: String;
-begin
-  Result := ExtractFileName(SysUtils.GetModuleName(HInstance));
-end;
-
-function TModuleMgr.GetTitle: String;
-begin
-  Result := '模块信息接口(IModuleInfo)';
-end;
-
-function TModuleMgr.GetVersion: String;
-begin
-  Result := '20100512.001';
+  SvrInfo.GUID:=GUIDToString(IModuleInfo);
+  SvrInfo.Title:='模块加载接口(IModuleLoader)';
+  SvrInfo.Version:='20110225.001';
+  SvrInfo.Comments:= '用户可以用此接口自主加载模块，不用框架默认的从注册表加载方式';
+  Intf.SvcInfo(SvrInfo);
 end;
 
 constructor TModuleMgr.Create;
@@ -177,7 +178,7 @@ begin
   FModuleList := TObjectList.Create(True);
 
   TIntfFactory.Create(IRegistry,@CreateRegObj);
-  TObjFactory.Create(IModuleInfo, self);
+  TObjFactoryEx.Create([IModuleInfo,IModuleLoader], self);
   TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
 end;
 
@@ -330,7 +331,6 @@ var
   RegIntf: IRegistry;
   ModuleFile: String;
 begin
-  // 加载其他包
   aList := TStringList.Create;
   try
     SplashForm := nil;
@@ -360,6 +360,45 @@ begin
     end;
   finally
     aList.Free;
+  end;
+end;
+
+procedure TModuleMgr.LoadFinish;
+begin
+  self.Init;
+end;
+
+procedure TModuleMgr.LoadModulesFromDir(const Dir: String);
+var DR: TSearchRec;
+    ZR: Integer;
+    TmpPath,FileExt,FullFileName:String;
+begin
+  if Dir='' then
+    TmpPath:=ExtractFilePath(ParamStr(0))
+  else begin
+    if RightStr(Dir,1)='\' then
+      TmpPath:=Dir
+    else tmpPath:=Dir+'\';
+  end;
+  ZR:=SysUtils.FindFirst(TmpPath+ '*.*', FaAnyfile, DR);
+  try
+    while ZR = 0 do
+    begin
+      if ((DR.Attr and FaDirectory <> FaDirectory)
+         and (DR.Attr and FaVolumeID <> FaVolumeID))
+         and (DR.Name <> '.') and (DR.Name <> '..') then
+      begin
+        FullFileName:=tmpPath+DR.Name;
+        FileExt:=ExtractFileExt(FullFileName);
+
+        if SameText(FileExt,'.dll') or
+           SameText(FileExt,'.bpl') then
+          self.LoadModuleFromFile(FullFileName);
+      end;
+      ZR := SysUtils.FindNext(DR);
+    end;//end while
+  finally
+    SysUtils.FindClose(DR);
   end;
 end;
 

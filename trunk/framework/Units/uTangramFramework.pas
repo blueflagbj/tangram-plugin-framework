@@ -15,6 +15,7 @@ Type
   TTangramApp=Class
   private
     FModuleMgr:TModuleMgr;
+    FLoadModuleFromRegistry: Boolean;
 
     function GetFormApp: TApplication;
     function GetTitle: string;
@@ -33,6 +34,8 @@ Type
     property MainFormOnTaskbar:Boolean Read GetMainFormOnTaskbar Write SetMainFormOnTaskbar;
     Constructor Create;
     Destructor Destroy;override;
+
+    property LoadModuleFromRegistry:Boolean Read FLoadModuleFromRegistry Write FLoadModuleFromRegistry;
   end;
 var
   Application:TTangramApp;
@@ -42,6 +45,7 @@ implementation
 
 constructor TTangramApp.Create;
 begin
+  FLoadModuleFromRegistry:=True;
   FModuleMgr:=TModuleMgr.Create;
 end;
 
@@ -87,8 +91,11 @@ end;
 
 procedure TTangramApp.Run;
 begin
-  FModuleMgr.LoadModules;
-  FModuleMgr.Init;
+  if FLoadModuleFromRegistry then
+  begin
+    FModuleMgr.LoadModules;
+    FModuleMgr.Init;
+  end;
   Forms.Application.Run;
 end;
 

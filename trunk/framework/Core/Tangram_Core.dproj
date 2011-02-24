@@ -63,7 +63,6 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<Parameters>
-						<Parameters Name="HostApplication">$(PlatFormPath)\Client\bin\MainApp2.exe</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
@@ -129,6 +128,7 @@
 			<DCCReference Include="PluginBase.pas"/>
 			<DCCReference Include="uHashList.pas"/>
 			<DCCReference Include="..\Units\uTangramModule.pas"/>
+			<DCCReference Include="..\Interfaces\ModuleLoaderIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

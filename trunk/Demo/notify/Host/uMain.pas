@@ -21,9 +21,9 @@ type
     lst_sel: TListBox;
     pnl_view: TPanel;
     procedure FormDestroy(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lst_selClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FCurrFrom:TForm;
     procedure load;
