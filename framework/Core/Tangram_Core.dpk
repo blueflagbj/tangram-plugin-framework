@@ -45,7 +45,8 @@ contains
   SysFactoryEx in 'SysFactoryEx.pas',
   PluginBase in 'PluginBase.pas',
   uHashList in 'uHashList.pas',
-  uTangramModule in '..\Units\uTangramModule.pas';
+  uTangramModule in '..\Units\uTangramModule.pas',
+  ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas';
 
 end.
 

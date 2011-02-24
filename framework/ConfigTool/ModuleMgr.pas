@@ -69,7 +69,6 @@ const
 procedure Tfrm_ModuleMgr.InstallModule(const ModuleFile: string);
 var HHandle:HMODULE;
     Pro_InstallModule:TPro_InstallModule;
-    PluginCls:TPluginClass;
     mType:TModuleType;
 begin
   mType:=self.ModuleType(ModuleFile);
