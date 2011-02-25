@@ -238,7 +238,13 @@ procedure TRegObj.LoadRegistryFile(const FileName: Widestring);
 begin
   Try
     FRegFile := FileName;
-    FXMLDoc := LoadXMLDocument(FileName);
+    if FileExists(FRegFile) then
+      FXMLDoc := LoadXMLDocument(FileName)
+    else begin
+      FXMLDoc:=NewXMLDocument;
+      FXMLDoc.DocumentElement:=FXMLDoc.CreateNode('Doc');
+      FXMLDoc.SaveToFile(FRegFile);
+    end;
   Except
     on E: Exception do
       Raise ERegistryException.CreateFmt('打开注册表出错：%s', [E.Message]);

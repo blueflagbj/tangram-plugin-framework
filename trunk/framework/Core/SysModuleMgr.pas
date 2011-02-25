@@ -86,7 +86,7 @@ begin
   IniFile:=AppPath+'Root.ini';
   ini:=TIniFile.Create(IniFile);
   try
-    RegFile:=AppPath+ini.ReadString('Default','Reg','');
+    RegFile:=AppPath+ini.ReadString('Default','Reg','Tangram.xml');
     anInstance:=TRegObj.Create;
     (anInstance as ILoadRegistryFile).LoadRegistryFile(RegFile);
   finally
