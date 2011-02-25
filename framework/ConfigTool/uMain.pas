@@ -339,22 +339,16 @@ begin
   IniFile:=AppPath+'Root.ini';
   ini:=TiniFile.Create(IniFile);
   try
-    RegFile:=AppPath+ini.ReadString('Default','Reg','');
-    if FileExists(RegFile) then
-    begin
-      Reg:=TRegObj.create;//GetRegObjIntf(self);
-      (Reg as ILoadRegistryFile).LoadRegistryFile(RegFile);
+    RegFile:=AppPath+ini.ReadString('Default','Reg','Tangram.XML');
+    Reg:=TRegObj.create;//GetRegObjIntf(self);
+    (Reg as ILoadRegistryFile).LoadRegistryFile(RegFile);
 
-      //在treeView列出所有注册表项
-      tv_reg.Items.BeginUpdate;
-      try
-        EumKeyInTree(nil,'');
-      finally
-        tv_reg.Items.EndUpdate;
-      end;
-    end else begin
-      MessageBox(self.Handle,pchar('注册表文件：'+RegFile+'不存在！'),'错误',MB_OK+MB_ICONERROR);
-      Application.Terminate;
+    //在treeView列出所有注册表项
+    tv_reg.Items.BeginUpdate;
+    try
+      EumKeyInTree(nil,'');
+    finally
+      tv_reg.Items.EndUpdate;
     end;
   finally
     ini.Free;
