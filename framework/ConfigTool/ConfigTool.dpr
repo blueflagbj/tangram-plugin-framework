@@ -1,7 +1,7 @@
 program ConfigTool;
 
 uses
-  Forms,
+  uTangramFrameWork,
   uMain in 'uMain.pas' {frm_Main},
   ABOUT in 'ABOUT.pas' {AboutBox},
   editValue in 'editValue.pas' {frm_EditValue},
@@ -20,6 +20,7 @@ begin
   ReportMemoryLeaksOnShutdown := DebugHook <> 0;
   Application.MainFormOnTaskbar := True;
   {$ENDIF}
+  Application.LoadModuleFromRegistry:=False;
   Application.HintHidePause:=1000*30;
   Application.Title := 'øÚº‹≈‰÷√π§æﬂ';
   Application.CreateForm(Tfrm_Main, frm_Main);

@@ -88,7 +88,7 @@ object AboutBox: TAboutBox
       Width = 161
       Height = 13
       AutoSize = False
-      Caption = 'v3.3(2010.05.16)'
+      Caption = 'v3.5(2011.02.27)'
       IsControl = True
     end
     object Copyright: TLabel
@@ -97,7 +97,7 @@ object AboutBox: TAboutBox
       Width = 169
       Height = 13
       AutoSize = False
-      Caption = #29256#26435#25152#26377' 2008 WZW'
+      Caption = #29256#26435#25152#26377' 2008 wei'
       IsControl = True
     end
     object Comments: TLabel
