@@ -35,7 +35,7 @@ contains
   SysSvc in 'SysSvc.pas',
   SysFactoryMgr in 'SysFactoryMgr.pas',
   RegIntf in '..\Interfaces\RegIntf.pas',
-  RegObj in '..\Units\RegObj.pas',
+  RegObj in 'RegObj.pas',
   SysFactory in 'SysFactory.pas',
   SvcInfoIntf in '..\Interfaces\SvcInfoIntf.pas',
   SysModuleMgr in 'SysModuleMgr.pas',

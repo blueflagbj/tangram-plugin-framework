@@ -10,8 +10,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls,RegIntf, StdCtrls, ImgList,StdVcl,AxCtrls,
-  IniFiles; 
+  Dialogs, Menus, ComCtrls, ExtCtrls,RegIntf, StdCtrls, ImgList,StdVcl,AxCtrls;
 type
   PNodeInfo=^RNodeInfo;
   RNodeInfo=Record
@@ -92,7 +91,7 @@ var
 
 implementation
 
-uses RegObj,editValue,newKey,ModuleMgr,About,MenuEditor,ToolEditor;
+uses SysSvc,editValue,newKey,ModuleMgr,About,MenuEditor,ToolEditor;
 {$R *.dfm}
 
 procedure Tfrm_Main.AddKey(node: TtreeNode);
@@ -332,26 +331,14 @@ begin
 end;
 
 procedure Tfrm_Main.FormCreate(Sender: TObject);
-var RegFile,IniFile,AppPath:string;
-    ini:TInifile;
 begin
-  AppPath:=ExtractFilePath(Paramstr(0));
-  IniFile:=AppPath+'Root.ini';
-  ini:=TiniFile.Create(IniFile);
+  //在treeView列出所有注册表项
+  Reg:=SysService as IRegistry;
+  tv_reg.Items.BeginUpdate;
   try
-    RegFile:=AppPath+ini.ReadString('Default','Reg','Tangram.XML');
-    Reg:=TRegObj.create;//GetRegObjIntf(self);
-    (Reg as ILoadRegistryFile).LoadRegistryFile(RegFile);
-
-    //在treeView列出所有注册表项
-    tv_reg.Items.BeginUpdate;
-    try
-      EumKeyInTree(nil,'');
-    finally
-      tv_reg.Items.EndUpdate;
-    end;
+    EumKeyInTree(nil,'');
   finally
-    ini.Free;
+    tv_reg.Items.EndUpdate;
   end;
 end;
 
