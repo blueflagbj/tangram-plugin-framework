@@ -72,11 +72,16 @@ Type
 
 implementation
 
-uses uConst, SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
+uses SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
   SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj;
 
 {$WARN SYMBOL_DEPRECATED OFF}
 {$WARN SYMBOL_PLATFORM OFF}
+const
+  Value_Module='Module';
+  Value_Load='LOAD';
+  SplashFormWaitTime=1500;
+  key_LoadModule='SYSTEM\LOADMODULE';
 
 procedure CreateRegObj(out anInstance: IInterface);
 var RegFile,IniFile,AppPath:String;
