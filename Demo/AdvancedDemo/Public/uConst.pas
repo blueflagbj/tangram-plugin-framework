@@ -13,10 +13,10 @@ const
   key_LoadModule='SYSTEM\LOADMODULE';//注册表加载模块键
   key_User='USER';//注册表用户自定义键
 
-  Value_Module='Module';//注册表关键字。。。
-  Value_Load='LOAD';//
+  //Value_Module='Module';//注册表关键字。。。
+  //Value_Load='LOAD';//
 
-  SplashFormWaitTime=1500;//Flash窗口最少等待时间(毫秒)
+  //SplashFormWaitTime=1500;//Flash窗口最少等待时间(毫秒)
 
   EncryptDefaultKey='aA#2%EF3x'; //默认加密键
 

@@ -54,7 +54,8 @@ begin
   try
     self.tv_Menu.Items.Clear;
     DisMenu;
-    self.tv_Menu.Items[0].Expanded:=True;
+    if self.tv_Menu.Items.Count>0 then
+      self.tv_Menu.Items[0].Expanded:=True;
   finally
     self.tv_Menu.Items.EndUpdate;
   end;
