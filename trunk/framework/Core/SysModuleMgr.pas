@@ -189,9 +189,6 @@ end;
 
 destructor TModuleMgr.Destroy;
 begin
-  //释放工厂里的对象实例
-  FactoryManager.ReleaseInstances;
-
   FModuleList.Free;
   inherited;
 end;
@@ -444,6 +441,9 @@ begin
       end;
     end;
   end;
+
+  //释放工厂里的对象实例
+  FactoryManager.ReleaseInstances;
 end;
 
 procedure TModuleMgr.WriteErrFmt(const err: String;
