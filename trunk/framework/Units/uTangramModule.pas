@@ -52,8 +52,8 @@ begin
   Result:=FPluginClass;
 end;
 
-initialization
-  FPluginClass:=nil;
-finalization
+//initialization
+//  FPluginClass:=nil;
+//finalization
 
 end.
