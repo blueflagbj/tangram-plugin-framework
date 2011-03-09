@@ -242,6 +242,7 @@ begin
       FXMLDoc := LoadXMLDocument(FileName)
     else begin
       FXMLDoc:=NewXMLDocument;
+      FXMLDoc.Encoding:='UTF-8';
       FXMLDoc.DocumentElement:=FXMLDoc.CreateNode('Doc');
       FXMLDoc.SaveToFile(FRegFile);
     end;

@@ -12,6 +12,7 @@ interface
 Type
   IModuleLoader=Interface
     ['{04EBD77D-1313-4469-B522-1ABC2A40DD49}']
+    procedure LoadBegin;
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;

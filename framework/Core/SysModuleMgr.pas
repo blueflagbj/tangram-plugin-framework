@@ -18,6 +18,7 @@ Type
 
   TModuleLoader = Class(TInterfacedObject)
   private
+    FLoadBatch:String;
     FModuleHandle: HMODULE;
     FModuleFileName: String;
     FPlugin: TPlugin;
@@ -27,13 +28,15 @@ Type
   protected
 
   public
-    Constructor Create(const mFile: String);
+    Constructor Create(const mFile: String;LoadBatch:String='');
     Destructor Destroy; override;
-    function ContainPlugin: Boolean;
 
-    property Plugin: TPlugin Read FPlugin;
     property ModuleFileName: String Read FModuleFileName;
     property ModuleType:TModuleType Read GetModuleType;
+
+    procedure ModuleNotify(Flags: Integer; Intf: IInterface);
+    procedure ModuleInit(const LoadBatch:String);
+    procedure ModuleFinal;
   End;
 
   TModuleMgr = Class(TPersistent, IInterface, IModuleInfo,
@@ -42,11 +45,13 @@ Type
     SplashForm: ISplashForm;
     Tick: Integer;
     FModuleList: TObjectList;
+    FLoadBatch:String;
     procedure WriteErrFmt(const err: String; const Args: array of const );
     function FormatPath(const s: string): string;
     procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
       const Key: String);
     {IModuleLoader}
+    procedure LoadBegin;
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
@@ -105,17 +110,13 @@ begin
 end;
 { TModuleLoader }
 
-function TModuleLoader.ContainPlugin: Boolean;
-begin
-  Result := FPlugin <> nil;
-end;
-
-constructor TModuleLoader.Create(const mFile: String);
+constructor TModuleLoader.Create(const mFile: String;LoadBatch:String='');
 var
   GetPluginClassPro: TGetPluginClassPro;
   PluginCls:TPluginClass;
 begin
   FPlugin := nil;
+  FLoadBatch:=LoadBatch;
   FModuleFileName := mFile;
   FModuleHandle := self.LoadModule;
   @GetPluginClassPro := GetProcAddress(FModuleHandle, 'GetPluginClass');
@@ -151,6 +152,27 @@ begin
   end;
 end;
 
+procedure TModuleLoader.ModuleFinal;
+begin
+  if FPlugin<>nil then
+    FPlugin.final;
+end;
+
+procedure TModuleLoader.ModuleInit(const LoadBatch: String);
+begin
+  if FPlugin<>nil then
+  begin
+    if self.FLoadBatch=LoadBatch then
+      FPlugin.Init;
+  end;
+end;
+
+procedure TModuleLoader.ModuleNotify(Flags: Integer; Intf: IInterface);
+begin
+  if FPlugin<>nil then
+    FPlugin.Notify(Flags,Intf);
+end;
+
 procedure TModuleLoader.UnLoadModule;
 begin
   case GetModuleType of
@@ -180,6 +202,7 @@ end;
 
 constructor TModuleMgr.Create;
 begin
+  FLoadBatch:='';
   FModuleList := TObjectList.Create(True);
 
   TIntfFactory.Create(IRegistry,@CreateRegObj);
@@ -249,11 +272,9 @@ begin
   for i := 0 to FModuleList.Count - 1 do
   begin
     PluginLoader := TModuleLoader(FModuleList[i]);
-    if not PluginLoader.ContainPlugin then
-      Continue;
 
     try
-      PluginLoader.Plugin.Notify(Flags, Intf);
+      PluginLoader.ModuleNotify(Flags, Intf);
     except
       on E: Exception do
         WriteErrFmt('处理插件Register方法出错([%s])：%s',
@@ -290,14 +311,12 @@ begin
   begin
     Try
       PluginLoader := TModuleLoader(FModuleList.Items[i]);
-      if not PluginLoader.ContainPlugin then
-        Continue;
 
       if Assigned(SplashForm) then
         SplashForm.loading(Format('正在初始化包[%s]',
             [ExtractFileName(PluginLoader.ModuleFileName)]));
 
-      PluginLoader.Plugin.Init;
+      PluginLoader.ModuleInit(self.FLoadBatch);
     Except
       on E: Exception do
       begin
@@ -365,6 +384,13 @@ begin
   end;
 end;
 
+procedure TModuleMgr.LoadBegin;
+var BatchID:TGUID;
+begin
+  if CreateGUID(BatchID)=S_OK then
+    self.FLoadBatch:=GUIDToString(BatchID);
+end;
+
 procedure TModuleMgr.LoadFinish;
 begin
   self.Init;
@@ -407,7 +433,7 @@ end;
 procedure TModuleMgr.LoadModuleFromFile(const ModuleFile: string);
 begin
   try
-    FModuleList.Add(TModuleLoader.Create(ModuleFile));
+    FModuleList.Add(TModuleLoader.Create(ModuleFile,self.FLoadBatch));
   Except
     on E: Exception do
     begin
@@ -432,13 +458,10 @@ begin
   for i := 0 to FModuleList.Count - 1 do
   begin
     ModuleLoader := TModuleLoader(FModuleList.Items[i]);
-    if ModuleLoader.ContainPlugin then
-    begin
-      try
-        ModuleLoader.Plugin.final;
-      Except
-        //处理...
-      end;
+    try
+      ModuleLoader.ModuleFinal;
+    Except
+      //处理...
     end;
   end;
 
