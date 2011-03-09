@@ -18,4 +18,6 @@ http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/%E9%85%8D%E7%BD%AE
 
   <b>三.安装IDE向导包</b><br>
   IDE向导包在.\framework\IDEWiz目录下,编译并安装它.安装完成后,在Delphi中点File->New->Other将看到tangram framework项目组,如图：<br>
-http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/IDE向导.JPG
+http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/IDE%E5%90%91%E5%AF%BC.JPG
+
+<br>
