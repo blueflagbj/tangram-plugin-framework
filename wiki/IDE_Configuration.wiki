@@ -15,3 +15,6 @@ $(tangram)\Utils\Interfaces;<br>
 
 如图：<br>
 http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/%E9%85%8D%E7%BD%AEIDE_%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84.jpg
+
+  <b>三.安装IDE向导包</b><br>
+  IDE向导包在.\framework\IDEWiz目录下,编译并安装它.安装完成后,在Delphi中点File->New->Other将看到tangram framework项目组,可以通过它方便的创建主程序或模块等.
