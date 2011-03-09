@@ -1,5 +1,5 @@
 #labels 配置IDE
-  解压后,把整个目录拷到一个地方,比如我这里是"F:\Tangram FrameWork",然后按照如下步骤配置开发环境,需要两步:<br>
+  解压后,把整个目录拷到一个地方,比如我这里是F:\Tangram-plugin-FrameWork,然后按照如下步骤配置开发环境,需要两步:<br>
   <b>一.增加系统环境变量</b><br>
     右击桌面"我的电脑"->"属性"->"高级"->"环境变量",在"系统变量"里找到PATH,双击在后面加上框架核心包编译的输出目录(注意用;号分隔),比如我这里是F:\tangram-plugin-framework\framework\bin<br>
   <b>二.配置IDE</b><br>
