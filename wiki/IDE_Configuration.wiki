@@ -4,7 +4,7 @@
     右击桌面"我的电脑"->"属性"->"高级"->"环境变量",在"系统变量"里找到PATH,双击在后面加上框架核心包编译的输出目录(注意用;号分隔),比如我这里是F:\tangram-plugin-framework\framework\bin<br>
   <b>二.配置IDE</b><br>
     点击Delphi(Delphi2010)菜单 "Tools"->"Options",在出现的Options对话框中选择左边树的"Environment variables"节点,在User Overrides里新增一个叫tangram的环境变量,变量的值为框架目录的路径,如下:
-http://hiphotos.baidu.com/0xcea4/pic/item/678da9181e1b3d1141a9ad6a.jpg
+http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/%E9%85%8D%E7%BD%AEIDE_%E5%A2%9E%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.jpg
 <br>
 接着点左边树"Library Win32"节点,在右边的Library Path输入框点编辑按扭(右边三点的那个按扭),在出现的Directories对话框里输入如下路径:
   <br>
@@ -13,4 +13,4 @@ $(tangram)\framework\Interfaces;<br>
 $(tangram)\framework\Units;<br>
 $(tangram)\Utils\Interfaces;<br>
 
-http://hiphotos.baidu.com/0xcea4/pic/item/da9d59a87af945a81c17a26a.jpg
+http://tangram-plugin-framework.googlecode.com/svn/trunk/Imgs/%E9%85%8D%E7%BD%AEIDE_%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84.jpg
