@@ -25,7 +25,6 @@ uses SysSvc,notifyIntf,uFrmSendEmail;
 
 const
   InstallKey='SYSTEM\LOADMODULE\USER';
-  ValueKey='Module=%s;load=True';
 
 { TUserModule }
 
@@ -62,30 +61,14 @@ begin
 end;
 
 class procedure TUserModule.RegisterModule(Reg: IRegistry);
-var ModuleFullName,ModuleName,Value:String;
 begin
-  //注册模块
-  if Reg.OpenKey(InstallKey,True) then 
-  begin 
-    ModuleFullName:=SysUtils.GetModuleName(HInstance);
-    ModuleName:=ExtractFileName(ModuleFullName);
-    Value:=Format(ValueKey,[ModuleFullName]); 
-    Reg.WriteString(ModuleName,Value); 
-    Reg.SaveData; 
-  end;
+  DefaultRegisterModule(Reg,InstallKey);
 end;
 
 class procedure TUserModule.UnRegisterModule(Reg: IRegistry);
-var ModuleName:String; 
-begin 
-  //取消注册模块
-  if Reg.OpenKey(InstallKey) then
-  begin 
-    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
-    if Reg.DeleteValue(ModuleName) then 
-      Reg.SaveData;
-  end;
-end; 
+begin
+  DefaultunRegisterModule(Reg,installKey);
+end;
 
 initialization
   RegisterModuleClass(TUserModule);
