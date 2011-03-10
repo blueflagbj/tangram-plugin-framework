@@ -48,7 +48,7 @@ begin
   if SysService.QueryInterface(IModuleInfo,Intf)=S_OK then
   begin
     self.lst_sel.Clear;
-    Intf.PluginNotify(NotifyFlag,self);
+    Intf.ModuleNotify(NotifyFlag,self);
   end;
 end;
 
