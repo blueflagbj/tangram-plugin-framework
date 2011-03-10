@@ -48,7 +48,7 @@
 			<DelphiCompile Include="DllModule1.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="udllPlugin.pas"/>
+			<DCCReference Include="udllModule.pas"/>
 			<DCCReference Include="uIntfObj1.pas"/>
 			<DCCReference Include="uFrmDLL.pas">
 				<Form>frmDLL</Form>

@@ -9,10 +9,10 @@ unit uAuthorityPlugin;
 interface
 
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+     uTangramModule,SysModule,RegIntf;
 
 Type
-  TAuthorityPlugin=Class(TPlugin)
+  TAuthorityPlugin=Class(TModule)
   private
     procedure RoleMgrClick(Sender:TObject);
     procedure UserMgrClick(Sender:TObject);
@@ -133,7 +133,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TAuthorityPlugin);
+  RegisterModuleClass(TAuthorityPlugin);
 finalization
 
 end.

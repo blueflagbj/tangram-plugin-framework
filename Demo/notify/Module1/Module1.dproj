@@ -48,10 +48,10 @@
 			<DelphiCompile Include="Module1.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="uModule1Plugin.pas"/>
 			<DCCReference Include="uFrmSendEmail.pas">
 				<Form>frmSendEmail</Form>
 			</DCCReference>
+			<DCCReference Include="uModule1.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

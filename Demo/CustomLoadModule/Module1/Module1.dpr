@@ -3,8 +3,8 @@ library Module1;
 {$R *.res}
 
 uses
-  uModule1Plugin in 'uModule1Plugin.pas',
-  uTestObj in 'uTestObj.pas';
+  uTestObj in 'uTestObj.pas',
+  uModule1 in 'uModule1.pas';
 
 begin
 end.

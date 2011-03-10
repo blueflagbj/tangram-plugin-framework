@@ -3,6 +3,6 @@
 	<Transactions>
 	</Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="Host.exe"/>
+		<Projects ActiveProject="Module1.dll"/>
 	</Default.Personality>
 </BorlandProject>

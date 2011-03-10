@@ -3,10 +3,10 @@ unit mPlugin;
 interface
 
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf,uDM,SysFactoryEx;
+     uTangramModule,SysModule,RegIntf,uDM,SysFactoryEx;
 
 Type
-  TmPlugin=Class(TPlugin)
+  TmPlugin=Class(TModule)
   private
     dm:Tdm;
     procedure SortCutClick(pIntf:IShortCutClick);
@@ -95,7 +95,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TmPlugin);
+  RegisterModuleClass(TmPlugin);
 finalization
 end.
  

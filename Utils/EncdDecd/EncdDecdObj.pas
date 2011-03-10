@@ -8,7 +8,7 @@ unit EncdDecdObj;
 
 interface
 
-uses SysUtils,Classes,Windows,EncdDecdIntf,uConst,SvcInfoIntf;
+uses SysUtils,Classes,Windows,EncdDecdIntf,SvcInfoIntf;
 
 Type
   TEncdDecdObj=Class(TInterfacedObject,IEncdDecd,ISvcInfo)
@@ -36,6 +36,7 @@ implementation
 uses SysFactory,Base64EncdDecd;
 
 const
+  EncryptDefaultKey='aAbcDe*1';
   ADVAPI32    = 'advapi32.dll';
   function CryptAcquireContext(phProv: PULONG; pszContainer: PAnsiChar; pszProvider: PAnsiChar; dwProvType: DWORD; dwFlags: DWORD): BOOL; stdcall; external ADVAPI32 name 'CryptAcquireContextA';
   function CryptCreateHash(hProv: ULONG; Algid: ULONG; hKey: ULONG; dwFlags: DWORD; phHash: PULONG): BOOL; stdcall; external ADVAPI32 name 'CryptCreateHash';

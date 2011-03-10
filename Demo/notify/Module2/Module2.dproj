@@ -48,13 +48,13 @@
 			<DelphiCompile Include="Module2.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="uModule2Plugin.pas"/>
 			<DCCReference Include="uFrmWebbrowser.pas">
 				<Form>FrmWebbrowser</Form>
 			</DCCReference>
 			<DCCReference Include="uFrmOptions.pas">
 				<Form>FrmOptions</Form>
 			</DCCReference>
+			<DCCReference Include="uModule2.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

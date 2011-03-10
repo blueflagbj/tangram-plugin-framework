@@ -3,10 +3,10 @@ unit TestPlugin;
 interface
 
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+     uTangramModule,SysModule,RegIntf;
 
 Type
-  TTestPlugin=Class(TPlugin)
+  TTestPlugin=Class(TModule)
   private
   public
     Constructor Create; override;
@@ -83,7 +83,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TTestPlugin);
+  RegisterModuleClass(TTestPlugin);
 finalization
 
 end.

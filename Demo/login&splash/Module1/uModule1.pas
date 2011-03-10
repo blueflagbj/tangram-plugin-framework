@@ -1,11 +1,11 @@
-unit ubplPlugin;
+unit uModule1;
 
 interface
 
-uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;
+uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;
 
 Type
-  TUserPlugin=Class(TPlugin)
+  TUserModule=Class(TModule)
   private 
   public 
     Constructor Create; override;
@@ -27,39 +27,39 @@ const
   InstallKey='SYSTEM\LOADMODULE\USER';
   ValueKey='Module=%s;load=True';
 
-{ TUserPlugin }
+{ TUserModule }
 
-constructor TUserPlugin.Create;
+constructor TUserModule.Create;
 begin 
   inherited;
   //当前模块加载后执行，不要在这里取接口...
 end;
 
-destructor TUserPlugin.Destroy;
+destructor TUserModule.Destroy;
 begin
   //当前模块卸载前执行，不要在这里取接口...
   inherited;
 end;
 
-procedure TUserPlugin.Init;
+procedure TUserModule.Init;
 begin
   //初始化，所有模块加载完成后会执行到这里，在这取接口是安全的...
   inherited;
 end;
 
-procedure TUserPlugin.final;
+procedure TUserModule.final;
 begin
   //终始化，卸载模块前会执行到这里，这里取接口是安全的...
   inherited;
 end;
 
-procedure TUserPlugin.Notify(Flags: Integer; Intf: IInterface);
+procedure TUserModule.Notify(Flags: Integer; Intf: IInterface);
 begin
   inherited;
 
 end;
 
-class procedure TUserPlugin.RegisterModule(Reg: IRegistry);
+class procedure TUserModule.RegisterModule(Reg: IRegistry);
 var ModuleFullName,ModuleName,Value:String;
 begin
   //注册模块
@@ -73,7 +73,7 @@ begin
   end;
 end;
 
-class procedure TUserPlugin.UnRegisterModule(Reg: IRegistry);
+class procedure TUserModule.UnRegisterModule(Reg: IRegistry);
 var ModuleName:String; 
 begin 
   //取消注册模块
@@ -86,7 +86,7 @@ begin
 end; 
 
 initialization
-  RegisterPluginClass(TUserPlugin);
+  RegisterModuleClass(TUserModule);
 finalization
 
 end.

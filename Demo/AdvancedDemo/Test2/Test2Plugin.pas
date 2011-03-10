@@ -9,10 +9,10 @@ unit Test2Plugin;
 interface
 
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+     uTangramModule,SysModule,RegIntf;
 
 Type
-  TTest2Plugin=Class(TPlugin)
+  TTest2Plugin=Class(TModule)
   private
     procedure MenuOnclick(Sender:TObject);
     procedure ToolOnclick(Sender:TObject);
@@ -230,7 +230,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TTest2Plugin);
+  RegisterModuleClass(TTest2Plugin);
 finalization
 
 end.
