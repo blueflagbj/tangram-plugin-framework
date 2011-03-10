@@ -1,19 +1,19 @@
 { ------------------------------------
-  功能说明：插件类祖先
+  功能说明：TModule祖先类
   创建日期：2010/07/16
   作者：wzw
   版权：wzw
   ------------------------------------- }
-unit PluginBase;
+unit SysModule;
 
 interface
 
 uses RegIntf;
 
 Type
-  TPluginClass = Class of TPlugin;
+  TModuleClass = Class of TModule;
 
-  TPlugin = Class(TObject, IInterface)
+  TModule = Class(TObject, IInterface)
   private
 
   protected
@@ -35,20 +35,20 @@ Type
 
 implementation
 
-{ TPlugIn }
+{ TModule }
 
-constructor TPlugin.Create;
+constructor TModule.Create;
 begin
 
 end;
 
-destructor TPlugin.Destroy;
+destructor TModule.Destroy;
 begin
 
   inherited;
 end;
 
-function TPlugin.QueryInterface(const IID: TGUID; out Obj): HResult;
+function TModule.QueryInterface(const IID: TGUID; out Obj): HResult;
 begin
   if GetInterface(IID, Obj) then
     Result := 0
@@ -56,37 +56,37 @@ begin
     Result := E_NOINTERFACE;
 end;
 
-function TPlugin._AddRef: Integer;
+function TModule._AddRef: Integer;
 begin
   Result := -1;
 end;
 
-function TPlugin._Release: Integer;
+function TModule._Release: Integer;
 begin
   Result := -1;
 end;
 
-procedure TPlugin.Init;
+procedure TModule.Init;
 begin
 
 end;
 
-procedure TPlugin.final;
+procedure TModule.final;
 begin
 
 end;
 
-procedure TPlugin.Notify(Flags: Integer; Intf: IInterface);
+procedure TModule.Notify(Flags: Integer; Intf: IInterface);
 begin
 
 end;
 
-class procedure TPlugin.RegisterModule(Reg: IRegistry);
+class procedure TModule.RegisterModule(Reg: IRegistry);
 begin
 
 end;
 
-class procedure TPlugin.UnRegisterModule(Reg: IRegistry);
+class procedure TModule.UnRegisterModule(Reg: IRegistry);
 begin
 
 end;

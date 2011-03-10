@@ -2,10 +2,10 @@ unit uEncdDecdPlugin;
 
 interface
 
-uses SysUtils,uTangramModule,PluginBase,RegIntf;
+uses SysUtils,uTangramModule,SysModule,RegIntf;
 
 Type
-  TEncdDecdPlugin=Class(TPlugin)
+  TEncdDecdPlugin=Class(TModule)
   private
   public
     Constructor Create; override;
@@ -80,4 +80,7 @@ begin
   end;
 end;
 
+initialization
+  RegisterModuleClass(TEncdDecdPlugin);
+finalization
 end.

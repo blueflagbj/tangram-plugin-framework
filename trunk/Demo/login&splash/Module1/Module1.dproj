@@ -48,7 +48,6 @@
 			<DelphiCompile Include="Module1.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="uPlugin1.pas"/>
 			<DCCReference Include="ImpLoginIntf.pas"/>
 			<DCCReference Include="LoginForm.pas">
 				<Form>Tfrm_Login</Form>
@@ -57,6 +56,7 @@
 			<DCCReference Include="SplashForm.pas">
 				<Form>Tfrm_Splash</Form>
 			</DCCReference>
+			<DCCReference Include="uModule1.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

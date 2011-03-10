@@ -6,9 +6,6 @@
 			<Projects Include="EncdDecd\EncdDecd.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="NativeXML\NativeXMLLib.dproj">
-				<Dependencies/>
-			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -26,23 +23,14 @@
 		<Target Name="EncdDecd:Make">
 			<MSBuild Targets="Make" Projects="EncdDecd\EncdDecd.dproj"/>
 		</Target>
-		<Target Name="NativeXMLLib">
-			<MSBuild Projects="NativeXML\NativeXMLLib.dproj"/>
-		</Target>
-		<Target Name="NativeXMLLib:Clean">
-			<MSBuild Targets="Clean" Projects="NativeXML\NativeXMLLib.dproj"/>
-		</Target>
-		<Target Name="NativeXMLLib:Make">
-			<MSBuild Targets="Make" Projects="NativeXML\NativeXMLLib.dproj"/>
-		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="EncdDecd;NativeXMLLib"/>
+			<CallTarget Targets="EncdDecd"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="EncdDecd:Clean;NativeXMLLib:Clean"/>
+			<CallTarget Targets="EncdDecd:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="EncdDecd:Make;NativeXMLLib:Make"/>
+			<CallTarget Targets="EncdDecd:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

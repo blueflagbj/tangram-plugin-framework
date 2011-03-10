@@ -193,7 +193,7 @@ begin
     try
       MInfo:=SysService as IModuleInfo;
       DBAccess.QuerySQL(Cds_RegAuthority,Format(Sql,[TableName]));
-      MInfo.PluginNotify(Flags_RegAuthority,nil);
+      MInfo.ModuleNotify(Flags_RegAuthority,nil);
       DBAccess.BeginTrans;
       try
         DBAccess.ExecuteSQL(Format(Sql_Clear,[TableName]));

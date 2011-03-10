@@ -370,12 +370,12 @@ function TDLLExportModule.NewImplSource(const ModuleIdent, FormIdent,
 var
   s,ClsName: String;
 begin
-  ClsName:='TUserPlugin';
+  ClsName:='TUserModule';
   s:='unit '+ModuleIdent+';'+#13#10+#13#10
     +'interface'+#13#10+#13#10
-    +'uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;'+#13#10+#13#10
+    +'uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;'+#13#10+#13#10
     +'Type'+#13#10
-    +'  '+ClsName+'=Class(TPlugin)'+#13#10
+    +'  '+ClsName+'=Class(TModule)'+#13#10
     +'  private '+#13#10
     +'  public '+#13#10
     +'    Constructor Create; override;'+#13#10
@@ -441,7 +441,7 @@ begin
     +'  end;'+#13#10
     +'end; '+#13#10+#13#10
     +'initialization'+#13#10
-    +'  RegisterPluginClass('+ClsName+');'+#13#10
+    +'  RegisterModuleClass('+ClsName+');'+#13#10
     +'finalization'+#13#10+#13#10
     +'end.'+#13#10;
   Result := StringToIOTAFile(s);

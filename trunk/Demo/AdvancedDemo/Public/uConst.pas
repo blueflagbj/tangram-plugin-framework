@@ -18,7 +18,7 @@ const
 
   //SplashFormWaitTime=1500;//Flash窗口最少等待时间(毫秒)
 
-  EncryptDefaultKey='aA#2%EF3x'; //默认加密键
+  //EncryptDefaultKey='aA#2%EF3x'; //默认加密键
 
   //以下常量在包初始化时用(即包导出单元的Initpackage方法的Flasgs参数的含意)
   Flags_RegAuthority=1;//注册权限

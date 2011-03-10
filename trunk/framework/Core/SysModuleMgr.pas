@@ -9,10 +9,10 @@ unit SysModuleMgr;
 interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
-  ModuleInfoIntf, SvcInfoIntf, PluginBase,ModuleLoaderIntf,StrUtils;
+  ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils;
 
 Type
-  TGetPluginClassPro = function :TPluginClass;
+  TGetModuleClassPro = function :TModuleClass;
 
   TModuleType=(mtUnknow,mtBPL,mtDLL);
 
@@ -21,7 +21,7 @@ Type
     FLoadBatch:String;
     FModuleHandle: HMODULE;
     FModuleFileName: String;
-    FPlugin: TPlugin;
+    FModule: TModule;
     function GetModuleType: TModuleType;
     function LoadModule:THandle;
     procedure UnLoadModule;
@@ -63,7 +63,7 @@ Type
     function _Release: Integer; stdcall;
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
-    procedure PluginNotify(Flags: Integer; Intf: IInterface);
+    procedure ModuleNotify(Flags: Integer; Intf: IInterface);
     { ISvcInfoEx }
     procedure GetSvcInfo(Intf:ISvcInfoGetter);
   public
@@ -112,23 +112,23 @@ end;
 
 constructor TModuleLoader.Create(const mFile: String;LoadBatch:String='');
 var
-  GetPluginClassPro: TGetPluginClassPro;
-  PluginCls:TPluginClass;
+  GetModuleClassPro: TGetModuleClassPro;
+  ModuleCls:TModuleClass;
 begin
-  FPlugin := nil;
+  FModule := nil;
   FLoadBatch:=LoadBatch;
   FModuleFileName := mFile;
   FModuleHandle := self.LoadModule;
-  @GetPluginClassPro := GetProcAddress(FModuleHandle, 'GetPluginClass');
-  PluginCls:=GetPluginClassPro;
-  if PluginCls<>nil then
-    FPlugin:=PluginCls.Create;
+  @GetModuleClassPro := GetProcAddress(FModuleHandle, 'GetModuleClass');
+  ModuleCls:=GetModuleClassPro;
+  if ModuleCls<>nil then
+    FModule:=ModuleCls.Create;
 end;
 
 destructor TModuleLoader.Destroy;
 begin
-  if Assigned(FPlugin) then
-    FPlugin.Free;
+  if Assigned(FModule) then
+    FModule.Free;
 
   self.UnLoadModule;
   inherited;
@@ -154,23 +154,23 @@ end;
 
 procedure TModuleLoader.ModuleFinal;
 begin
-  if FPlugin<>nil then
-    FPlugin.final;
+  if FModule<>nil then
+    FModule.final;
 end;
 
 procedure TModuleLoader.ModuleInit(const LoadBatch: String);
 begin
-  if FPlugin<>nil then
+  if FModule<>nil then
   begin
     if self.FLoadBatch=LoadBatch then
-      FPlugin.Init;
+      FModule.Init;
   end;
 end;
 
 procedure TModuleLoader.ModuleNotify(Flags: Integer; Intf: IInterface);
 begin
-  if FPlugin<>nil then
-    FPlugin.Notify(Flags,Intf);
+  if FModule<>nil then
+    FModule.Notify(Flags,Intf);
 end;
 
 procedure TModuleLoader.UnLoadModule;
@@ -264,21 +264,21 @@ begin
   end;
 end;
 
-procedure TModuleMgr.PluginNotify(Flags: Integer; Intf: IInterface);
+procedure TModuleMgr.ModuleNotify(Flags: Integer; Intf: IInterface);
 var
   i: Integer;
-  PluginLoader: TModuleLoader;
+  ModuleLoader: TModuleLoader;
 begin
   for i := 0 to FModuleList.Count - 1 do
   begin
-    PluginLoader := TModuleLoader(FModuleList[i]);
+    ModuleLoader := TModuleLoader(FModuleList[i]);
 
     try
-      PluginLoader.ModuleNotify(Flags, Intf);
+      ModuleLoader.ModuleNotify(Flags, Intf);
     except
       on E: Exception do
         WriteErrFmt('处理插件Register方法出错([%s])：%s',
-          [ExtractFileName(PluginLoader.ModuleFileName), E.Message]);
+          [ExtractFileName(ModuleLoader.ModuleFileName), E.Message]);
     end;
   end;
 end;
@@ -286,15 +286,15 @@ end;
 procedure TModuleMgr.GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
 var
   i: Integer;
-  PluginLoader: TModuleLoader;
+  ModuleLoader: TModuleLoader;
   MInfo: TModuleInfo;
 begin
   if ModuleInfoGetter = nil then
     exit;
   for i := 0 to FModuleList.Count - 1 do
   begin
-    PluginLoader := TModuleLoader(FModuleList[i]);
-    MInfo.PackageName := PluginLoader.ModuleFileName;
+    ModuleLoader := TModuleLoader(FModuleList[i]);
+    MInfo.PackageName := ModuleLoader.ModuleFileName;
     MInfo.Description := GetPackageDescription(pchar(MInfo.PackageName));
     ModuleInfoGetter.ModuleInfo(MInfo);
   end;
@@ -304,24 +304,24 @@ procedure TModuleMgr.Init;
 var
   i, CurTick, WaitTime: Integer;
   LoginIntf: ILogin;
-  PluginLoader: TModuleLoader;
+  ModuleLoader: TModuleLoader;
 begin
-  PluginLoader := nil;
+  ModuleLoader := nil;
   for i := 0 to FModuleList.Count - 1 do
   begin
     Try
-      PluginLoader := TModuleLoader(FModuleList.Items[i]);
+      ModuleLoader := TModuleLoader(FModuleList.Items[i]);
 
       if Assigned(SplashForm) then
         SplashForm.loading(Format('正在初始化包[%s]',
-            [ExtractFileName(PluginLoader.ModuleFileName)]));
+            [ExtractFileName(ModuleLoader.ModuleFileName)]));
 
-      PluginLoader.ModuleInit(self.FLoadBatch);
+      ModuleLoader.ModuleInit(self.FLoadBatch);
     Except
       on E: Exception do
       begin
         WriteErrFmt('处理插件Init方法出错([%s])，错误：%s',
-          [ExtractFileName(PluginLoader.ModuleFileName), E.Message]);
+          [ExtractFileName(ModuleLoader.ModuleFileName), E.Message]);
       end;
     End;
   end;

@@ -8,10 +8,10 @@ unit SysPlugin;
 
 interface
 
-uses SysUtils,Classes,Windows,MenuRegIntf,PluginBase,RegIntf,uTangramModule;
+uses SysUtils,Classes,Windows,MenuRegIntf,SysModule,RegIntf,uTangramModule;
 
 Type
-  TSysPlugin=Class(TPlugin)
+  TSysPlugin=Class(TModule)
   private
     procedure ExitApp(Sender: TObject);
     procedure ConfigToolClick(Sender: TObject);
@@ -153,7 +153,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TSysPlugin);
+  RegisterModuleClass(TSysPlugin);
 finalization
 
 end.

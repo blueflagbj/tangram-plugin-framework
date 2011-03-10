@@ -8,52 +8,52 @@ unit uTangramModule;
 {$weakpackageunit on}
 interface
 
-uses RegIntf,PluginBase;
+uses RegIntf,SysModule;
 
 procedure InstallModule(Reg:IRegistry);
 procedure UnInstallModule(Reg:IRegistry);
 
-function GetPluginClass:TPluginClass;
+function GetModuleClass:TModuleClass;
 /////////////////////
-procedure RegisterPluginClass(PluginClass:TPluginClass);
+procedure RegisterModuleClass(ModuleClass:TModuleClass);
 
 Exports
   InstallModule,
   UnInstallModule,
-  GetPluginClass;
+  GetModuleClass;
 
 
 implementation
 
-var FPluginClass:TPluginClass;
+var FModuleClass:TModuleClass;
 
-procedure RegisterPluginClass(PluginClass:TPluginClass);
+procedure RegisterModuleClass(ModuleClass:TModuleClass);
 begin
   //这里也许要处理重复注册。。。
-  FPluginClass:=PluginClass;
+  FModuleClass:=ModuleClass;
 end;
 
 ///////////////////////////////////////////////////////
 
 procedure InstallModule(Reg:IRegistry);
 begin
-  if FPluginClass<>nil then
-    FPluginClass.RegisterModule(Reg);
+  if FModuleClass<>nil then
+    FModuleClass.RegisterModule(Reg);
 end;
 
 procedure UnInstallModule(Reg:IRegistry);
 begin
-  if FPluginClass<>nil then
-    FPluginClass.UnRegisterModule(Reg);
+  if FModuleClass<>nil then
+    FModuleClass.UnRegisterModule(Reg);
 end;
 
-function GetPluginClass:TPluginClass;
+function GetModuleClass:TModuleClass;
 begin
-  Result:=FPluginClass;
+  Result:=FModuleClass;
 end;
 
 //initialization
-//  FPluginClass:=nil;
+//  FModuleClass:=nil;
 //finalization
 
 end.

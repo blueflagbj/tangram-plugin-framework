@@ -2,10 +2,10 @@ unit uDBSupportPlugin;
 
 interface
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+     uTangramModule,SysModule,RegIntf;
 
 Type
-  TDBSupportPlugin=Class(TPlugin)
+  TDBSupportPlugin=Class(TModule)
   private
   public
     Constructor Create; override;
@@ -77,6 +77,6 @@ begin
   end;
 end;
 initialization
-  RegisterPluginClass(TDBSupportPlugin);
+  RegisterModuleClass(TDBSupportPlugin);
 finalization
 end.

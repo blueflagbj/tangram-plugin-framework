@@ -2,10 +2,10 @@ unit uDBPlugin;
 
 interface
 
-uses SysUtils,Classes,uTangramModule,PluginBase,RegIntf;
+uses SysUtils,Classes,uTangramModule,SysModule,RegIntf;
 
 Type
-  TDBPlugin=Class(TPlugin)
+  TDBPlugin=Class(TModule)
   private
   public
     Constructor Create; override;
@@ -83,7 +83,7 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TDBPlugin);
+  RegisterModuleClass(TDBPlugin);
 finalization
 
 end.

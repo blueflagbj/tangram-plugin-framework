@@ -43,10 +43,10 @@ contains
   FactoryIntf in 'FactoryIntf.pas',
   uSvcInfoObj in 'uSvcInfoObj.pas',
   SysFactoryEx in 'SysFactoryEx.pas',
-  PluginBase in 'PluginBase.pas',
   uHashList in 'uHashList.pas',
   uTangramModule in '..\Units\uTangramModule.pas',
-  ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas';
+  ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas',
+  SysModule in 'SysModule.pas';
 
 end.
 

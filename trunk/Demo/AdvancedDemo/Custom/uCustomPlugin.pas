@@ -2,9 +2,9 @@ unit uCustomPlugin;
 
 interface
 uses SysUtils,Classes,Graphics,MainFormIntf,MenuRegIntf,
-     uTangramModule,PluginBase,RegIntf;
+     uTangramModule,SysModule,RegIntf;
 Type
-  TCustomPlugin=Class(TPlugin)
+  TCustomPlugin=Class(TModule)
   private
   public
     Constructor Create; override;
@@ -78,6 +78,6 @@ begin
 end;
 
 initialization
-  RegisterPluginClass(TCustomPlugin);
+  RegisterModuleClass(TCustomPlugin);
 finalization
 end.

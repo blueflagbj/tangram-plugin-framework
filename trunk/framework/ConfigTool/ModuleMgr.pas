@@ -55,12 +55,12 @@ var
   frm_ModuleMgr: Tfrm_ModuleMgr;
 
 implementation
-uses PluginBase;
+//uses SysModule;
 {$R *.dfm}
 Type
   TPro_UnInstallModule=procedure(Reg:IRegistry);
   TPro_InstallModule=procedure(Reg:IRegistry);
-  //TPro_GetPluginClass=function :TPluginClass;
+  //TPro_GetModuleClass=function :TModuleClass;
 const
   ModuleKey='SYSTEM\LOADMODULE';
   Value_Module='Module';//×¢²á±í¹Ø¼ü×Ö¡£¡£¡£

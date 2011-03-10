@@ -6,5 +6,6 @@
     <Transaction>2011-02-18 23:19:20.875.pas,F:\tangram-plugin-framework\Demo\Simple\DLL_Module\Unit1.pas=F:\tangram-plugin-framework\Demo\Simple\DLL_Module\uIntfObj1.pas</Transaction>
     <Transaction>2011-02-18 23:19:46.187.pas,F:\tangram-plugin-framework\Demo\Simple\DLL_Module\Unit1.pas=F:\tangram-plugin-framework\Demo\Simple\DLL_Module\uFrmDLL.pas</Transaction>
     <Transaction>2011-02-18 23:19:46.187.dfm,F:\tangram-plugin-framework\Demo\Simple\DLL_Module\Unit1.dfm=F:\tangram-plugin-framework\Demo\Simple\DLL_Module\uFrmDLL.dfm</Transaction>
+    <Transaction>2011-03-10 23:12:56.046.pas,F:\tangram-plugin-framework\Demo\Simple\DLL_Module\udllPlugin.pas=F:\tangram-plugin-framework\Demo\Simple\DLL_Module\udllModule.pas</Transaction>
   </Transactions>
 </BorlandProject>
