@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Default.Personality>
-		<Projects ActiveProject="MainAPP2.exe"/>
+		<Projects ActiveProject="DBSupport.bpl"/>
 	</Default.Personality>
 	<Transactions>
     <Transaction>2010/10/14 23:46:15.718.groupproj,F:\框架\Client\PlatForm.groupproj=F:\框架\Client\Client.groupproj</Transaction>
