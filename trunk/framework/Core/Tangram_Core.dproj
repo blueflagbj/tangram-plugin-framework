@@ -126,7 +126,6 @@
 			<DCCReference Include="uSvcInfoObj.pas"/>
 			<DCCReference Include="SysFactoryEx.pas"/>
 			<DCCReference Include="uHashList.pas"/>
-			<DCCReference Include="..\Units\uTangramModule.pas"/>
 			<DCCReference Include="..\Interfaces\ModuleLoaderIntf.pas"/>
 			<DCCReference Include="SysModule.pas"/>
 			<BuildConfiguration Include="Base">
