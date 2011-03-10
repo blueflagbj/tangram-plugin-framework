@@ -8,14 +8,16 @@ unit uTangramModule;
 {$weakpackageunit on}
 interface
 
-uses RegIntf,SysModule;
+uses SysUtils,RegIntf,SysModule;
 
 procedure InstallModule(Reg:IRegistry);
 procedure UnInstallModule(Reg:IRegistry);
 
 function GetModuleClass:TModuleClass;
-/////////////////////
+/////////////////////////////////////////////////////////////
 procedure RegisterModuleClass(ModuleClass:TModuleClass);
+procedure DefaultRegisterModule(Reg:IRegistry;const InstallKey:string;load:Boolean=True);
+procedure DefaultUnRegisterModule(Reg:IRegistry;const InstallKey:String);
 
 Exports
   InstallModule,
@@ -33,6 +35,32 @@ begin
   FModuleClass:=ModuleClass;
 end;
 
+procedure DefaultRegisterModule(Reg:IRegistry;const InstallKey:string;load:Boolean);
+const ValueKey='Module=%s;load=%s';
+var ModuleFullName,ModuleName,Value:String;
+begin
+  if Reg=nil then exit;
+  if Reg.OpenKey(InstallKey,True) then
+  begin
+    ModuleFullName:=SysUtils.GetModuleName(HInstance);
+    ModuleName:=ExtractFileName(ModuleFullName);
+    Value:=Format(ValueKey,[ModuleFullName,BoolToStr(load,True)]);
+    Reg.WriteString(ModuleName,Value);
+    Reg.SaveData;
+  end;
+end;
+
+procedure DefaultUnRegisterModule(Reg:IRegistry;const InstallKey:String);
+var ModuleName:String; 
+begin
+  if Reg=nil then exit;
+  if Reg.OpenKey(InstallKey) then
+  begin
+    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
+    if Reg.DeleteValue(ModuleName) then
+      Reg.SaveData;
+  end;
+end;
 ///////////////////////////////////////////////////////
 
 procedure InstallModule(Reg:IRegistry);

@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="ConfigTool.exe"/>
+		<Projects ActiveProject="Tangram_Core.bpl"/>
 	</Default.Personality>
 </BorlandProject>
