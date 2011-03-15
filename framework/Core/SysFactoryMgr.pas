@@ -27,7 +27,8 @@ Type
   TSysFactoryManager=Class(TObject)
   private
     FSysFactoryList:TSysFactoryList;
-    IndexList:ThashList;
+    FIndexList:ThashList;
+    FKeyList:TStrings;
   protected
   public
     procedure RegisterFactory(aIntfFactory:ISysFactory);
@@ -108,13 +109,15 @@ end;
 constructor TSysFactoryManager.Create;
 begin
   FSysFactoryList:=TSysFactoryList.Create;
-  IndexList:=THashList.Create(256);
+  FIndexList:=THashList.Create(256);
+  FKeyList  :=TStringList.Create;
 end;
 
 destructor TSysFactoryManager.Destroy;
 begin
   FSysFactoryList.Free;
-  IndexList.Free;
+  FIndexList.Free;
+  FKeyList.Free;
   inherited;
 end;
 
@@ -128,19 +131,37 @@ var IIDStr:String;
     PFactory:Pointer;
 begin
   IIDStr:=GUIDToString(IID);
-  PFactory:=IndexList.ValueOf(IIDStr);
+  PFactory:=FIndexList.ValueOf(IIDStr);
   if PFactory<>nil then
     Result:=ISysFactory(PFactory)
   else begin
     Result:=FSysFactoryList.FindFactory(IID);
-    if Result<>nil then
-      IndexList.Add(IIDStr,Pointer(Result));
+    if Result=nil then
+    begin
+      if FKeyList.IndexOf(IIDStr)=-1 then
+        FKeyList.Add(IIDStr);
+    end else
+      FIndexList.Add(IIDStr,Pointer(Result));
   end;
 end;
 
 procedure TSysFactoryManager.RegisterFactory(aIntfFactory: ISysFactory);
+var i:Integer;
+    IIDStr:String;
+    IID:TGUID;
 begin
   FSysFactoryList.Add(aIntfFactory);
+
+  for i := FKeyList.Count - 1 downto 0 do
+  begin
+    IIDStr:=FKeyList[i];
+    IID   :=StringToGUID(IIDStr);
+    if aIntfFactory.Supports(IID) then
+    begin
+      FIndexList.Add(IIDStr,Pointer(aIntfFactory));
+      FKeyList.Delete(i);
+    end;
+  end;
 end;
 
 procedure TSysFactoryManager.ReleaseInstances;
