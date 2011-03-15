@@ -135,13 +135,14 @@ begin
   if PFactory<>nil then
     Result:=ISysFactory(PFactory)
   else begin
-    Result:=FSysFactoryList.FindFactory(IID);
-    if Result=nil then
+    if FKeyList.IndexOf(IIDStr)=-1 then
     begin
-      if FKeyList.IndexOf(IIDStr)=-1 then
-        FKeyList.Add(IIDStr);
-    end else
-      FIndexList.Add(IIDStr,Pointer(Result));
+      Result:=FSysFactoryList.FindFactory(IID);
+      if Result=nil then
+        FKeyList.Add(IIDStr)
+      else
+        FIndexList.Add(IIDStr,Pointer(Result));
+    end;
   end;
 end;
 
