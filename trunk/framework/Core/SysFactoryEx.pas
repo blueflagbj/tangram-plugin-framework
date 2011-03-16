@@ -21,6 +21,7 @@ Type
     procedure CreateInstance(const IID : TGUID; out Obj);virtual;
     procedure ReleaseInstance;virtual;
     function Supports(IID:TGUID):Boolean;virtual;
+    procedure EnumKeys(Intf:IEnumKey);dynamic;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);virtual;
   public
@@ -88,6 +89,16 @@ destructor TBaseFactoryEx.Destroy;
 begin
   FIIDList.Free;
   inherited;
+end;
+
+procedure TBaseFactoryEx.EnumKeys(Intf: IEnumKey);
+var i:Integer;
+begin
+  if Assigned(Intf) then
+  begin
+    for i := 0 to FIIDList.Count - 1 do
+      Intf.EnumKey(FIIDList[i]);
+  end;
 end;
 
 procedure TBaseFactoryEx.GetSvcInfo(Intf: ISvcInfoGetter);
