@@ -21,6 +21,7 @@ Type
     procedure CreateInstance(const IID : TGUID; out Obj); virtual;abstract;
     procedure ReleaseInstance;virtual;abstract;
     function Supports(IID:TGUID):Boolean;virtual;
+    procedure EnumKeys(Intf:IEnumKey);dynamic;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);virtual;abstract;
   public
@@ -92,6 +93,12 @@ destructor TBaseFactory.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TBaseFactory.EnumKeys(Intf: IEnumKey);
+begin
+  if Assigned(Intf) then
+    Intf.EnumKey(GUIDToString(FIntfGUID));
 end;
 
 function TBaseFactory.Supports(IID: TGUID): Boolean;

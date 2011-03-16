@@ -293,7 +293,7 @@ begin
     exit;
   for i := 0 to FModuleList.Count - 1 do
   begin
-    ModuleLoader := TModuleLoader(FModuleList[i]);
+    ModuleLoader      := TModuleLoader(FModuleList[i]);
     MInfo.PackageName := ModuleLoader.ModuleFileName;
     MInfo.Description := GetPackageDescription(pchar(MInfo.PackageName));
     ModuleInfoGetter.ModuleInfo(MInfo);

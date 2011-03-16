@@ -24,12 +24,18 @@ Type
     property Items[Index: integer]: ISysFactory read GetItems; default;
   end;
 
-  TSysFactoryManager=Class(TObject)
+  TSysFactoryManager=Class(TObject,IInterface,IEnumKey)
   private
     FSysFactoryList:TSysFactoryList;
     FIndexList:ThashList;
     FKeyList:TStrings;
   protected
+    {IInterface}
+    function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
+    function _AddRef: Integer; stdcall;
+    function _Release: Integer; stdcall;
+    {IEnumKey}
+    procedure EnumKey(const IIDStr:String);
   public
     procedure RegisterFactory(aIntfFactory:ISysFactory);
     procedure UnRegisterFactory(aIntfFactory:ISysFactory); overload;
@@ -172,10 +178,16 @@ begin
     FSysFactoryList.Items[i].ReleaseInstance;
 end;
 
+procedure TSysFactoryManager.EnumKey(const IIDStr: String);
+begin
+  self.FIndexList.Remove(IIDStr);
+end;
+
 procedure TSysFactoryManager.UnRegisterFactory(aIntfFactory: ISysFactory);
 begin
   if Assigned(aIntfFactory) then
   begin
+    aIntfFactory.EnumKeys(self);
     aIntfFactory.ReleaseInstance;
     FSysFactoryList.Remove(aIntfFactory);
   end;
@@ -184,6 +196,24 @@ end;
 procedure TSysFactoryManager.UnRegisterFactory(IID: TGUID);
 begin
   self.UnRegisterFactory(FSysFactoryList.GetFactory(IID));
+end;
+
+function TSysFactoryManager.QueryInterface(const IID: TGUID; out Obj): HResult;
+begin
+  if GetInterface(IID, Obj) then
+    Result := 0
+  else
+    Result := E_NOINTERFACE;
+end;
+
+function TSysFactoryManager._AddRef: Integer;
+begin
+  Result:=-1;
+end;
+
+function TSysFactoryManager._Release: Integer;
+begin
+  Result:=-1;
 end;
 
 initialization
