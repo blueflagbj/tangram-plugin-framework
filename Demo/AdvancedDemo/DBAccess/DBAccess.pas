@@ -121,7 +121,8 @@ begin
   try
     SQLStr:=Format(SQL,[TableName]);
     Provider.ResolveToDataSet:=False;
-    Provider.UpdateMode := upWhereChanged;
+    Provider.UpdateMode := upWhereAll;//upWhereKeyOnly;
+    Provider.Options:=[poAllowMultiRecordUpdates];
     TmpQry.Connection:=FConnection;
     Provider.DataSet:=TmpQry;
     TmpQry.SQL.Text:=SQLStr;

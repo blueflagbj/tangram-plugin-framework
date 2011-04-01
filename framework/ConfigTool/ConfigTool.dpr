@@ -6,7 +6,6 @@ uses
   ABOUT in 'ABOUT.pas' {AboutBox},
   editValue in 'editValue.pas' {frm_EditValue},
   newKey in 'newKey.pas' {frm_newKey},
-  RegObj in '..\Units\RegObj.pas',
   ModuleMgr in 'ModuleMgr.pas' {frm_ModuleMgr},
   MenuEditor in 'MenuEditor.pas' {Frm_MenuEditor},
   MenuRegIntf in '..\Interfaces\MenuRegIntf.pas',
