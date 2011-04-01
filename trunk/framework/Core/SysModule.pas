@@ -8,19 +8,16 @@ unit SysModule;
 
 interface
 
-uses RegIntf;
+uses uIntfObj,RegIntf;
 
 Type
   TModuleClass = Class of TModule;
 
-  TModule = Class(TObject, IInterface)
+  TModule = Class(TIntfObj)
   private
 
   protected
-    { IInterface }
-    function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
-    function _AddRef: Integer; stdcall;
-    function _Release: Integer; stdcall;
+
   public
     Constructor Create; virtual;
     Destructor Destroy; override;
@@ -46,24 +43,6 @@ destructor TModule.Destroy;
 begin
 
   inherited;
-end;
-
-function TModule.QueryInterface(const IID: TGUID; out Obj): HResult;
-begin
-  if GetInterface(IID, Obj) then
-    Result := 0
-  else
-    Result := E_NOINTERFACE;
-end;
-
-function TModule._AddRef: Integer;
-begin
-  Result := -1;
-end;
-
-function TModule._Release: Integer;
-begin
-  Result := -1;
 end;
 
 procedure TModule.Init;

@@ -9,7 +9,8 @@ unit SysModuleMgr;
 interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
-  ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils;
+  ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils,
+  uIntfObj;
 
 Type
   TGetModuleClassPro = function :TModuleClass;
@@ -39,7 +40,7 @@ Type
     procedure ModuleFinal;
   End;
 
-  TModuleMgr = Class(TPersistent, IInterface, IModuleInfo,
+  TModuleMgr = Class(TIntfObj, IModuleInfo,
     IModuleLoader, ISvcInfoEx)
   private
     SplashForm: ISplashForm;
@@ -56,11 +57,6 @@ Type
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
   protected
-    FRefCount: Integer;
-    { IInterface }
-    function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
-    function _AddRef: Integer; stdcall;
-    function _Release: Integer; stdcall;
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
     procedure ModuleNotify(Flags: Integer; Intf: IInterface);
@@ -442,14 +438,6 @@ begin
   end;
 end;
 
-function TModuleMgr.QueryInterface(const IID: TGUID; out Obj): HResult;
-begin
-  if GetInterface(IID, Obj) then
-    Result := 0
-  else
-    Result := E_NOINTERFACE;
-end;
-
 procedure TModuleMgr.final;
 var
   i: Integer;
@@ -476,16 +464,6 @@ var
 begin
   if SysService.QueryInterface(ILog, Log) = S_OK then
     Log.WriteErrFmt(err, Args);
-end;
-
-function TModuleMgr._AddRef: Integer;
-begin
-  Result := InterlockedIncrement(FRefCount);
-end;
-
-function TModuleMgr._Release: Integer;
-begin
-  Result := InterlockedDecrement(FRefCount);
 end;
 
 initialization

@@ -128,6 +128,7 @@
 			<DCCReference Include="uHashList.pas"/>
 			<DCCReference Include="..\Interfaces\ModuleLoaderIntf.pas"/>
 			<DCCReference Include="SysModule.pas"/>
+			<DCCReference Include="uIntfObj.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

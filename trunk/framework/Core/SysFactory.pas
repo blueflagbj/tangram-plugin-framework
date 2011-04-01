@@ -91,7 +91,7 @@ end;
 
 destructor TBaseFactory.Destroy;
 begin
-
+  //FactoryManager.UnRegisterFactory(self);
   inherited;
 end;
 

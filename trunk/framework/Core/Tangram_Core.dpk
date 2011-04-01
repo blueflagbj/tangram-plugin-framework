@@ -45,7 +45,8 @@ contains
   SysFactoryEx in 'SysFactoryEx.pas',
   uHashList in 'uHashList.pas',
   ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas',
-  SysModule in 'SysModule.pas';
+  SysModule in 'SysModule.pas',
+  uIntfObj in 'uIntfObj.pas';
 
 end.
 
