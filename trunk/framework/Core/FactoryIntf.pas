@@ -9,18 +9,30 @@ unit FactoryIntf;
 
 interface
 
+uses uIntfObj;
+
 Type
   IEnumKey=Interface
     ['{BCF06768-CF57-41C8-AC40-C17135A80089}']
     procedure EnumKey(const IIDStr:String);
   End;
-  ISysFactory=Interface
-  ['{1E82A603-712A-4FBB-8323-95AAD6736F15}']
-    procedure CreateInstance(const IID : TGUID; out Obj);
-    procedure ReleaseInstance;
-    function Supports(IID:TGUID):Boolean;
-    procedure EnumKeys(Intf:IEnumKey);
+
+  TFactory=Class(TIntfObj)
+  private
+  protected
+
+  public
+    //Constructor Create;
+    //Destructor Destroy;override;
+
+    procedure CreateInstance(const IID : TGUID; out Obj);virtual;abstract;
+    procedure ReleaseInstance;virtual;abstract;
+
+    function Supports(IID:TGUID):Boolean;virtual;abstract;
+    procedure EnumKeys(Intf:IEnumKey); virtual;abstract;
   end;
 implementation
+
+{ TFactory }
 
 end.

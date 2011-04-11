@@ -13,20 +13,22 @@ Uses Classes,SysUtils,FactoryIntf,SvcInfoIntf;
 Type
   TIntfCreatorFunc = procedure(out anInstance: IInterface);
   //»ùÀà
-  TBaseFactoryEx=Class(TInterfacedObject,ISysFactory,ISvcInfoEx)
+  TBaseFactoryEx=Class(TFactory,ISvcInfoEx)
   private
     FIIDList:TStrings;
   protected
-    {ISysFactory}
-    procedure CreateInstance(const IID : TGUID; out Obj);virtual;
-    procedure ReleaseInstance;virtual;
-    function Supports(IID:TGUID):Boolean;virtual;
-    procedure EnumKeys(Intf:IEnumKey);dynamic;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);virtual;
   public
     Constructor Create(Const IIDs:Array of TGUID);
     Destructor Destroy;override;
+
+    {Inherited}
+    procedure CreateInstance(const IID : TGUID; out Obj);override;
+    procedure ReleaseInstance;override;
+
+    function Supports(IID:TGUID):Boolean;override;
+    procedure EnumKeys(Intf:IEnumKey);override;
   end;
 
   TObjFactoryEx=Class(TBaseFactoryEx)
@@ -34,14 +36,15 @@ Type
     FOwnsObj:Boolean;
     FInstance:TObject;
   protected
-    {ISysFactory}
-    procedure CreateInstance(const IID : TGUID; out Obj);override;
-    procedure ReleaseInstance;override;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
   public
     Constructor Create(Const IIDs:Array of TGUID;Instance:TObject;OwnsObj:Boolean=False);
     Destructor Destroy;override;
+
+    {Inherited}
+    procedure CreateInstance(const IID : TGUID; out Obj);override;
+    procedure ReleaseInstance;override;
   end;
 
   TSingletonFactoryEx=Class(TBaseFactoryEx)
@@ -49,12 +52,13 @@ Type
     FIntfCreatorFunc: TIntfCreatorFunc;
     FInstance:IInterface;
   protected
-    procedure CreateInstance(const IID : TGUID; out Obj); override;
-    procedure ReleaseInstance;override;
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
   public
     Constructor Create(IIDs:Array of TGUID;IntfCreatorFunc:TIntfCreatorFunc);
     destructor Destroy; override;
+
+    procedure CreateInstance(const IID : TGUID; out Obj); override;
+    procedure ReleaseInstance;override;
   end;
 
 implementation
@@ -87,6 +91,7 @@ end;
 
 destructor TBaseFactoryEx.Destroy;
 begin
+  FactoryManager.UnRegisterFactory(self);
   FIIDList.Free;
   inherited;
 end;

@@ -78,6 +78,7 @@ procedure Create_LoginObj(out anInstance: IInterface);
 begin
   anInstance:=TLogin.Create;
 end;
+
 initialization
   TIntfFactory.Create(ILogin,@Create_LoginObj);
 finalization

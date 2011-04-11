@@ -13,20 +13,19 @@ Uses Classes,SysUtils,FactoryIntf,SvcInfoIntf;
 Type
   TIntfCreatorFunc = procedure(out anInstance: IInterface);
   //工厂基类
-  TBaseFactory=Class(TInterfacedObject,ISysFactory,ISvcInfoEx)
+  TBaseFactory=Class(TFactory,ISvcInfoEx)
   private
   protected
     FIntfGUID:TGUID;
-    {ISysFactory}
-    procedure CreateInstance(const IID : TGUID; out Obj); virtual;abstract;
-    procedure ReleaseInstance;virtual;abstract;
-    function Supports(IID:TGUID):Boolean;virtual;
-    procedure EnumKeys(Intf:IEnumKey);dynamic;
     {ISvcInfoEx}
     procedure GetSvcInfo(Intf:ISvcInfoGetter);virtual;abstract;
   public
     Constructor Create(Const IID:TGUID);//virtual;
     Destructor Destroy;override;
+
+    {Inherited}
+    function Supports(IID:TGUID):Boolean;override;
+    procedure EnumKeys(Intf:IEnumKey);override;
   end;
 
   //接口工厂
@@ -37,12 +36,13 @@ Type
     FIntfCreatorFunc:TIntfCreatorFunc;
     procedure InnerGetSvcInfo(Intf:IInterface;SvcInfoGetter: ISvcInfoGetter);
   protected
-    procedure CreateInstance(const IID : TGUID; out Obj); override;
-    procedure ReleaseInstance;override;
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
   public
     Constructor Create(IID:TGUID;IntfCreatorFunc:TIntfCreatorFunc);virtual;
     Destructor Destroy;override;
+
+    procedure CreateInstance(const IID : TGUID; out Obj); override;
+     procedure ReleaseInstance;override;
   end;
 
   //单例工厂
@@ -50,12 +50,13 @@ Type
   private
     FInstance:IInterface;
   protected
-    procedure CreateInstance(const IID : TGUID; out Obj); override;
-    procedure ReleaseInstance;override;
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
   public
     Constructor Create(IID:TGUID;IntfCreatorFunc:TIntfCreatorFunc);override;
     destructor Destroy; override;
+
+    procedure CreateInstance(const IID : TGUID; out Obj); override;
+    procedure ReleaseInstance;override;
   end;
   //实例工厂
   TObjFactory=Class(TBaseFactory)
@@ -64,12 +65,14 @@ Type
     FInstance:TObject;
     FRefIntf:IInterface;
   protected
-    procedure CreateInstance(const IID : TGUID; out Obj); override;
-    procedure ReleaseInstance;override;
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
+
   public
     Constructor Create(IID:TGUID;Instance:TObject;OwnsObj:Boolean=False);
     Destructor Destroy;override;
+
+    procedure CreateInstance(const IID : TGUID; out Obj); override;
+    procedure ReleaseInstance;override;
   end;
   
 implementation
@@ -91,7 +94,7 @@ end;
 
 destructor TBaseFactory.Destroy;
 begin
-  //FactoryManager.UnRegisterFactory(self);
+  FactoryManager.UnRegisterFactory(self);
   inherited;
 end;
 

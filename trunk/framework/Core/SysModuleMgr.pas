@@ -333,7 +333,7 @@ begin
     end;
 
     SplashForm.Hide;
-    FactoryManager.UnRegisterFactory(ISplashForm);
+    //FactoryManager.FindFactory(ISplashForm).Free;
     SplashForm := nil;
   end;
   // 检查登录
@@ -433,7 +433,7 @@ begin
   Except
     on E: Exception do
     begin
-      WriteErrFmt('加载包[%s]出错，错误：%s', [ExtractFileName(ModuleFile), E.Message]);
+      WriteErrFmt('加载模块[%s]错误：%s', [ExtractFileName(ModuleFile), E.Message]);
     end;
   end;
 end;
@@ -449,11 +449,12 @@ begin
     try
       ModuleLoader.ModuleFinal;
     Except
-      //处理...
+      on E:Exception do
+        self.WriteErrFmt('模块[%s]final错误:%s',[ExtractFileName(ModuleLoader.ModuleFileName)
+          ,E.Message]);
     end;
   end;
 
-  //释放工厂里的对象实例
   FactoryManager.ReleaseInstances;
 end;
 
