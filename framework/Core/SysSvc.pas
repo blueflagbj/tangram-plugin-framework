@@ -55,16 +55,16 @@ begin
 end;
 
 function TSysService.QueryInterface(const IID: TGUID; out Obj): HResult;
-var FactoryIntf:ISysFactory;
+var aFactory:TFactory;
 begin
   Result:=E_NOINTERFACE;
   if self.GetInterface(IID,Obj) then
     Result:=S_OK
   else begin
-    FactoryIntf:=FactoryManager.FindFactory(IID);
-    if Assigned(FactoryIntf) then
+    aFactory:=FactoryManager.FindFactory(IID);
+    if Assigned(aFactory) then
     begin
-      FactoryIntf.CreateInstance(IID,Obj);
+      aFactory.CreateInstance(IID,Obj);
       Result:=S_OK;
     end;
   end;

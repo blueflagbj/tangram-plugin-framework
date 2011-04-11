@@ -8,20 +8,31 @@ unit SysFactoryMgr;
 
 interface
 
-uses SysUtils,Classes,FactoryIntf,SvcInfoIntf,uHashList,uIntfObj;
+uses SysUtils,Classes,Windows,FactoryIntf,SvcInfoIntf,uHashList,uIntfObj;
 
 Type
-  TSysFactoryList = class(TInterfaceList)
+  TSysFactoryList = class(TObject)
   private
-    function GetItems(Index: integer): ISysFactory;
+    FLock: TRTLCriticalSection;
+    FList:TList;
+    function LockList: TList;
+    procedure UnlockList;
+
+    function GetItems(Index: integer): TFactory;
+    function GetCount: Integer;
   protected
 
   public
-    function Add(aFactory: ISysFactory): integer;
+    Constructor Create;
+    Destructor Destroy;override;
+
+    function Add(aFactory: TFactory): integer;
     function IndexOfIID(const IID:TGUID):Integer;
-    function GetFactory(const IID: TGUID): ISysFactory;
-    function FindFactory(const IID:TGUID): ISysFactory;
-    property Items[Index: integer]: ISysFactory read GetItems; default;
+    function GetFactory(const IID: TGUID): TFactory;
+    function FindFactory(const IID:TGUID): TFactory;
+    function Remove(aFactory:TFactory):Integer;
+    property Items[Index: integer]: TFactory read GetItems; default;
+    property Count:Integer Read GetCount;
   end;
 
   TSysFactoryManager=Class(TIntfObj,IEnumKey)
@@ -33,13 +44,13 @@ Type
     {IEnumKey}
     procedure EnumKey(const IIDStr:String);
   public
-    procedure RegisterFactory(aIntfFactory:ISysFactory);
-    procedure UnRegisterFactory(aIntfFactory:ISysFactory); overload;
+    procedure RegisterFactory(aIntfFactory:TFactory);
+    procedure UnRegisterFactory(aFactory:TFactory); overload;
     procedure UnRegisterFactory(IID:TGUID); overload;
-    procedure ReleaseInstances;
-    function FindFactory(const IID:TGUID): ISysFactory;
+    function FindFactory(const IID:TGUID): TFactory;
     property FactoryList:TSysFactoryList Read FSysFactoryList;
     function Exists(const IID:TGUID):Boolean;
+    procedure ReleaseInstances;
 
     Constructor Create;
     Destructor Destroy;override;
@@ -64,31 +75,64 @@ end;
 
 { TSysFactoryList }
 
-function TSysFactoryList.Add(aFactory: ISysFactory): integer;
+function TSysFactoryList.Add(aFactory: TFactory): integer;
 begin
-  Result := inherited Add(aFactory);
+  self.LockList;
+  try
+    Result := FList.Add(Pointer(aFactory));
+  finally
+    self.UnlockList;
+  end;
 end;
 
-function TSysFactoryList.FindFactory(const IID: TGUID): ISysFactory;
+constructor TSysFactoryList.Create;
+begin
+  Inherited;
+  InitializeCriticalSection(FLock);
+  FList:=TList.Create;
+end;
+
+destructor TSysFactoryList.Destroy;
+var i:Integer;
+begin
+  //LockList;
+  try
+    for i :=Flist.Count - 1 downto 0  do
+      TObject(FList[i]).Free;
+
+    FList.Free;
+    inherited Destroy;
+  finally
+   // UnlockList;
+    DeleteCriticalSection(FLock);
+  end;
+end;
+
+function TSysFactoryList.FindFactory(const IID: TGUID): TFactory;
 var
   idx:integer;
 begin
   result := nil;
   idx:=self.IndexOfIID(IID);
   if idx<>-1 then
-    Result:=Items[idx];
+    Result:=TFactory(FList[idx]);
 end;
 
-function TSysFactoryList.GetFactory(const IID: TGUID): ISysFactory;
+function TSysFactoryList.GetCount: Integer;
+begin
+  Result:=FList.Count;
+end;
+
+function TSysFactoryList.GetFactory(const IID: TGUID): TFactory;
 begin
   Result := FindFactory(IID);
   if not Assigned(result) then
     Raise Exception.CreateFmt('Î´ÕÒµ½%s½Ó¿Ú£¡',[GUIDToString(IID)]);
 end;
 
-function TSysFactoryList.GetItems(Index: integer): ISysFactory;
+function TSysFactoryList.GetItems(Index: integer): TFactory;
 begin
-  Result := inherited Items[Index] as ISysFactory
+  Result := TFactory(FList[Index]);
 end;
 
 function TSysFactoryList.IndexOfIID(const IID: TGUID): Integer;
@@ -96,9 +140,9 @@ var
   i:integer;
 begin
   result := -1;
-  for i := 0 to (Count - 1) do
+  for i := 0 to (FList.Count - 1) do
   begin
-    if Items[i].Supports(IID) then
+    if TFactory(FList[i]).Supports(IID) then
     begin
       result := i;
       Break;
@@ -106,6 +150,26 @@ begin
   end;
 end;
 
+function TSysFactoryList.LockList: TList;
+begin
+  EnterCriticalSection(FLock);
+  Result := FList;
+end;
+
+procedure TSysFactoryList.UnlockList;
+begin
+  LeaveCriticalSection(FLock);
+end;
+
+function TSysFactoryList.Remove(aFactory: TFactory):Integer;
+begin
+  self.LockList;
+  try
+    Result:=FList.Remove(Pointer(aFactory));
+  finally
+    self.UnlockList;
+  end;
+end;
 { TSysFactoryManager }
 
 constructor TSysFactoryManager.Create;
@@ -128,14 +192,15 @@ begin
   Result:=FSysFactoryList.IndexOfIID(IID)<>-1;
 end;
 
-function TSysFactoryManager.FindFactory(const IID: TGUID): ISysFactory;
+function TSysFactoryManager.FindFactory(const IID: TGUID): TFactory;
 var IIDStr:String;
     PFactory:Pointer;
 begin
+  Result:=nil;
   IIDStr:=GUIDToString(IID);
   PFactory:=FIndexList.ValueOf(IIDStr);
   if PFactory<>nil then
-    Result:=ISysFactory(PFactory)
+    Result:=TFactory(PFactory)
   else begin
     if FKeyList.IndexOf(IIDStr)=-1 then
     begin
@@ -148,7 +213,7 @@ begin
   end;
 end;
 
-procedure TSysFactoryManager.RegisterFactory(aIntfFactory: ISysFactory);
+procedure TSysFactoryManager.RegisterFactory(aIntfFactory: TFactory);
 var i:Integer;
     IIDStr:String;
     IID:TGUID;
@@ -170,8 +235,8 @@ end;
 procedure TSysFactoryManager.ReleaseInstances;
 var i:Integer;
 begin
-  for i:=0 to FSysFactoryList.Count-1 do
-    FSysFactoryList.Items[i].ReleaseInstance;
+  for I := 0 to self.FSysFactoryList.Count-1 do
+    self.FSysFactoryList.Items[i].ReleaseInstance;
 end;
 
 procedure TSysFactoryManager.EnumKey(const IIDStr: String);
@@ -179,13 +244,13 @@ begin
   self.FIndexList.Remove(IIDStr);
 end;
 
-procedure TSysFactoryManager.UnRegisterFactory(aIntfFactory: ISysFactory);
+procedure TSysFactoryManager.UnRegisterFactory(aFactory: TFactory);
 begin
-  if Assigned(aIntfFactory) then
+  if Assigned(aFactory) then
   begin
-    aIntfFactory.EnumKeys(self);
-    aIntfFactory.ReleaseInstance;
-    FSysFactoryList.Remove(aIntfFactory);
+    aFactory.EnumKeys(self);
+    aFactory.ReleaseInstance;
+    FSysFactoryList.Remove(aFactory);
   end;
 end;
 
@@ -197,5 +262,5 @@ end;
 initialization
   FFactoryManager:=nil;
 finalization
-  FreeAndNil(FFactoryManager);
+  FFactoryManager.Free;
 end.

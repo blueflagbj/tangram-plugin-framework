@@ -57,15 +57,15 @@ end;
 
 procedure TSvcInfoObj.GetSvcInfo(Intf: ISvcInfoGetter);
 var i:integer;
-    FIntf:ISysFactory;
+    aFactory:TFactory;
     SvcInfoEx:ISvcInfoEx;
 begin
   if Intf=nil then exit;
 
   for i:=0 to FactoryManager.FactoryList.Count-1 do
   begin
-    FIntf:=FactoryManager.FactoryList.Items[i];
-    if FIntf.QueryInterface(ISvcInfoEx,SvcInfoEx)=S_OK then
+    aFactory:=FactoryManager.FactoryList.Items[i];
+    if aFactory.GetInterface(ISvcInfoEx,SvcInfoEx) then
       SvcInfoEx.GetSvcInfo(Intf);
   end;
 end;
