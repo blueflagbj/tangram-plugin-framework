@@ -63,10 +63,8 @@ Type
 
 implementation
 
-uses SysFactoryMgr;
+uses SysFactoryMgr,SysMsg;
 
-const Err_IntfExists='接口%s已存在，不能重复注册！';
-      Err_IntfNotSupport='对象不支持%s接口！';
 { TBaseFactoryEx }
 
 constructor TBaseFactoryEx.Create(const IIDs: array of TGUID);
@@ -128,9 +126,9 @@ constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
 begin
   if Instance=nil then exit;
   if (Instance is TInterfacedObject) then
-    Raise Exception.Create('不要用TObjFactoryEx注册TInterfacedObject及其子类实现的接口！');
+    Raise Exception.Create(Err_DontUseTInterfacedObject);
   if length(IIDs)=0 then
-    Raise Exception.Create('TObjFactoryEx注册参数IIDs不能为空！');
+    Raise Exception.Create(Err_IIDsParamIsEmpty);
 
   FOwnsObj:=OwnsObj;
   self.FInstance:=Instance;
@@ -140,7 +138,7 @@ end;
 procedure TObjFactoryEx.CreateInstance(const IID: TGUID; out Obj);
 begin
   if not FInstance.GetInterface(IID,Obj) then
-    Raise Exception.CreateFmt('不支持接口%s！',[GUIDToString(IID)]);
+    Raise Exception.CreateFmt(Err_IntfNotSupport,[GUIDToString(IID)]);
 end;
 
 destructor TObjFactoryEx.Destroy;
@@ -199,7 +197,7 @@ constructor TSingletonFactoryEx.Create(IIDs: array of TGUID;
   IntfCreatorFunc: TIntfCreatorFunc);
 begin
   if length(IIDs)=0 then
-    Raise Exception.Create('TSingletonFactoryEx注册参数IIDs不能为空！');
+    Raise Exception.Create(Err_IIDsParamIsEmpty);
 
   FInstance:=nil;
   FIntfCreatorFunc:=IntfCreatorFunc;

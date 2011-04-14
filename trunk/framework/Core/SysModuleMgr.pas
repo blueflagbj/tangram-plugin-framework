@@ -17,7 +17,7 @@ Type
 
   TModuleType=(mtUnknow,mtBPL,mtDLL);
 
-  TModuleLoader = Class(TInterfacedObject)
+  TModuleLoader = Class(TObject)
   private
     FLoadBatch:String;
     FModuleHandle: HMODULE;
@@ -26,6 +26,7 @@ Type
     function GetModuleType: TModuleType;
     function LoadModule:THandle;
     procedure UnLoadModule;
+    function GetModuleName: String;
   protected
 
   public
@@ -34,6 +35,7 @@ Type
 
     property ModuleFileName: String Read FModuleFileName;
     property ModuleType:TModuleType Read GetModuleType;
+    property ModuleName:String Read GetModuleName;
 
     procedure ModuleNotify(Flags: Integer; Intf: IInterface);
     procedure ModuleInit(const LoadBatch:String);
@@ -51,11 +53,13 @@ Type
     function FormatPath(const s: string): string;
     procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
       const Key: String);
+
     {IModuleLoader}
     procedure LoadBegin;
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
+    function ModuleLoaded(const ModuleFile:string):Boolean;
   protected
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
@@ -74,7 +78,7 @@ Type
 implementation
 
 uses SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
-  SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj;
+  SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj,SysMsg;
 
 {$WARN SYMBOL_DEPRECATED OFF}
 {$WARN SYMBOL_PLATFORM OFF}
@@ -128,6 +132,11 @@ begin
 
   self.UnLoadModule;
   inherited;
+end;
+
+function TModuleLoader.GetModuleName: String;
+begin
+  Result:=ExtractFileName(FModuleFileName);
 end;
 
 function TModuleLoader.GetModuleType: TModuleType;
@@ -260,6 +269,23 @@ begin
   end;
 end;
 
+function TModuleMgr.ModuleLoaded(const ModuleFile: string): Boolean;
+var
+  i: Integer;
+  ModuleLoader: TModuleLoader;
+begin
+  Result:=False;
+  for i := 0 to FModuleList.Count - 1 do
+  begin
+    ModuleLoader := TModuleLoader(FModuleList[i]);
+    if SameText(ModuleLoader.ModuleFileName,ModuleFile) then
+    begin
+      Result:=True;
+      Break;
+    end;
+  end;
+end;
+
 procedure TModuleMgr.ModuleNotify(Flags: Integer; Intf: IInterface);
 var
   i: Integer;
@@ -273,8 +299,7 @@ begin
       ModuleLoader.ModuleNotify(Flags, Intf);
     except
       on E: Exception do
-        WriteErrFmt('处理插件Register方法出错([%s])：%s',
-          [ExtractFileName(ModuleLoader.ModuleFileName), E.Message]);
+        WriteErrFmt(Err_ModuleNotify,[ModuleLoader.ModuleName, E.Message]);
     end;
   end;
 end;
@@ -309,15 +334,13 @@ begin
       ModuleLoader := TModuleLoader(FModuleList.Items[i]);
 
       if Assigned(SplashForm) then
-        SplashForm.loading(Format('正在初始化包[%s]',
-            [ExtractFileName(ModuleLoader.ModuleFileName)]));
+        SplashForm.loading(Format(Msg_InitingModule,[ModuleLoader.ModuleName]));
 
       ModuleLoader.ModuleInit(self.FLoadBatch);
     Except
       on E: Exception do
       begin
-        WriteErrFmt('处理插件Init方法出错([%s])，错误：%s',
-          [ExtractFileName(ModuleLoader.ModuleFileName), E.Message]);
+        WriteErrFmt(Err_InitModule,[ModuleLoader.ModuleName,E.Message]);
       end;
     End;
   end;
@@ -328,7 +351,7 @@ begin
     WaitTime := CurTick - Tick;
     if WaitTime < SplashFormWaitTime then
     begin
-      SplashForm.loading('正准备进入系统，请稍等...');
+      SplashForm.loading(Msg_WaitingLogin);
       sleep(SplashFormWaitTime - WaitTime);
     end;
 
@@ -356,15 +379,16 @@ begin
     for i := 0 to aList.Count - 1 do
     begin
       ModuleFile := aList[i];
+
+      if Assigned(SplashForm) then
+        SplashForm.loading(Format(Msg_LoadingModule,
+            [ExtractFileName(ModuleFile)]));
       // 加载包
       if FileExists(ModuleFile) then
         LoadModuleFromFile(ModuleFile)
       else
-        WriteErrFmt('找不到包[%s]，无法加载！', [ModuleFile]);
+        WriteErrFmt(Err_ModuleNotExists, [ModuleFile]);
 
-      if Assigned(SplashForm) then
-        SplashForm.loading(Format('正在加载包[%s]...',
-            [ExtractFileName(ModuleFile)]));
       // 显示Falsh窗体
       if SplashForm = nil then
       begin
@@ -433,7 +457,7 @@ begin
   Except
     on E: Exception do
     begin
-      WriteErrFmt('加载模块[%s]错误：%s', [ExtractFileName(ModuleFile), E.Message]);
+      WriteErrFmt(Err_LoadModule, [ExtractFileName(ModuleFile), E.Message]);
     end;
   end;
 end;
@@ -450,8 +474,7 @@ begin
       ModuleLoader.ModuleFinal;
     Except
       on E:Exception do
-        self.WriteErrFmt('模块[%s]final错误:%s',[ExtractFileName(ModuleLoader.ModuleFileName)
-          ,E.Message]);
+        self.WriteErrFmt(Err_finalModule,[ModuleLoader.ModuleName,E.Message]);
     end;
   end;
 

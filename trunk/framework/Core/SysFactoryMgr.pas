@@ -63,6 +63,8 @@ function FactoryManager:TSysFactoryManager;
 
 implementation
 
+uses SysMsg;
+
 var FFactoryManager:TSysFactoryManager;
 
 function FactoryManager:TSysFactoryManager;
@@ -127,7 +129,7 @@ function TSysFactoryList.GetFactory(const IID: TGUID): TFactory;
 begin
   Result := FindFactory(IID);
   if not Assigned(result) then
-    Raise Exception.CreateFmt('Î´ÕÒµ½%s½Ó¿Ú£¡',[GUIDToString(IID)]);
+    Raise Exception.CreateFmt(Err_IntfNotFound,[GUIDToString(IID)]);
 end;
 
 function TSysFactoryList.GetItems(Index: integer): TFactory;

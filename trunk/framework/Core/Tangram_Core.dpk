@@ -46,7 +46,8 @@ contains
   uHashList in 'uHashList.pas',
   ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas',
   SysModule in 'SysModule.pas',
-  uIntfObj in 'uIntfObj.pas';
+  uIntfObj in 'uIntfObj.pas',
+  SysMsg in 'SysMsg.pas';
 
 end.
 

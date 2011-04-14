@@ -66,7 +66,7 @@
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
-						<Parameters Name="HostApplication">F:\tangram-plugin-framework\Demo\Simple\bin\SimpleHost.exe</Parameters>
+						<Parameters Name="HostApplication">F:\tangram-plugin-framework\Demo\CustomLoadModule\Bin\Host.exe</Parameters>
 					</Parameters>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
@@ -130,6 +130,7 @@
 			<DCCReference Include="..\Interfaces\ModuleLoaderIntf.pas"/>
 			<DCCReference Include="SysModule.pas"/>
 			<DCCReference Include="uIntfObj.pas"/>
+			<DCCReference Include="SysMsg.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

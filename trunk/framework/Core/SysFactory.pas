@@ -77,10 +77,8 @@ Type
   
 implementation
 
-uses SysFactoryMgr;
+uses SysFactoryMgr,SysMsg;
 
-const Err_IntfExists='接口%s已存在，不能重复注册！';
-      Err_IntfNotSupport='对象不支持%s接口！';
 { TBaseFactory }
 
 constructor TBaseFactory.Create(const IID: TGUID);
@@ -240,10 +238,10 @@ end;
 constructor TObjFactory.Create(IID: TGUID; Instance: TObject;OwnsObj:Boolean);
 begin
   if not Instance.GetInterface(IID,FRefIntf) then
-    Raise Exception.CreateFmt('对象%s未实现%s接口！',[Instance.ClassName,GUIDToString(IID)]);
-    
+    Raise Exception.CreateFmt(Err_ObjNotImpIntf,[Instance.ClassName,GUIDToString(IID)]);
+
   if (Instance is TInterfacedObject) then
-    Raise Exception.Create('不要用TObjFactory注册TInterfacedObject及其子类实现的接口！');
+    Raise Exception.Create(Err_DontUseTInterfacedObject);
 
   FOwnsObj:=OwnsObj;
   FInstance:=Instance;
