@@ -19,9 +19,9 @@ Type
     class procedure UnRegisterModule(Reg:IRegistry);override;
   End;
 implementation
+
 const
-  InstallKey='SYSTEM\LOADPACKAGE\UTILS';//这里要改成相应的KEY
-  ValueKey='Package=%s;load=True';
+  InstallKey='SYSTEM\LOADMODULE\UTILS';//这里要改成相应的KEY
 { TEncdDecdPlugin }
 
 constructor TEncdDecdPlugin.Create;
@@ -55,29 +55,15 @@ begin
 end;
 
 class procedure TEncdDecdPlugin.RegisterModule(Reg: IRegistry);
-var ModuleFullName,ModuleName,Value:String;
 begin
   //注册包
-  if Reg.OpenKey(InstallKey,True) then
-  begin
-    ModuleFullName:=SysUtils.GetModuleName(HInstance);
-    ModuleName:=ExtractFileName(ModuleFullName);
-    Value:=Format(ValueKey,[ModuleFullName]);
-    Reg.WriteString(ModuleName,Value);
-    Reg.SaveData;
-  end;
+  DefaultRegisterModule(Reg,InstallKey);
 end;
 
 class procedure TEncdDecdPlugin.UnRegisterModule(Reg: IRegistry);
-var ModuleName:String;
 begin
   //取消注册包
-  if Reg.OpenKey(InstallKey) then
-  begin
-    ModuleName:=ExtractFileName(SysUtils.GetModuleName(HInstance));
-    if Reg.DeleteValue(ModuleName) then
-      Reg.SaveData;
-  end;
+  DefaultUnRegisterModule(Reg,InstallKey);
 end;
 
 initialization
