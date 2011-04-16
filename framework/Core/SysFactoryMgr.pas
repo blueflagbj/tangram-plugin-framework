@@ -8,16 +8,12 @@ unit SysFactoryMgr;
 
 interface
 
-uses SysUtils,Classes,Windows,FactoryIntf,SvcInfoIntf,uHashList,uIntfObj;
+uses SysUtils,Classes,FactoryIntf,SvcInfoIntf,uHashList,uIntfObj;
 
 Type
   TSysFactoryList = class(TObject)
   private
-    FLock: TRTLCriticalSection;
     FList:TList;
-    function LockList: TList;
-    procedure UnlockList;
-
     function GetItems(Index: integer): TFactory;
     function GetCount: Integer;
   protected
@@ -46,7 +42,6 @@ Type
   public
     procedure RegisterFactory(aIntfFactory:TFactory);
     procedure UnRegisterFactory(aFactory:TFactory); overload;
-    procedure UnRegisterFactory(IID:TGUID); overload;
     function FindFactory(const IID:TGUID): TFactory;
     property FactoryList:TSysFactoryList Read FSysFactoryList;
     function Exists(const IID:TGUID):Boolean;
@@ -79,35 +74,23 @@ end;
 
 function TSysFactoryList.Add(aFactory: TFactory): integer;
 begin
-  self.LockList;
-  try
-    Result := FList.Add(Pointer(aFactory));
-  finally
-    self.UnlockList;
-  end;
+  Result := FList.Add(aFactory);
 end;
 
 constructor TSysFactoryList.Create;
 begin
   Inherited;
-  InitializeCriticalSection(FLock);
   FList:=TList.Create;
 end;
 
 destructor TSysFactoryList.Destroy;
 var i:Integer;
 begin
-  //LockList;
-  try
-    for i :=Flist.Count - 1 downto 0  do
-      TObject(FList[i]).Free;
+  for i :=Flist.Count - 1 downto 0  do
+    TObject(FList[i]).Free;
 
-    FList.Free;
-    inherited Destroy;
-  finally
-   // UnlockList;
-    DeleteCriticalSection(FLock);
-  end;
+  FList.Free;
+  inherited Destroy;
 end;
 
 function TSysFactoryList.FindFactory(const IID: TGUID): TFactory;
@@ -152,25 +135,9 @@ begin
   end;
 end;
 
-function TSysFactoryList.LockList: TList;
-begin
-  EnterCriticalSection(FLock);
-  Result := FList;
-end;
-
-procedure TSysFactoryList.UnlockList;
-begin
-  LeaveCriticalSection(FLock);
-end;
-
 function TSysFactoryList.Remove(aFactory: TFactory):Integer;
 begin
-  self.LockList;
-  try
-    Result:=FList.Remove(Pointer(aFactory));
-  finally
-    self.UnlockList;
-  end;
+  Result:=FList.Remove(aFactory);
 end;
 { TSysFactoryManager }
 
@@ -210,7 +177,7 @@ begin
       if Result=nil then
         FKeyList.Add(IIDStr)
       else
-        FIndexList.Add(IIDStr,Pointer(Result));
+        FIndexList.Add(IIDStr,Result);
     end;
   end;
 end;
@@ -254,11 +221,6 @@ begin
     aFactory.ReleaseInstance;
     FSysFactoryList.Remove(aFactory);
   end;
-end;
-
-procedure TSysFactoryManager.UnRegisterFactory(IID: TGUID);
-begin
-  self.UnRegisterFactory(FSysFactoryList.GetFactory(IID));
 end;
 
 initialization

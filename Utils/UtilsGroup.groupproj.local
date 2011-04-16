@@ -4,6 +4,6 @@
     <Transaction>2010-11-11 00:17:37.359.groupproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\ProjectGroup3.groupproj=F:\tangram-plugin-framework\Utils\UtilsGroup.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="EncdDecd.bpl"/>
+		<Projects ActiveProject="EncdDecd.dll"/>
 	</Default.Personality>
 </BorlandProject>
