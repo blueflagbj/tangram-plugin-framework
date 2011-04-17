@@ -101,8 +101,8 @@ end;
 
 procedure TForm3.Button5Click(Sender: TObject);
 begin
-  Sys.Log.WriteErr('错误XXXX');
-  Sys.Dialogs.ShowMessage('错误日志已写到程序目录下的error目录中！');
+  Sys.Log.WriteLog('错误XXXX');
+  Sys.Dialogs.ShowMessage('错误日志已写到程序目录下的Logs目录中！');
 end;
 
 procedure TForm3.Button6Click(Sender: TObject);

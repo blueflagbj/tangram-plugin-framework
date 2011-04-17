@@ -119,7 +119,6 @@
 			<DCCReference Include="Tangram_Core.dcp"/>
 			<DCCReference Include="Base.dcp"/>
 			<DCCReference Include="SysDialogs.pas"/>
-			<DCCReference Include="SysLog.pas"/>
 			<DCCReference Include="ProgressForm.pas">
 				<Form>frm_ProgressForm</Form>
 			</DCCReference>

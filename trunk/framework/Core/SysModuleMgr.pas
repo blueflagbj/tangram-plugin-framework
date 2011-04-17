@@ -487,7 +487,7 @@ var
   Log: ILog;
 begin
   if SysService.QueryInterface(ILog, Log) = S_OK then
-    Log.WriteErrFmt(err, Args);
+    Log.WriteLogFmt(err, Args);
 end;
 
 initialization

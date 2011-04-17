@@ -48,5 +48,6 @@
     <Transaction>2010-11-11 00:09:14.656.pas,F:\tangram-plugin-framework\Client\Custom\Base64EncdDecd.pas=</Transaction>
     <Transaction>2011-01-15 12:19:02.734.pas,F:\tangram-plugin-framework\Client\Custom\Unit1.pas=F:\tangram-plugin-framework\Client\Custom\uCustomPlugin.pas</Transaction>
     <Transaction>2011-01-15 12:21:39.375.pas,F:\tangram-plugin-framework\Client\Custom\CustomExport.pas=</Transaction>
+    <Transaction>2011-04-16 23:40:36.046.pas,F:\tangram-plugin-framework\Demo\AdvancedDemo\Custom\SysLog.pas=</Transaction>
   </Transactions>
 </BorlandProject>
