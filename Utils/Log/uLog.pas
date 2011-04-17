@@ -4,40 +4,56 @@
   作者：wzw
   版权：wzw
 -------------------------------------}
-unit SysLog;
+unit uLog;
 
 interface
 
-uses SysUtils,LogIntf,SvcInfoIntf;
+uses SysUtils,DateUtils,LogIntf,SvcInfoIntf;
 
 Type
   TLogObj=Class(TInterfacedObject,ILog,ISvcInfo)
   private
-    function ErrFileName:String;
+    procedure WriteToFile(const Msg:string);
   protected
     {ILog}
     procedure WriteLog(const Str:String);
     procedure WriteLogFmt(const Str:String;const Args: array of const);
-    procedure WriteErr(const err:String);overload;
-    procedure WriteErrFmt(const err:String;const Args: array of const);
+    function GetLogFileName:String;
     {ISvcInfo}
     function GetModuleName:String;
     function GetTitle:String;
     function GetVersion:String;
     function GetComments:String;
   public
-
+    Constructor Create;
+    Destructor Destroy;override;
   End;
   
 implementation
 
-uses _sys,SysSvc,SysFactory,SysInfoIntf;
+uses SysSvc,SysFactory;
 
 { TLogObj }
 
-function TLogObj.ErrFileName: String;
+function TLogObj.GetLogFileName: String;
+var Logpath:String;
 begin
-  Result:=(SysService as ISysInfo).ErrPath+'\'+FormatDateTime('YYYY-MM-DD',Now)+'.txt';
+  Logpath:=ExtractFilePath(ParamStr(0))+'Logs\';
+  if not DirectoryExists(Logpath) then
+    ForceDirectories(Logpath);
+
+  Result:=Logpath+FormatDateTime('YYYY-MM-DD',Now)+'.txt';
+end;
+
+constructor TLogObj.Create;
+begin
+
+end;
+
+destructor TLogObj.Destroy;
+begin
+
+  inherited;
 end;
 
 function TLogObj.GetComments: String;
@@ -57,40 +73,34 @@ end;
 
 function TLogObj.GetVersion: String;
 begin
-  Result:='20100421.001';
+  Result:='20110417.002';
 end;
 
-procedure TLogObj.WriteErr(const err: String);
+procedure TLogObj.WriteLog(const Str: String);
+begin
+  WriteToFile(Str);
+end;
+
+procedure TLogObj.WriteLogFmt(const Str: String; const Args: array of const);
+begin
+  WriteToFile(Format(Str,Args));
+end;
+
+procedure TLogObj.WriteToFile(const Msg: string);
 var FileName:String;
     FileHandle:TextFile;
 begin
-  FileName:=ErrFileName;
+  FileName:=GetLogFileName;
   assignfile(FileHandle,FileName);
   try
     if FileExists(FileName) then
       append(FileHandle)//Reset(FileHandle)
     else ReWrite(FileHandle);
-    WriteLn(FileHandle,FormatDateTime('[HH:MM:SS]',now)+'  '+err);
+
+    WriteLn(FileHandle,FormatDateTime('[HH:MM:SS]',now)+'  '+Msg);
   finally
     CloseFile(FileHandle);
   end;
-end;
-
-procedure TLogObj.WriteErrFmt(const err: String; const Args: array of const);
-begin
-  WriteErr(Format(err,Args));
-end;
-
-procedure TLogObj.WriteLog(const Str: String);
-begin
-  //这个可能要写入数据表。。。
-  Raise Exception.Create('未实现。。。');
-end;
-
-procedure TLogObj.WriteLogFmt(const Str: String; const Args: array of const);
-begin
-  //这个可能要写入数据表。。。
-  Raise Exception.Create('未实现。。。');
 end;
 
 procedure Create_LogObj(out anInstance: IInterface);
