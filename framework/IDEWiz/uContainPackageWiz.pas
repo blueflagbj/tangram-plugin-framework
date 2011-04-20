@@ -6,7 +6,7 @@ uses
   Classes, SysUtils, Windows,ToolsApi;
 Type
   TContainPackageWiz = class(TInterfacedObject,IOTAWizard,IOTARepositoryWizard,
-    IOTAProjectWizard,IOTACreator,IOTAProjectCreator)
+    IOTAProjectWizard,IOTACreator,IOTAProjectCreator,IOTAProjectCreator50,IOTAProjectCreator80)
   private
     FUnitList:TStrings;
   public
@@ -48,6 +48,12 @@ Type
     procedure NewProjectResource(const Project: IOTAProject);
     { Create and return the Project source file }
     function NewProjectSource(const ProjectName: string): IOTAFile;
+    { IOTAProjectCreator50 }
+    { Called to create a new default module(s) for the given project.  This
+      interface method is the preferred mechanism. }
+    procedure NewDefaultProjectModule(const Project: IOTAProject);
+    {IOTAProjectCreator80}
+    function GetProjectPersonality: string;
   end;
 
 procedure RegContainPackageWiz;
@@ -180,6 +186,11 @@ begin
   Result:=PageName;
 end;
 
+function TContainPackageWiz.GetProjectPersonality: string;
+begin
+  Result:= sDelphiPersonality;
+end;
+
 function TContainPackageWiz.GetShowSource: Boolean;
 begin
   Result:=True;
@@ -201,6 +212,12 @@ begin
 end;
 
 procedure TContainPackageWiz.NewDefaultModule;
+begin
+
+end;
+
+procedure TContainPackageWiz.NewDefaultProjectModule(
+  const Project: IOTAProject);
 begin
 
 end;

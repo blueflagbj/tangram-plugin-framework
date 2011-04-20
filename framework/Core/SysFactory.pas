@@ -146,12 +146,13 @@ procedure TIntfFactory.InnerGetSvcInfo(Intf:IInterface;SvcInfoGetter: ISvcInfoGe
 var SvcInfoIntf:ISvcInfo;
     SvcInfoIntfEx:ISvcInfoEx;
 begin
+  FSvcInfoRec.GUID:=GUIDToString(self.FIntfGUID);
   if Intf.QueryInterface(ISvcInfo,SvcInfoIntf)=S_OK then
   begin
     self.Flag:=1;
     with FSvcInfoRec do
     begin
-      GUID      :=GUIDToString(self.FIntfGUID);
+      //GUID      :=GUIDToString(self.FIntfGUID);
       ModuleName:=SvcInfoIntf.GetModuleName;
       Title     :=SvcInfoIntf.GetTitle;
       Version   :=SvcInfoIntf.GetVersion;

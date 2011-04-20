@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-02-26 01:08:31.171.groupproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\ProjectGroup2.groupproj=F:\tangram-plugin-framework\Demo\CustomLoadModule\CustomLoadModule.groupproj</Transaction>
-  </Transactions>
-	<Default.Personality>
-		<Projects ActiveProject="Host.exe"/>
-	</Default.Personality>
-</BorlandProject>

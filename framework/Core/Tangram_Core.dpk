@@ -47,7 +47,8 @@ contains
   ModuleLoaderIntf in '..\Interfaces\ModuleLoaderIntf.pas',
   SysModule in 'SysModule.pas',
   uIntfObj in 'uIntfObj.pas',
-  SysMsg in 'SysMsg.pas';
+  SysMsg in 'SysMsg.pas',
+  ModuleInstallerIntf in '..\Interfaces\ModuleInstallerIntf.pas';
 
 end.
 

@@ -10,19 +10,20 @@ interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
   ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils,
-  uIntfObj;
+  uIntfObj,ModuleInstallerIntf;
 
 Type
   TGetModuleClassPro = function :TModuleClass;
 
   TModuleType=(mtUnknow,mtBPL,mtDLL);
 
-  TModuleLoader = Class(TObject)
+  TTangramModule = Class(TObject)
   private
     FLoadBatch:String;
     FModuleHandle: HMODULE;
     FModuleFileName: String;
-    FModule: TModule;
+    FModuleObj: TModule;
+    FModuleCls:TModuleClass;
     function GetModuleType: TModuleType;
     function LoadModule:THandle;
     procedure UnLoadModule;
@@ -30,7 +31,8 @@ Type
   protected
 
   public
-    Constructor Create(const mFile: String;LoadBatch:String='');
+    Constructor Create(const mFile: String;
+      LoadBatch:String='';CreateModuleObjInstance:Boolean=True);
     Destructor Destroy; override;
 
     property ModuleFileName: String Read FModuleFileName;
@@ -40,10 +42,13 @@ Type
     procedure ModuleNotify(Flags: Integer; Intf: IInterface);
     procedure ModuleInit(const LoadBatch:String);
     procedure ModuleFinal;
+
+    procedure Install;
+    procedure UnInstall;
   End;
 
   TModuleMgr = Class(TIntfObj, IModuleInfo,
-    IModuleLoader, ISvcInfoEx)
+    IModuleLoader,IModuleInstaller, ISvcInfoEx)
   private
     SplashForm: ISplashForm;
     Tick: Integer;
@@ -53,19 +58,22 @@ Type
     function FormatPath(const s: string): string;
     procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
       const Key: String);
-
+    function FindModule(const ModuleFile:string):TTangramModule;
+  protected
     {IModuleLoader}
     procedure LoadBegin;
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
     function ModuleLoaded(const ModuleFile:string):Boolean;
-  protected
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
     procedure ModuleNotify(Flags: Integer; Intf: IInterface);
     { ISvcInfoEx }
     procedure GetSvcInfo(Intf:ISvcInfoGetter);
+    {IModuleInstaller}
+    procedure InstallModule(const ModuleFile:String);
+    procedure UninstallModule(const ModuleFile:string);
   public
     Constructor Create;
     Destructor Destroy; override;
@@ -108,38 +116,39 @@ procedure Create_SvcInfoObj(out anInstance: IInterface);
 begin
   anInstance:=TSvcInfoObj.Create;
 end;
-{ TModuleLoader }
+{ TTangramModule }
 
-constructor TModuleLoader.Create(const mFile: String;LoadBatch:String='');
+constructor TTangramModule.Create(const mFile: String;LoadBatch:String='';
+  CreateModuleObjInstance:Boolean=True);
 var
   GetModuleClassPro: TGetModuleClassPro;
-  ModuleCls:TModuleClass;
 begin
-  FModule := nil;
+  FModuleObj := nil;
+  FModuleCls :=nil;
   FLoadBatch:=LoadBatch;
   FModuleFileName := mFile;
   FModuleHandle := self.LoadModule;
   @GetModuleClassPro := GetProcAddress(FModuleHandle, 'GetModuleClass');
-  ModuleCls:=GetModuleClassPro;
-  if ModuleCls<>nil then
-    FModule:=ModuleCls.Create;
+  FModuleCls:=GetModuleClassPro;
+  if (FModuleCls<>nil) and (CreateModuleObjInstance) then
+    FModuleObj:=FModuleCls.Create;
 end;
 
-destructor TModuleLoader.Destroy;
+destructor TTangramModule.Destroy;
 begin
-  if Assigned(FModule) then
-    FModule.Free;
+  if Assigned(FModuleObj) then
+    FModuleObj.Free;
 
   self.UnLoadModule;
   inherited;
 end;
 
-function TModuleLoader.GetModuleName: String;
+function TTangramModule.GetModuleName: String;
 begin
   Result:=ExtractFileName(FModuleFileName);
 end;
 
-function TModuleLoader.GetModuleType: TModuleType;
+function TTangramModule.GetModuleType: TModuleType;
 var ext:String;
 begin
   ext:=ExtractFileExt(self.FModuleFileName);
@@ -148,7 +157,7 @@ begin
   else Result:=mtDLL;
 end;
 
-function TModuleLoader.LoadModule: THandle;
+function TTangramModule.LoadModule: THandle;
 begin
   Result:=0;
   case GetModuleType of
@@ -157,28 +166,48 @@ begin
   end;
 end;
 
-procedure TModuleLoader.ModuleFinal;
+procedure TTangramModule.ModuleFinal;
 begin
-  if FModule<>nil then
-    FModule.final;
+  if FModuleObj<>nil then
+    FModuleObj.final;
 end;
 
-procedure TModuleLoader.ModuleInit(const LoadBatch: String);
+procedure TTangramModule.ModuleInit(const LoadBatch: String);
 begin
-  if FModule<>nil then
+  if FModuleObj<>nil then
   begin
     if self.FLoadBatch=LoadBatch then
-      FModule.Init;
+      FModuleObj.Init;
   end;
 end;
 
-procedure TModuleLoader.ModuleNotify(Flags: Integer; Intf: IInterface);
+procedure TTangramModule.Install;
+var Reg:IRegistry;
 begin
-  if FModule<>nil then
-    FModule.Notify(Flags,Intf);
+  if FModuleCls<>nil then
+  begin
+    Reg:=SysService as IRegistry;
+    FModuleCls.RegisterModule(Reg);
+  end;
 end;
 
-procedure TModuleLoader.UnLoadModule;
+procedure TTangramModule.ModuleNotify(Flags: Integer; Intf: IInterface);
+begin
+  if FModuleObj<>nil then
+    FModuleObj.Notify(Flags,Intf);
+end;
+
+procedure TTangramModule.UnInstall;
+var Reg:IRegistry;
+begin
+  if FModuleCls<>nil then
+  begin
+    Reg:=SysService as IRegistry;
+    FModuleCls.UnRegisterModule(Reg);
+  end;
+end;
+
+procedure TTangramModule.UnLoadModule;
 begin
   case GetModuleType of
     mtBPL:SysUtils.UnloadPackage(self.FModuleHandle);
@@ -198,10 +227,16 @@ begin
   SvrInfo.Comments:= '用于获取当前系统加载包的信息及初始化包。';
   Intf.SvcInfo(SvrInfo);
 
-  SvrInfo.GUID:=GUIDToString(IModuleInfo);
+  SvrInfo.GUID:=GUIDToString(IModuleLoader);
   SvrInfo.Title:='模块加载接口(IModuleLoader)';
   SvrInfo.Version:='20110225.001';
   SvrInfo.Comments:= '用户可以用此接口自主加载模块，不用框架默认的从注册表加载方式';
+  Intf.SvcInfo(SvrInfo);
+
+  SvrInfo.GUID:=GUIDToString(IModuleInstaller);
+  SvrInfo.Title:='模块安装接口(IModuleInstaller)';
+  SvrInfo.Version:='20110420.001';
+  SvrInfo.Comments:= '用于安装和卸载模块';
   Intf.SvcInfo(SvrInfo);
 end;
 
@@ -210,8 +245,8 @@ begin
   FLoadBatch:='';
   FModuleList := TObjectList.Create(True);
 
-  TIntfFactory.Create(IRegistry,@CreateRegObj);
-  TObjFactoryEx.Create([IModuleInfo,IModuleLoader], self);
+  TSingletonFactory.Create(IRegistry,@CreateRegObj);
+  TObjFactoryEx.Create([IModuleInfo,IModuleLoader,IModuleInstaller], self);
   TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
 end;
 
@@ -219,6 +254,23 @@ destructor TModuleMgr.Destroy;
 begin
   FModuleList.Free;
   inherited;
+end;
+
+function TModuleMgr.FindModule(const ModuleFile: string): TTangramModule;
+var
+  i: Integer;
+  Module: TTangramModule;
+begin
+  Result:=nil;
+  for i := 0 to FModuleList.Count - 1 do
+  begin
+    Module := TTangramModule(FModuleList[i]);
+    if SameText(Module.ModuleFileName,ModuleFile) then
+    begin
+      Result:=Module;
+      Break;
+    end;
+  end;
 end;
 
 function TModuleMgr.FormatPath(const s: string): string;
@@ -270,36 +322,24 @@ begin
 end;
 
 function TModuleMgr.ModuleLoaded(const ModuleFile: string): Boolean;
-var
-  i: Integer;
-  ModuleLoader: TModuleLoader;
 begin
-  Result:=False;
-  for i := 0 to FModuleList.Count - 1 do
-  begin
-    ModuleLoader := TModuleLoader(FModuleList[i]);
-    if SameText(ModuleLoader.ModuleFileName,ModuleFile) then
-    begin
-      Result:=True;
-      Break;
-    end;
-  end;
+  Result:=FindModule(ModuleFile)<>nil;
 end;
 
 procedure TModuleMgr.ModuleNotify(Flags: Integer; Intf: IInterface);
 var
   i: Integer;
-  ModuleLoader: TModuleLoader;
+  Module: TTangramModule;
 begin
   for i := 0 to FModuleList.Count - 1 do
   begin
-    ModuleLoader := TModuleLoader(FModuleList[i]);
+    Module := TTangramModule(FModuleList[i]);
 
     try
-      ModuleLoader.ModuleNotify(Flags, Intf);
+      Module.ModuleNotify(Flags, Intf);
     except
       on E: Exception do
-        WriteErrFmt(Err_ModuleNotify,[ModuleLoader.ModuleName, E.Message]);
+        WriteErrFmt(Err_ModuleNotify,[Module.ModuleName, E.Message]);
     end;
   end;
 end;
@@ -307,15 +347,15 @@ end;
 procedure TModuleMgr.GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
 var
   i: Integer;
-  ModuleLoader: TModuleLoader;
+  Module: TTangramModule;
   MInfo: TModuleInfo;
 begin
   if ModuleInfoGetter = nil then
     exit;
   for i := 0 to FModuleList.Count - 1 do
   begin
-    ModuleLoader      := TModuleLoader(FModuleList[i]);
-    MInfo.PackageName := ModuleLoader.ModuleFileName;
+    Module      := TTangramModule(FModuleList[i]);
+    MInfo.PackageName := Module.ModuleFileName;
     MInfo.Description := GetPackageDescription(pchar(MInfo.PackageName));
     ModuleInfoGetter.ModuleInfo(MInfo);
   end;
@@ -325,22 +365,22 @@ procedure TModuleMgr.Init;
 var
   i, CurTick, WaitTime: Integer;
   LoginIntf: ILogin;
-  ModuleLoader: TModuleLoader;
+  Module: TTangramModule;
 begin
-  ModuleLoader := nil;
+  Module := nil;
   for i := 0 to FModuleList.Count - 1 do
   begin
     Try
-      ModuleLoader := TModuleLoader(FModuleList.Items[i]);
+      Module := TTangramModule(FModuleList.Items[i]);
 
       if Assigned(SplashForm) then
-        SplashForm.loading(Format(Msg_InitingModule,[ModuleLoader.ModuleName]));
+        SplashForm.loading(Format(Msg_InitingModule,[Module.ModuleName]));
 
-      ModuleLoader.ModuleInit(self.FLoadBatch);
+      Module.ModuleInit(self.FLoadBatch);
     Except
       on E: Exception do
       begin
-        WriteErrFmt(Err_InitModule,[ModuleLoader.ModuleName,E.Message]);
+        WriteErrFmt(Err_InitModule,[Module.ModuleName,E.Message]);
       end;
     End;
   end;
@@ -453,7 +493,7 @@ end;
 procedure TModuleMgr.LoadModuleFromFile(const ModuleFile: string);
 begin
   try
-    FModuleList.Add(TModuleLoader.Create(ModuleFile,self.FLoadBatch));
+    FModuleList.Add(TTangramModule.Create(ModuleFile,self.FLoadBatch));
   Except
     on E: Exception do
     begin
@@ -465,16 +505,16 @@ end;
 procedure TModuleMgr.final;
 var
   i: Integer;
-  ModuleLoader: TModuleLoader;
+  Module: TTangramModule;
 begin
   for i := 0 to FModuleList.Count - 1 do
   begin
-    ModuleLoader := TModuleLoader(FModuleList.Items[i]);
+    Module := TTangramModule(FModuleList.Items[i]);
     try
-      ModuleLoader.ModuleFinal;
+      Module.ModuleFinal;
     Except
       on E:Exception do
-        self.WriteErrFmt(Err_finalModule,[ModuleLoader.ModuleName,E.Message]);
+        self.WriteErrFmt(Err_finalModule,[Module.ModuleName,E.Message]);
     end;
   end;
 
@@ -488,6 +528,30 @@ var
 begin
   if SysService.QueryInterface(ILog, Log) = S_OK then
     Log.WriteLogFmt(err, Args);
+end;
+
+procedure TModuleMgr.InstallModule(const ModuleFile: String);
+var Module:TTangramModule;
+begin
+  Module:=self.FindModule(ModuleFile);
+  if Module=nil then
+  begin
+    Module:=TTangramModule.Create(ModuleFile,'',False);
+    FModuleList.Add(Module);
+  end;
+  Module.Install;
+end;
+
+procedure TModuleMgr.UninstallModule(const ModuleFile: string);
+var Module:TTangramModule;
+begin
+  Module:=self.FindModule(ModuleFile);
+  if Module=nil then
+  begin
+    Module:=TTangramModule.Create(ModuleFile,'',False);
+    FModuleList.Add(Module);
+  end;
+  Module.UnInstall;
 end;
 
 initialization

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-02-17 23:49:19.359.pas,F:\tangram-plugin-framework\framework\Unit1.pas=F:\tangram-plugin-framework\Demo\Simple\Host\uMain.pas</Transaction>
-    <Transaction>2011-02-17 23:49:19.359.dfm,F:\tangram-plugin-framework\framework\Unit1.dfm=F:\tangram-plugin-framework\Demo\Simple\Host\uMain.dfm</Transaction>
-    <Transaction>2011-02-17 23:49:28.265.dproj,F:\tangram-plugin-framework\framework\NewHostApp.dproj=F:\tangram-plugin-framework\Demo\Simple\Host\SimpleHost.dproj</Transaction>
-    <Transaction>2011-02-18 22:54:43.593.pas,F:\tangram-plugin-framework\Demo\Simple\Host\Unit1.pas=F:\tangram-plugin-framework\Demo\Simple\Interfaces\uIntf.pas</Transaction>
-  </Transactions>
-</BorlandProject>

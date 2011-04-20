@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-01-15 12:52:03.000.pas,F:\tangram-plugin-framework\Client\DBObj\Unit1.pas=F:\tangram-plugin-framework\Client\DBObj\uDBPlugin.pas</Transaction>
-    <Transaction>2011-01-15 12:53:40.046.pas,F:\tangram-plugin-framework\Client\DBObj\uDBObjExport.pas=</Transaction>
-  </Transactions>
-</BorlandProject>

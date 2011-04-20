@@ -40,7 +40,6 @@ type
     procedure btn_UnInstalllClick(Sender: TObject);
     procedure btn_InstallModuleClick(Sender: TObject);
   private
-    Reg:IRegistry;
     procedure InstallModule(const ModuleFile:string);
     procedure UnInstallModule(const ModuleFile:string);
     procedure DisModuleInList(const Key:String);
@@ -48,18 +47,20 @@ type
 
     function ModuleType(const ModuleFile:String):TModuleType;
   public
-    Constructor Create(AOwner:TComponent;aReg:IRegistry);ReIntroduce;
+    Constructor Create(AOwner:TComponent);
   end;
 
 var
   frm_ModuleMgr: Tfrm_ModuleMgr;
 
 implementation
-//uses SysModule;
+
+uses SysSvc,ModuleInstallerIntf;
+
 {$R *.dfm}
-Type
-  TPro_UnInstallModule=procedure(Reg:IRegistry);
-  TPro_InstallModule=procedure(Reg:IRegistry);
+//Type
+//  TPro_UnInstallModule=procedure(Reg:IRegistry);
+//  TPro_InstallModule=procedure(Reg:IRegistry);
   //TPro_GetModuleClass=function :TModuleClass;
 const
   ModuleKey='SYSTEM\LOADMODULE';
@@ -67,55 +68,33 @@ const
   Value_Load='load';//
 
 procedure Tfrm_ModuleMgr.InstallModule(const ModuleFile: string);
-var HHandle:HMODULE;
-    Pro_InstallModule:TPro_InstallModule;
-    mType:TModuleType;
+var ModuleInstaller:IModuleInstaller;
+    msg:String;
 begin
-  mType:=self.ModuleType(ModuleFile);
-  case mType of
-    mtBpl:HHandle:=LoadPackage(ModuleFile);//SafeLoadLibrary
-    mtDLL:HHandle:=LoadLibrary(pchar(ModuleFile));
-    else raise Exception.Create('不能识别的模块类型！');
-  end;
-  if HHandle<>0 then
-  begin
-    try
-      @Pro_InstallModule:=GetProcAddress(HHandle,'InstallModule');
-      if Assigned(@Pro_InstallModule) then
-        Pro_InstallModule(self.Reg)
-      else Raise Exception.CreateFmt('[%s]不是系统支持的模块！',[ModuleFile]);
-    finally
-      case mType of
-        mtBpl:UnLoadPackage(HHandle); //FreeLibrary(HHandle);
-        mtDLL:FreeLibrary(HHandle);
-      end;
+  ModuleInstaller:=SysService as IModuleInstaller;
+  try
+    ModuleInstaller.InstallModule(ModuleFile);
+  Except
+    on E:Exception do
+    begin
+      msg:=Format('错误：%s，可能[%s]不是系统支持的模块！',[E.Message,ModuleFile]);
+      Application.MessageBox(pchar(msg),'安装模块',MB_OK+MB_ICONERROR);
     end;
   end;
 end;
 
 procedure Tfrm_ModuleMgr.UnInstallModule(const ModuleFile: string);
-var HHandle:HMODULE;
-    Pro_UnInstallModule:TPro_UnInstallModule;
-    mType:TModuleType;
+var ModuleInstaller:IModuleInstaller;
+    msg:String;
 begin
-  mType:=self.ModuleType(ModuleFile);
-  case mType of
-    mtBpl:HHandle:=LoadPackage(ModuleFile);//SafeLoadLibrary
-    mtDLL:HHandle:=LoadLibrary(pchar(ModuleFile));
-    else raise Exception.Create('不能识别的模块类型！');
-  end;
-  if HHandle<>0 then
-  begin
-    try
-      @Pro_UnInstallModule:=GetProcAddress(HHandle,'UnInstallModule');
-      if Assigned(@Pro_UnInstallModule) then
-        Pro_UnInstallModule(self.Reg)
-      else Raise Exception.CreateFmt('[%s]不是系统支持的模块！',[ModuleFile]);
-    finally
-      case mType of
-        mtBpl:UnLoadPackage(HHandle); //FreeLibrary(HHandle);
-        mtDLL:FreeLibrary(HHandle);
-      end;
+  ModuleInstaller:=SysService as IModuleInstaller;
+  try
+    ModuleInstaller.UnInstallModule(ModuleFile);
+  Except
+    on E:Exception do
+    begin
+      msg:=Format('卸载模块失败，错误：%s',[E.Message]);
+      Application.MessageBox(pchar(msg),'卸载模块',MB_OK+MB_ICONERROR);
     end;
   end;
 end;
@@ -125,12 +104,9 @@ begin
   self.Close;
 end;
 
-constructor Tfrm_ModuleMgr.Create(AOwner: TComponent;
-  aReg: IRegistry);
+constructor Tfrm_ModuleMgr.Create(AOwner: TComponent);
 begin
   Inherited Create(AOwner);
-  Reg:=aReg;
-
   self.lv_module.Clear;
   self.DisModuleInList(ModuleKey);
 end;
@@ -149,11 +125,13 @@ var SubKeyList,ValueList,aList:TStrings;
     NewItem:TListITem;
     mRec:PModuleRec;
     ModuleFileValue:String;
+    Reg:IRegistry;
 begin
   SubKeyList:=TStringList.Create;
   ValueList:=TStringList.Create;
   aList:=TStringList.Create;
   try
+    Reg:=SysService as IRegistry;
     if Reg.OpenKey(Key,False) then
     begin
       //处理值
@@ -249,7 +227,9 @@ end;
 procedure Tfrm_ModuleMgr.UpdateValue(mRec:PModuleRec;Load: Boolean);
 const V_Str='Module=%s;Load=%s';
 var Value,LoadStr:String;
+    Reg:IRegistry;
 begin
+  Reg:=SysService as IRegistry;
   if Reg.OpenKey(mRec^.Key) then
   begin
     if Load then
@@ -291,6 +271,7 @@ end;
 
 procedure Tfrm_ModuleMgr.btn_UnInstalllClick(Sender: TObject);
 var mRec:PModuleRec;
+    Reg:IRegistry;
 begin
   if Assigned(self.lv_module.Selected) then
   begin
@@ -312,6 +293,7 @@ begin
         if MessageBox(self.Handle,pchar('模块['+mRec^.Module
           +']路径不正确，无法卸载，是否直接从注册表删除该模块信息？'),'卸载模块',MB_YESNO+MB_ICONQUESTION)=IDYES then
         begin
+          Reg:=SysService as IRegistry;
           if Reg.OpenKey(mRec^.Key) then
           begin
             Reg.DeleteValue(mRec^.Module);

@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-02-19 00:14:30.593.pas,F:\tangram-plugin-framework\Demo\login&amp;splash\Host\Unit1.pas=F:\tangram-plugin-framework\Demo\login&amp;splash\Module1\uPlugin1.pas</Transaction>
-    <Transaction>2011-02-19 00:14:38.953.dproj,F:\tangram-plugin-framework\Demo\login&amp;splash\Host\NewDLL.dproj=F:\tangram-plugin-framework\Demo\login&amp;splash\Module1\Module1.dproj</Transaction>
-  </Transactions>
-</BorlandProject>
