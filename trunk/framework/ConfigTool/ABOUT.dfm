@@ -73,7 +73,7 @@ object AboutBox: TAboutBox
       Width = 145
       Height = 13
       AutoSize = False
-      Caption = 'ConfigTool'
+      Caption = 'Tangram ConfigTool'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -88,7 +88,7 @@ object AboutBox: TAboutBox
       Width = 161
       Height = 13
       AutoSize = False
-      Caption = 'v3.5(2011.02.27)'
+      Caption = 'v3.6(2011.04.19)'
       IsControl = True
     end
     object Copyright: TLabel
@@ -106,7 +106,7 @@ object AboutBox: TAboutBox
       Width = 241
       Height = 33
       AutoSize = False
-      Caption = #26694#26550#19987#29992#37197#32622#24037#20855
+      Caption = 'Tangram'#26694#26550#19987#29992#37197#32622#24037#20855
       WordWrap = True
       IsControl = True
     end

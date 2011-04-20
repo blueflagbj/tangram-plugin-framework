@@ -477,7 +477,7 @@ end;
 
 procedure Tfrm_Main.N15Click(Sender: TObject);
 begin
-  frm_ModuleMgr:=Tfrm_ModuleMgr.Create(nil,self.Reg);
+  frm_ModuleMgr:=Tfrm_ModuleMgr.Create(nil);
   frm_ModuleMgr.ShowModal;
   frm_ModuleMgr.Free;
 end;

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-02-26 01:05:37.078.pas,C:\Documents and Settings\wei\桌面\Unit1.pas=F:\tangram-plugin-framework\Demo\CustomLoadModule\Host\uMain.pas</Transaction>
-    <Transaction>2011-02-26 01:05:37.078.dfm,C:\Documents and Settings\wei\桌面\Unit1.dfm=F:\tangram-plugin-framework\Demo\CustomLoadModule\Host\uMain.dfm</Transaction>
-    <Transaction>2011-02-26 01:05:40.453.dproj,C:\Documents and Settings\wei\桌面\NewHostApp.dproj=F:\tangram-plugin-framework\Demo\CustomLoadModule\Host\Host.dproj</Transaction>
-    <Transaction>2011-02-26 01:09:25.937.pas,F:\tangram-plugin-framework\Demo\CustomLoadModule\Host\Unit1.pas=F:\tangram-plugin-framework\Demo\CustomLoadModule\Interfaces\uTestIntf.pas</Transaction>
-  </Transactions>
-</BorlandProject>

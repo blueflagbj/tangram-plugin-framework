@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Doc Version="2.0">
-	<SYSTEM 软件名称="平台1.0">
+	<SYSTEM>
 		<ENVIRONMENT_VARIABLE LIBPATH="system" SYSROOT="system">
 		</ENVIRONMENT_VARIABLE>
 		<LOADMODULE SYS.BPL="Module=($APP_PATH)\SYS.BPL;Load=True" CUSTOM.BPL="Module=($APP_PATH)\CUSTOM.BPL;Load=True" LOG.DLL="Module=($APP_PATH)\LOG.DLL;Load=True">

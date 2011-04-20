@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2011-02-17 23:53:13.343.groupproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\ProjectGroup2.groupproj=F:\tangram-plugin-framework\Demo\Simple\simpleDemo.groupproj</Transaction>
-  </Transactions>
-	<Default.Personality>
-		<Projects ActiveProject="SimpleHost.exe"/>
-	</Default.Personality>
-</BorlandProject>
