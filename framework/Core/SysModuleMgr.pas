@@ -51,7 +51,7 @@ Type
     IModuleLoader,IModuleInstaller, ISvcInfoEx)
   private
     SplashForm: ISplashForm;
-    Tick: Integer;
+    Tick: Cardinal;
     FModuleList: TObjectList;
     FLoadBatch:String;
     procedure WriteErrFmt(const err: String; const Args: array of const );
@@ -363,7 +363,7 @@ end;
 
 procedure TModuleMgr.Init;
 var
-  i, CurTick, WaitTime: Integer;
+  i, CurTick, UseTime,WaitTime: Cardinal;
   LoginIntf: ILogin;
   Module: TTangramModule;
 begin
@@ -388,11 +388,14 @@ begin
   if Assigned(SplashForm) then
   begin
     CurTick := GetTickCount;
-    WaitTime := CurTick - Tick;
-    if WaitTime < SplashFormWaitTime then
+    UseTime := CurTick - Tick;
+    WaitTime:=SplashForm.GetWaitTime;
+    if WaitTime=0 then
+      WaitTime:=SplashFormWaitTime;
+    if UseTime < WaitTime then
     begin
       SplashForm.loading(Msg_WaitingLogin);
-      sleep(SplashFormWaitTime - WaitTime);
+      sleep(WaitTime - UseTime);
     end;
 
     SplashForm.Hide;
