@@ -42,7 +42,7 @@ begin
   if not DirectoryExists(Logpath) then
     ForceDirectories(Logpath);
 
-  Result:=Logpath+FormatDateTime('YYYY-MM-DD',Now)+'.txt';
+  Result:=Logpath+FormatDateTime('YYYY-MM-DD',Now)+'.log';
 end;
 
 constructor TLogObj.Create;

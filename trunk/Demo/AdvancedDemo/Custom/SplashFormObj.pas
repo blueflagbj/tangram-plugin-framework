@@ -19,6 +19,7 @@ Type
     {ISplashForm}
     procedure Show;
     procedure loading(const msg:String);
+    function GetWaitTime:Cardinal;
     procedure Hide;
   public
     constructor Create;
@@ -39,6 +40,11 @@ destructor TSplashFormObj.Destroy;
 begin
   FSplashForm.Free;
   inherited;
+end;
+
+function TSplashFormObj.GetWaitTime: Cardinal;
+begin
+  Result:=0;
 end;
 
 procedure TSplashFormObj.Hide;

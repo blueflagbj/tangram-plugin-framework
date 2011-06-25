@@ -57,7 +57,6 @@ end;
 
 destructor TTangramApp.Destroy;
 begin
-  FModuleMgr.final;
   FModuleMgr.Free;
   inherited;
 end;
@@ -97,6 +96,7 @@ begin
     FModuleMgr.Init;
   end;
   Forms.Application.Run;
+  FModuleMgr.final;
 end;
 
 procedure TTangramApp.SetMainFormOnTaskbar(const Value: Boolean);
