@@ -10,8 +10,10 @@ type
   TFrmMain = class(TForm)
     Button1: TButton;
     Label1: TLabel;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,8 +30,20 @@ uses SysSvc;
 {$R *.dfm}
 
 procedure TFrmMain.Button1Click(Sender: TObject);
+var intf:ITest;
 begin
-  (SysService as Itest).test;
+  if SysService.QueryInterface(Itest,intf)=S_OK then
+    intf.test
+  else showmessage('取不到Itest接口，模块未加载！');
+end;
+
+procedure TFrmMain.Button2Click(Sender: TObject);
+var ModuleLoader:IModuleLoader;
+    ModuleFile:String;
+begin
+  ModuleLoader:=SysService as IModuleLoader;
+  ModuleFile:=ExtractFilePath(ParamStr(0))+'Module1.dll';
+  ModuleLoader.UnLoadModule(ModuleFile);
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);

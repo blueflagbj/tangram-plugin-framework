@@ -16,6 +16,7 @@ Type
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
+    procedure UnLoadModule(const ModuleFile:string);
     function ModuleLoaded(const ModuleFile:string):Boolean;
   End;
 
