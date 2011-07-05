@@ -41,6 +41,8 @@ var
   Application:TTangramApp;
 implementation
 
+{$i tangram.inc}
+
 { TTangramApp }
 
 constructor TTangramApp.Create;
@@ -68,7 +70,7 @@ end;
 
 function TTangramApp.GetMainFormOnTaskbar: Boolean;
 begin
-  {$IFDEF VER210}
+  {$IFDEF D2007UP}
   Result:=Forms.Application.MainFormOnTaskbar;
   {$ENDIF}
 end;
