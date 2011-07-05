@@ -103,7 +103,7 @@ end;
 
 procedure TTangramApp.SetMainFormOnTaskbar(const Value: Boolean);
 begin
-  {$IFDEF VER210}
+  {$IFDEF D2007UP}
   Forms.Application.MainFormOnTaskbar:=Value;
   {$ENDIF}
 end;

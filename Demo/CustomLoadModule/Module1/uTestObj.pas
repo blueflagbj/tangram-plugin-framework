@@ -28,7 +28,9 @@ begin
   showmessage('你好！');
 end;
 
+var Factory:TObject;
 initialization
-  TIntfFactory.Create(ITest,@Create_TestObj);
+  Factory:=TIntfFactory.Create(ITest,@Create_TestObj);
 finalization
+  Factory.Free;//动态卸载模块记得释放工厂类
 end.

@@ -9,6 +9,9 @@ uses
 
 begin
   Application.Initialize;
+  {$IFDEF VER210}
+  ReportMemoryLeaksOnShutdown := DebugHook <> 0;
+  {$ENDIF}
   Application.MainFormOnTaskbar := True;
   Application.LoadModuleFromRegistry:=False;//取消自动加载模块(需要用户自已加载)
   Application.CreateForm(TFrmMain, FrmMain);

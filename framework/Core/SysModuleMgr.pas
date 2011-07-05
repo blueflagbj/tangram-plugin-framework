@@ -24,6 +24,7 @@ Type
     FModuleFileName: String;
     FModuleObj: TModule;
     FModuleCls:TModuleClass;
+    FValidModule: Boolean;
     function GetModuleType: TModuleType;
     function LoadModule:THandle;
     procedure UnLoadModule;
@@ -45,6 +46,8 @@ Type
 
     procedure Install;
     procedure UnInstall;
+
+    property IsValidModule:Boolean Read FValidModule;
   End;
 
   TModuleMgr = Class(TIntfObj, IModuleInfo,
@@ -65,6 +68,7 @@ Type
     procedure LoadModuleFromFile(const ModuleFile: string);
     procedure LoadModulesFromDir(const Dir:String='');
     procedure LoadFinish;
+    procedure UnLoadModule(const ModuleFile:string);
     function ModuleLoaded(const ModuleFile:string):Boolean;
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
@@ -123,15 +127,20 @@ constructor TTangramModule.Create(const mFile: String;LoadBatch:String='';
 var
   GetModuleClassPro: TGetModuleClassPro;
 begin
+  FValidModule:=False;
   FModuleObj := nil;
   FModuleCls :=nil;
   FLoadBatch:=LoadBatch;
   FModuleFileName := mFile;
   FModuleHandle := self.LoadModule;
   @GetModuleClassPro := GetProcAddress(FModuleHandle, 'GetModuleClass');
-  FModuleCls:=GetModuleClassPro;
-  if (FModuleCls<>nil) and (CreateModuleObjInstance) then
-    FModuleObj:=FModuleCls.Create;
+  if Assigned(GetModuleClassPro) then
+  begin
+    FModuleCls:=GetModuleClassPro;
+    FValidModule:=FModuleCls<>nil;
+    if (FModuleCls<>nil) and (CreateModuleObjInstance) then
+      FModuleObj:=FModuleCls.Create;
+  end;
 end;
 
 destructor TTangramModule.Destroy;
@@ -494,15 +503,27 @@ begin
 end;
 
 procedure TModuleMgr.LoadModuleFromFile(const ModuleFile: string);
+var Module:TTangramModule;
 begin
   try
-    FModuleList.Add(TTangramModule.Create(ModuleFile,self.FLoadBatch));
+    Module:=TTangramModule.Create(ModuleFile,self.FLoadBatch);
+    if Module.IsValidModule then
+      FModuleList.Add(Module)
+    else Module.Free;
   Except
     on E: Exception do
     begin
       WriteErrFmt(Err_LoadModule, [ExtractFileName(ModuleFile), E.Message]);
     end;
   end;
+end;
+
+procedure TModuleMgr.UnLoadModule(const moduleFile: string);
+var Module:TTangramModule;
+begin
+  Module:=self.FindModule(ModuleFile);
+  if Module<>nil then
+    FModuleList.Remove(Module);
 end;
 
 procedure TModuleMgr.final;
@@ -540,7 +561,12 @@ begin
   if Module=nil then
   begin
     Module:=TTangramModule.Create(ModuleFile,'',False);
-    FModuleList.Add(Module);
+    if Module.IsValidModule then
+      FModuleList.Add(Module)
+    else begin
+      Module.Free;
+      exit;
+    end;
   end;
   Module.Install;
 end;
@@ -552,7 +578,12 @@ begin
   if Module=nil then
   begin
     Module:=TTangramModule.Create(ModuleFile,'',False);
-    FModuleList.Add(Module);
+    if Module.IsValidModule then
+      FModuleList.Add(Module)
+    else begin
+      Module.Free;
+      exit;
+    end;
   end;
   Module.UnInstall;
 end;
