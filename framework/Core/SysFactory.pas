@@ -239,7 +239,8 @@ begin
     begin
       obj:=RefIntf.GetComponent;
       obj.Free;
-    end else FInstance:=nil;
+    end;
+    FInstance:=nil;
   end;
 end;
 
