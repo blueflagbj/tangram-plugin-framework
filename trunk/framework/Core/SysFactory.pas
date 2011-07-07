@@ -230,8 +230,17 @@ begin
 end;
 
 procedure TSingletonFactory.ReleaseInstance;
+var obj:TComponent;
+    RefIntf:IInterfaceComponentReference;
 begin
-  FInstance:=nil;// Õ∑≈
+  if FInstance<>nil then
+  begin
+    if FInstance.QueryInterface(IInterfaceComponentReference,RefIntf)=S_OK then
+    begin
+      obj:=RefIntf.GetComponent;
+      obj.Free;
+    end else FInstance:=nil;
+  end;
 end;
 
 { TObjFactory }
