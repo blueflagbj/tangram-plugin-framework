@@ -191,7 +191,7 @@ end;
 
 destructor TSingletonFactory.Destroy;
 begin
-  FInstance:=nil;
+  //FInstance:=nil;
   inherited;
 end;
 
