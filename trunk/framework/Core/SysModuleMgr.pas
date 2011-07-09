@@ -372,9 +372,10 @@ end;
 
 procedure TModuleMgr.Init;
 var
-  i, CurTick, UseTime,WaitTime: Cardinal;
+  CurTick, UseTime,WaitTime: Cardinal;
   LoginIntf: ILogin;
   Module: TTangramModule;
+  i:Integer;
 begin
   Module := nil;
   for i := 0 to FModuleList.Count - 1 do

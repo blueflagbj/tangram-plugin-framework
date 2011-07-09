@@ -301,9 +301,12 @@ begin
       +'  Result:='+QuotedStr(FIntfVer)+';'+#13#10
       +'end;'+#13#10;
   end;
-  s:=s+#13#10+'initialization'+#13#10
-      +'  '+FIntfFactory+'.Create(IXXX,@Create_'+FIntfClass+');'+#13#10
+  s:=s+#13#10
+      +'var Factory:TObject;'+#13#10
+      +'initialization'+#13#10
+      +'  Factory:='+FIntfFactory+'.Create(IXXX,@Create_'+FIntfClass+');'+#13#10
       +'finalization'+#13#10
+      +'  Factory.Free;'+#13#10
       +'end.';
   Result:=StringToIOTAFile(S);
 end;
