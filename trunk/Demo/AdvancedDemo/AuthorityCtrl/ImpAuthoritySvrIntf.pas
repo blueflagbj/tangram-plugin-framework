@@ -41,7 +41,7 @@ Type
   End;
 implementation
 
-uses SysSvc,DBIntf,ProgressFormIntf,ModuleInfoIntf,uConst,
+uses SysSvc,DBIntf,ProgressFormIntf,NotifyServiceIntf,uConst,
      DialogIntf,SysInfoIntf;
 
 procedure Create_AuthoritySvr(out anInstance: IInterface);
@@ -183,7 +183,7 @@ const Sql='Select * from %s where 1<>1';
 var Intf:IProgressForm;
     DBAccess:IDBAccess;
     Dialog:IDialog;
-    MInfo:IModuleInfo;
+    NotifyIntf:INotifyService;
 begin
   Dialog:=SysService as IDialog;
   if SysService.QueryInterface(IDBAccess,DBAccess)=S_OK then
@@ -191,9 +191,9 @@ begin
     Intf:=SysService as IProgressForm;
     Intf.ShowMsg('正在更新系统权限，请稍等......');
     try
-      MInfo:=SysService as IModuleInfo;
+      NotifyIntf:=SysService as INotifyService;
       DBAccess.QuerySQL(Cds_RegAuthority,Format(Sql,[TableName]));
-      MInfo.ModuleNotify(Flags_RegAuthority,nil);
+      NotifyIntf.SendNotify(Flags_RegAuthority,nil);
       DBAccess.BeginTrans;
       try
         DBAccess.ExecuteSQL(Format(Sql_Clear,[TableName]));

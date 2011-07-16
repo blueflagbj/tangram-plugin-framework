@@ -15,7 +15,7 @@ ResourceString
   Err_IntfNotSupport='对象不支持%s接口！';
   Err_IIDsParamIsEmpty='TObjFactoryEx注册参数IIDs不能为空！';
   Err_IntfNotFound='未找到%s接口！';
-  Err_ModuleNotify='处理模块Notify方法出错(%s)：%s';
+  Err_ModuleNotify='处理Notify方法出错：%s';
   Err_InitModule='处理模块Init方法出错(%s)，错误：%s';
   Err_ModuleNotExists='找不到包[%s]，无法加载！';
   Err_LoadModule='加载模块[%s]错误：%s';

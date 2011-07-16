@@ -72,7 +72,6 @@ Type
     function ModuleLoaded(const ModuleFile:string):Boolean;
     { IModuleInfo }
     procedure GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
-    procedure ModuleNotify(Flags: Integer; Intf: IInterface);
     { ISvcInfoEx }
     procedure GetSvcInfo(Intf:ISvcInfoGetter);
     {IModuleInstaller}
@@ -90,10 +89,12 @@ Type
 implementation
 
 uses SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
-  SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj,SysMsg;
+     SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj,SysMsg,
+     SysNotifyService,NotifyServiceIntf;
 
 {$WARN SYMBOL_DEPRECATED OFF}
 {$WARN SYMBOL_PLATFORM OFF}
+
 const
   Value_Module='Module';
   Value_Load='LOAD';
@@ -120,6 +121,12 @@ procedure Create_SvcInfoObj(out anInstance: IInterface);
 begin
   anInstance:=TSvcInfoObj.Create;
 end;
+
+procedure Create_NotifyService(out anInstance: IInterface);
+begin
+  anInstance:=TNotifyService.Create;
+end;
+
 { TTangramModule }
 
 constructor TTangramModule.Create(const mFile: String;LoadBatch:String='';
@@ -257,6 +264,7 @@ begin
   TSingletonFactory.Create(IRegistry,@CreateRegObj);
   TObjFactoryEx.Create([IModuleInfo,IModuleLoader,IModuleInstaller], self);
   TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
+  TSingletonFactory.Create(INotifyService,@Create_NotifyService);
 end;
 
 destructor TModuleMgr.Destroy;
@@ -335,24 +343,6 @@ begin
   Result:=FindModule(ModuleFile)<>nil;
 end;
 
-procedure TModuleMgr.ModuleNotify(Flags: Integer; Intf: IInterface);
-var
-  i: Integer;
-  Module: TTangramModule;
-begin
-  for i := 0 to FModuleList.Count - 1 do
-  begin
-    Module := TTangramModule(FModuleList[i]);
-
-    try
-      Module.ModuleNotify(Flags, Intf);
-    except
-      on E: Exception do
-        WriteErrFmt(Err_ModuleNotify,[Module.ModuleName, E.Message]);
-    end;
-  end;
-end;
-
 procedure TModuleMgr.GetModuleInfo(ModuleInfoGetter: IModuleInfoGetter);
 var
   i: Integer;
@@ -363,7 +353,7 @@ begin
     exit;
   for i := 0 to FModuleList.Count - 1 do
   begin
-    Module      := TTangramModule(FModuleList[i]);
+    Module            := TTangramModule(FModuleList[i]);
     MInfo.PackageName := Module.ModuleFileName;
     MInfo.Description := GetPackageDescription(pchar(MInfo.PackageName));
     ModuleInfoGetter.ModuleInfo(MInfo);

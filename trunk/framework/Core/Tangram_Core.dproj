@@ -131,6 +131,8 @@
 			<DCCReference Include="uIntfObj.pas"/>
 			<DCCReference Include="SysMsg.pas"/>
 			<DCCReference Include="..\Interfaces\ModuleInstallerIntf.pas"/>
+			<DCCReference Include="..\Interfaces\NotifyServiceIntf.pas"/>
+			<DCCReference Include="SysNotifyService.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
