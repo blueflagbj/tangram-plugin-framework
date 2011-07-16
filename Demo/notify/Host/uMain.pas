@@ -38,17 +38,17 @@ var
 
 implementation
 
-uses SysSvc,ModuleInfoIntf;
+uses SysSvc,NotifyServiceIntf;
 
 {$R *.dfm}
 
 procedure TFrmMain.load;
-var intf:IModuleInfo;
+var intf:INotifyService;
 begin
-  if SysService.QueryInterface(IModuleInfo,Intf)=S_OK then
+  if SysService.QueryInterface(INotifyService,Intf)=S_OK then
   begin
     self.lst_sel.Clear;
-    Intf.ModuleNotify(NotifyFlag,self);
+    Intf.SendNotify(NotifyFlag,self);
   end;
 end;
 

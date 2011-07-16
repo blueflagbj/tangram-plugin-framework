@@ -8,7 +8,7 @@ unit SysModule;
 
 interface
 
-uses uIntfObj,RegIntf;
+uses uIntfObj,RegIntf,NotifyServiceIntf;
 
 Type
   TModuleClass = Class of TModule;
@@ -32,16 +32,18 @@ Type
 
 implementation
 
+uses SysSvc;
+
 { TModule }
 
 constructor TModule.Create;
 begin
-
+  (SysService as INotifyService).RegisterNotifyEvent(Notify);
 end;
 
 destructor TModule.Destroy;
 begin
-
+  (SysService as INotifyService).UnRegisterNotifyEvent(Notify);
   inherited;
 end;
 

@@ -48,7 +48,9 @@ contains
   SysModule in 'SysModule.pas',
   uIntfObj in 'uIntfObj.pas',
   SysMsg in 'SysMsg.pas',
-  ModuleInstallerIntf in '..\Interfaces\ModuleInstallerIntf.pas';
+  ModuleInstallerIntf in '..\Interfaces\ModuleInstallerIntf.pas',
+  NotifyServiceIntf in '..\Interfaces\NotifyServiceIntf.pas',
+  SysNotifyService in 'SysNotifyService.pas';
 
 end.
 
