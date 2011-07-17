@@ -13,7 +13,7 @@ uses uIntfObj,RegIntf,NotifyServiceIntf;
 Type
   TModuleClass = Class of TModule;
 
-  TModule = Class(TIntfObj)
+  TModule = Class(TIntfObj,INotify)
   private
 
   protected
@@ -38,12 +38,14 @@ uses SysSvc;
 
 constructor TModule.Create;
 begin
-  (SysService as INotifyService).RegisterNotifyEvent(Notify);
+  (SysService as INotifyService).RegisterNotify(self);
 end;
 
 destructor TModule.Destroy;
+var NotifyService:INotifyService;
 begin
-  (SysService as INotifyService).UnRegisterNotifyEvent(Notify);
+  if SysService.QueryInterface(INotifyService,NotifyService)=S_OK then
+    NotifyService.UnRegisterNotify(self);
   inherited;
 end;
 

@@ -10,7 +10,7 @@ interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
   ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils,
-  uIntfObj,ModuleInstallerIntf;
+  uIntfObj,ModuleInstallerIntf,SysNotifyService,NotifyServiceIntf;
 
 Type
   TGetModuleClassPro = function :TModuleClass;
@@ -57,6 +57,7 @@ Type
     Tick: Cardinal;
     FModuleList: TObjectList;
     FLoadBatch:String;
+    FNotifyService:TNotifyService;
     procedure WriteErrFmt(const err: String; const Args: array of const );
     function FormatPath(const s: string): string;
     procedure GetModuleList(RegIntf: IRegistry; ModuleList: TStrings;
@@ -89,8 +90,7 @@ Type
 implementation
 
 uses SysSvc, LogIntf, LoginIntf, StdVcl, AxCtrls, SysFactoryMgr,
-     SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj,SysMsg,
-     SysNotifyService,NotifyServiceIntf;
+     SysFactory,SysFactoryEx,IniFiles,RegObj,uSvcInfoObj,SysMsg;
 
 {$WARN SYMBOL_DEPRECATED OFF}
 {$WARN SYMBOL_PLATFORM OFF}
@@ -120,11 +120,6 @@ end;
 procedure Create_SvcInfoObj(out anInstance: IInterface);
 begin
   anInstance:=TSvcInfoObj.Create;
-end;
-
-procedure Create_NotifyService(out anInstance: IInterface);
-begin
-  anInstance:=TNotifyService.Create;
 end;
 
 { TTangramModule }
@@ -260,15 +255,16 @@ constructor TModuleMgr.Create;
 begin
   FLoadBatch:='';
   FModuleList := TObjectList.Create(True);
+  FNotifyService:=TNotifyService.Create;
 
   TSingletonFactory.Create(IRegistry,@CreateRegObj);
   TObjFactoryEx.Create([IModuleInfo,IModuleLoader,IModuleInstaller], self);
   TIntfFactory.Create(ISvcInfoEx,@Create_SvcInfoObj);
-  TSingletonFactory.Create(INotifyService,@Create_NotifyService);
 end;
 
 destructor TModuleMgr.Destroy;
 begin
+  FNotifyService.Free;
   FModuleList.Free;
   inherited;
 end;
