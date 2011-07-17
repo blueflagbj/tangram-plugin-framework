@@ -8,7 +8,7 @@ unit SysNotifyService;
 
 interface
 
-uses SysUtils,Classes,NotifyServiceIntf,SvcInfoIntf;
+uses SysUtils,Classes,uIntfObj,NotifyServiceIntf,SvcInfoIntf;
 
 Type
   TNotifyObj=Class(TObject)
@@ -51,9 +51,10 @@ Type
   ///////////////////////////////////////////
 
 
-  TNotifyService=Class(TInterfacedObject,INotifyService,ISvcInfo)
+  TNotifyService=Class(TIntfObj,INotifyService,ISvcInfo)
   private
     FList:TStrings;
+    Factory:TObject;
     procedure RegNotify(ID:Integer;NotifyObj:TNotifyObj);
     procedure UnRegNotify(ID:Integer);
     procedure WriteErrFmt(const err: String; const Args: array of const );
@@ -84,7 +85,7 @@ Type
 
 implementation
 
-uses SysSvc,LogIntf,SysMsg;
+uses SysSvc,LogIntf,SysMsg,SysFactory;
 
 { TNotifyService }
 
@@ -111,6 +112,8 @@ end;
 constructor TNotifyService.Create;
 begin
   FList:=TStringList.Create;
+
+  Factory:=TObjFactory.Create(INotifyService,self);
 end;
 
 destructor TNotifyService.Destroy;
@@ -120,6 +123,7 @@ begin
     FList.Objects[i].Free;
 
   FList.Free;
+  Factory.Free;
   inherited;
 end;
 
@@ -190,6 +194,11 @@ begin
   self.UnRegNotify(Integer(Pointer(Notify)));
 end;
 
+procedure TNotifyService.UnRegisterNotifyEx(Notify: INotify);
+begin
+  self.UnRegisterNotify(Notify);
+end;
+
 procedure TNotifyService.UnRegisterNotifyEvent(NotifyEvent: TNotifyEvent);
 begin
   self.UnRegNotify(Integer(@NotifyEvent));
@@ -197,12 +206,7 @@ end;
 
 procedure TNotifyService.UnRegisterNotifyEventEx(NotifyEvent: TNotifyEvent);
 begin
-  self.UnRegNotify(Integer(@NotifyEvent));
-end;
-
-procedure TNotifyService.UnRegisterNotifyEx(Notify: INotify);
-begin
-  self.UnRegNotify(Integer(Pointer(Notify)));
+  self.UnRegisterNotifyEvent(NotifyEvent);
 end;
 
 { TIntfNotify }
