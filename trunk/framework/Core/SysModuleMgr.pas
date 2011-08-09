@@ -40,7 +40,7 @@ Type
     property ModuleType:TModuleType Read GetModuleType;
     property ModuleName:String Read GetModuleName;
 
-    procedure ModuleNotify(Flags: Integer; Intf: IInterface);
+    procedure ModuleNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
     procedure ModuleInit(const LoadBatch:String);
     procedure ModuleFinal;
 
@@ -202,10 +202,10 @@ begin
   end;
 end;
 
-procedure TTangramModule.ModuleNotify(Flags: Integer; Intf: IInterface);
+procedure TTangramModule.ModuleNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
 begin
   if FModuleObj<>nil then
-    FModuleObj.Notify(Flags,Intf);
+    FModuleObj.Notify(Flags,Intf,Param);
 end;
 
 procedure TTangramModule.UnInstall;

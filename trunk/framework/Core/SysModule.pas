@@ -24,7 +24,7 @@ Type
 
     procedure Init; virtual;
     procedure final; virtual;
-    procedure Notify(Flags: Integer; Intf: IInterface); virtual;
+    procedure Notify(Flags: Integer; Intf: IInterface;Param:Cardinal); virtual;
 
     class procedure RegisterModule(Reg:IRegistry);virtual;
     class procedure UnRegisterModule(Reg:IRegistry);virtual;
@@ -59,7 +59,7 @@ begin
 
 end;
 
-procedure TModule.Notify(Flags: Integer; Intf: IInterface);
+procedure TModule.Notify(Flags: Integer; Intf: IInterface;Param:Cardinal);
 begin
 
 end;

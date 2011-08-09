@@ -44,7 +44,7 @@ begin
     +'    Destructor Destroy; override;'+#13#10+#13#10
     +'    procedure Init; override;'+#13#10
     +'    procedure final; override;'+#13#10
-    +'    procedure Notify(Flags: Integer; Intf: IInterface); override;'+#13#10+#13#10
+    +'    procedure Notify(Flags: Integer; Intf: IInterface;Param:Cardinal); override;'+#13#10+#13#10
     +'    class procedure RegisterModule(Reg:IRegistry);override;'+#13#10
     +'    class procedure UnRegisterModule(Reg:IRegistry);override;'+#13#10
     +'  End;'+#13#10+#13#10
@@ -73,7 +73,7 @@ begin
     +'  //终始化，卸载模块前会执行到这里，这里取接口是安全的...'+#13#10
     +'  inherited;'+#13#10
     +'end;'+#13#10+#13#10
-    +'procedure '+ClsName+'.Notify(Flags: Integer; Intf: IInterface);'+#13#10
+    +'procedure '+ClsName+'.Notify(Flags: Integer; Intf: IInterface;Param:Cardinal);'+#13#10
     +'begin'+#13#10
     +'  inherited;'+#13#10+#13#10
     +'end;'+#13#10+#13#10
