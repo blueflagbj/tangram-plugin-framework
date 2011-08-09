@@ -50,7 +50,8 @@ contains
   SysMsg in 'SysMsg.pas',
   ModuleInstallerIntf in '..\Interfaces\ModuleInstallerIntf.pas',
   NotifyServiceIntf in '..\Interfaces\NotifyServiceIntf.pas',
-  SysNotifyService in 'SysNotifyService.pas';
+  SysNotifyService in 'SysNotifyService.pas',
+  SysSvcIntf in 'SysSvcIntf.pas';
 
 end.
 

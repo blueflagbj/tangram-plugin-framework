@@ -34,12 +34,12 @@ end;
 
 function TIntfObj._AddRef: Integer;
 begin
-  Result:=0;
+  Result:=-1;
 end;
 
 function TIntfObj._Release: Integer;
 begin
-  Result:=0;
+  Result:=-1;
 end;
 
 end.

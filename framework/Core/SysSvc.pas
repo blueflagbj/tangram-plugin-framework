@@ -8,31 +8,36 @@ unit SysSvc;
 
 interface
 
-uses SysUtils,Windows,Classes,FactoryIntf;
+uses SysUtils,Windows,Classes,FactoryIntf,SysSvcIntf,NotifyServiceIntf,
+     ModuleLoaderIntf;
 
 Type
-  TSysService=Class(TObject,IInterface)
+  TSysService=Class(TObject,IInterface,ISysService)
   private
     FRefCount: Integer;
   protected
+    {IInterface}
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
+    {ISysService}
+    function Notify:INotifyService;
+    function ModuleLoader:IModuleLoader;
   public
    // Constructor Create;
    // Destructor Destroy;override;
   end;
 
-  function SysService:IInterface;
+  function SysService:ISysService;
 
 implementation
 
 uses SysFactoryMgr;
 
 var
-  FSysService:IInterface;
+  FSysService:ISysService;
 
-function SysService:IInterface;
+function SysService:ISysService;
 begin
   if not Assigned(FSysService) then
     FSysService:=TSysService.Create;
@@ -68,6 +73,16 @@ begin
       Result:=S_OK;
     end;
   end;
+end;
+
+function TSysService.Notify: INotifyService;
+begin
+  Result:=Self as INotifyService;
+end;
+
+function TSysService.ModuleLoader: IModuleLoader;
+begin
+  Result:=Self as IModuleLoader;
 end;
 
 initialization

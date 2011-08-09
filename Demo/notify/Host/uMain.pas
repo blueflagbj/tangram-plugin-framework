@@ -48,7 +48,7 @@ begin
   if SysService.QueryInterface(INotifyService,Intf)=S_OK then
   begin
     self.lst_sel.Clear;
-    Intf.SendNotify(NotifyFlag,self);
+    Intf.SendNotify(NotifyFlag,self,0);
   end;
 end;
 

@@ -193,7 +193,7 @@ begin
     try
       NotifyIntf:=SysService as INotifyService;
       DBAccess.QuerySQL(Cds_RegAuthority,Format(Sql,[TableName]));
-      NotifyIntf.SendNotify(Flags_RegAuthority,nil);
+      NotifyIntf.SendNotify(Flags_RegAuthority,nil,0);
       DBAccess.BeginTrans;
       try
         DBAccess.ExecuteSQL(Format(Sql_Clear,[TableName]));
