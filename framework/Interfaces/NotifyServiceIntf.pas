@@ -11,14 +11,14 @@ interface
 Type
   INotify=Interface
   ['{9D0B21A1-CCA0-422F-B11B-4650B506A573}']
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer);
   End;
 
-  TNotifyEvent=procedure (Flags: Integer; Intf: IInterface;Param:Cardinal) of Object;
+  TNotifyEvent=procedure (Flags: Integer; Intf: IInterface;Param:Integer) of Object;
 
   INotifyService=Interface
   ['{F347E481-F6C3-48DA-BDD5-9452C69FCE30}']
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 
     procedure RegisterNotify(Notify:INotify);
     procedure UnRegisterNotify(Notify:INotify);

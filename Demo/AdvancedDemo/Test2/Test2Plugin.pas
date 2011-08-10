@@ -28,7 +28,7 @@ Type
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Cardinal); override;
+    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
 
     class procedure RegisterModule(Reg:IRegistry);override;
     class procedure UnRegisterModule(Reg:IRegistry);override;
@@ -79,7 +79,7 @@ const
   ValueKey = 'Module=%s;load=True';
 { TTest2Plugin }
 
-procedure TTest2Plugin.Notify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TTest2Plugin.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if Flags = Flags_RegAuthority then // ×¢²áÈ¨ÏÞ
   begin

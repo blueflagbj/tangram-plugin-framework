@@ -13,14 +13,14 @@ uses SysUtils,Classes,uIntfObj,NotifyServiceIntf,SvcInfoIntf;
 Type
   TNotifyObj=Class(TObject)
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);virtual;abstract;
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);virtual;abstract;
   End;
   ////////////////////////////////////////////
   TIntfNotify=Class(TNotifyObj)
   private
     FNotifyIntf:INotify;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);override;
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
     Constructor Create(Notify:INotify);
     Destructor Destroy;override;
   End;
@@ -29,7 +29,7 @@ Type
   private
     FFlags:Integer;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);override;
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
     Constructor Create(Flags:Integer;Notify:INotify);
   End;
   ////////////////////////////////////////////
@@ -37,7 +37,7 @@ Type
   private
     FNotifyEvent:TNotifyEvent;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);override;
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
     Constructor Create(NotifyEvent:TNotifyEvent);
   End;
   ////////////////////////////////////////////
@@ -45,7 +45,7 @@ Type
   private
     FFlags:Integer;
   public
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);override;
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
     Constructor Create(Flags:Integer;NotifyEvent:TNotifyEvent);
   End;
   ///////////////////////////////////////////
@@ -60,7 +60,7 @@ Type
     procedure WriteErrFmt(const err: String; const Args: array of const );
   protected
   {INotifyService}
-    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+    procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 
     procedure RegisterNotify(Notify:INotify);
     procedure UnRegisterNotify(Notify:INotify);
@@ -173,7 +173,7 @@ begin
   self.RegNotify(Integer(Pointer(Notify)),TIntfNotifyEx.Create(Flags,Notify));
 end;
 
-procedure TNotifyService.SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TNotifyService.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 var i:Integer;
     NotifyObj:TNotifyObj;
 begin
@@ -222,7 +222,7 @@ begin
   inherited;
 end;
 
-procedure TIntfNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TIntfNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if FNotifyIntf<>nil then
     FNotifyIntf.Notify(Flags,Intf,Param);
@@ -236,7 +236,7 @@ begin
   Inherited Create(Notify);
 end;
 
-procedure TIntfNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TIntfNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if Flags=self.FFlags then
     inherited;
@@ -249,7 +249,7 @@ begin
   self.FNotifyEvent:=NotifyEvent;
 end;
 
-procedure TEventNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TEventNotify.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if Assigned(FNotifyEvent) then
     FNotifyEvent(Flags,Intf,Param);
@@ -263,7 +263,7 @@ begin
   Inherited Create(NotifyEvent);
 end;
 
-procedure TEventNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TEventNotifyEx.SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if self.FFlags=Flags then
     inherited;
