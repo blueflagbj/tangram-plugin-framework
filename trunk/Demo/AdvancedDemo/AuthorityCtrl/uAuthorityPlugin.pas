@@ -23,7 +23,7 @@ Type
 
     procedure Init; override;
     procedure final; override;
-    procedure Notify(Flags: Integer; Intf: IInterface;Param:Cardinal); override;
+    procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer); override;
 
     class procedure RegisterModule(Reg:IRegistry);override;
     class procedure UnRegisterModule(Reg:IRegistry);override;
@@ -70,7 +70,7 @@ begin
 
 end;
 
-procedure TAuthorityPlugin.Notify(Flags: Integer; Intf: IInterface;Param:Cardinal);
+procedure TAuthorityPlugin.Notify(Flags: Integer; Intf: IInterface;Param:Integer);
 begin
   if Flags=Flags_RegAuthority then
   begin
