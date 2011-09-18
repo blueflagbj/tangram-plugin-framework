@@ -134,6 +134,7 @@
 			<DCCReference Include="..\Interfaces\NotifyServiceIntf.pas"/>
 			<DCCReference Include="SysNotifyService.pas"/>
 			<DCCReference Include="SysSvcIntf.pas"/>
+			<DCCReference Include="..\Interfaces\ObjRefIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

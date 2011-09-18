@@ -51,11 +51,6 @@ Type
     procedure SaveData;
   End;
 
-  ILoadRegistryFile = Interface
-    ['{73C5771C-8FFC-42D5-8A0C-A2D77F4C58A1}']
-    procedure LoadRegistryFile(const FileName: Widestring);
-  End;
-
 implementation
 
 end.

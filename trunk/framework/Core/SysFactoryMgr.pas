@@ -45,7 +45,7 @@ Type
     function FindFactory(const IID:TGUID): TFactory;
     property FactoryList:TSysFactoryList Read FSysFactoryList;
     function Exists(const IID:TGUID):Boolean;
-    procedure ReleaseInstances;
+    procedure ReleaseIntf;
 
     Constructor Create;
     Destructor Destroy;override;
@@ -201,11 +201,11 @@ begin
   end;
 end;
 
-procedure TSysFactoryManager.ReleaseInstances;
+procedure TSysFactoryManager.ReleaseIntf;
 var i:Integer;
 begin
   for I := 0 to self.FSysFactoryList.Count-1 do
-    self.FSysFactoryList.Items[i].ReleaseInstance;
+    self.FSysFactoryList.Items[i].ReleaseIntf;
 end;
 
 procedure TSysFactoryManager.EnumKey(const IIDStr: String);
@@ -218,7 +218,7 @@ begin
   if Assigned(aFactory) then
   begin
     aFactory.EnumKeys(self);
-    aFactory.ReleaseInstance;
+    aFactory.ReleaseIntf;
     FSysFactoryList.Remove(aFactory);
   end;
 end;

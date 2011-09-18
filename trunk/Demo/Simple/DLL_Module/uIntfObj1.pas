@@ -22,9 +22,9 @@ implementation
 
 uses uFrmDLL;
 
-procedure Create_IntfObj1(out anInstance: IInterface);
+function Create_IntfObj1(param:Integer):TObject;
 begin
-  anInstance:=TIntfObj1.Create;
+  Result:=TIntfObj1.Create;
 end;
 
 { TIntfObj1 }
@@ -59,7 +59,7 @@ begin
   end;
 end;
 
-initialization
+initialization  //TSingletonFactory
   TIntfFactory.Create(IIntf2,@Create_IntfObj1);
 finalization
 end.

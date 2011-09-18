@@ -9,6 +9,9 @@ uses
 
 begin
   Application.Initialize;
+  {$IFDEF VER210}
+  ReportMemoryLeaksOnShutdown := DebugHook <> 0;
+  {$ENDIF}
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFrmMain, FrmMain);
   Application.Run;

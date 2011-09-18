@@ -22,9 +22,9 @@ implementation
 
 uses ufrmBPL;
 
-procedure Create_IntfObj3(out anInstance: IInterface);
+function Create_IntfObj3(param:Integer):TObject;
 begin
-  anInstance:=TIntfObj3.Create;
+  Result:=TIntfObj3.Create;
 end;
 
 { TIntfObj3 }
@@ -60,6 +60,6 @@ begin
 end;
 
 initialization
-  TIntfFactory.Create(IIntf3,@Create_IntfObj3);
+  TIntfFactory.Create(IIntf3,Create_IntfObj3);
 finalization
 end.

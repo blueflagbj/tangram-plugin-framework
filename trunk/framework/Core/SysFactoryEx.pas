@@ -11,7 +11,6 @@ interface
 Uses Classes,SysUtils,FactoryIntf,SvcInfoIntf;
 
 Type
-  TIntfCreatorFunc = procedure(out anInstance: IInterface);
   //基类
   TBaseFactoryEx=Class(TFactory,ISvcInfoEx)
   private
@@ -24,43 +23,44 @@ Type
     Destructor Destroy;override;
 
     {Inherited}
-    procedure CreateInstance(const IID : TGUID; out Obj);override;
-    procedure ReleaseInstance;override;
+    function GetIntf(const IID : TGUID; out Obj):HResult;override;
+    procedure ReleaseIntf;override;
 
     function Supports(IID:TGUID):Boolean;override;
     procedure EnumKeys(Intf:IEnumKey);override;
   end;
 
-  TObjFactoryEx=Class(TBaseFactoryEx)
-  private
-    FOwnsObj:Boolean;
-    FInstance:TObject;
-  protected
-    {ISvcInfoEx}
-    procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
-  public
-    Constructor Create(Const IIDs:Array of TGUID;Instance:TObject;OwnsObj:Boolean=False);
-    Destructor Destroy;override;
-
-    {Inherited}
-    procedure CreateInstance(const IID : TGUID; out Obj);override;
-    procedure ReleaseInstance;override;
-  end;
-
   TSingletonFactoryEx=Class(TBaseFactoryEx)
   private
     FIntfCreatorFunc: TIntfCreatorFunc;
-    FInstance:IInterface;
+    FIntfRelease:Boolean;
   protected
+    FIntfRef:IInterface;
+    FInstance:TObject;
     procedure GetSvcInfo(Intf:ISvcInfoGetter);override;
+    function GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean; override;
   public
-    Constructor Create(IIDs:Array of TGUID;IntfCreatorFunc:TIntfCreatorFunc);
+    Constructor Create(IIDs:Array of TGUID;IntfCreatorFunc:TIntfCreatorFunc;
+      IntfRelease:Boolean=False);
     destructor Destroy; override;
 
-    procedure CreateInstance(const IID : TGUID; out Obj); override;
-    procedure ReleaseInstance;override;
+    function GetIntf(const IID : TGUID; out Obj):HResult; override;
+    procedure ReleaseIntf;override;
   end;
 
+  TObjFactoryEx=Class(TSingletonFactoryEx)
+  private
+    FOwnsObj:Boolean;
+  protected
+  public
+    Constructor Create(Const IIDs:Array of TGUID;Instance:TObject;
+      OwnsObj:Boolean=False;IntfRelease:Boolean=False);
+    Destructor Destroy;override;
+
+    {Inherited}
+    //function GetIntf(const IID : TGUID; out Obj):HResult;override;
+    procedure ReleaseIntf;override;
+  end;
 implementation
 
 uses SysFactoryMgr,SysMsg;
@@ -82,9 +82,9 @@ begin
   FactoryManager.RegisterFactory(self);
 end;
 
-procedure TBaseFactoryEx.CreateInstance(const IID: TGUID; out Obj);
+function TBaseFactoryEx.GetIntf(const IID: TGUID; out Obj):HResult;
 begin
-
+  Result:=E_NOINTERFACE;
 end;
 
 destructor TBaseFactoryEx.Destroy;
@@ -109,7 +109,7 @@ begin
 
 end;
 
-procedure TBaseFactoryEx.ReleaseInstance;
+procedure TBaseFactoryEx.ReleaseIntf;
 begin
 
 end;
@@ -119,103 +119,55 @@ begin
   Result:=FIIDList.IndexOf(GUIDToString(IID))<>-1;
 end;
 
-{ TObjFactoryEx }
-
-constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
-  Instance: TObject;OwnsObj:Boolean);
-begin
-  if Instance=nil then exit;
-  if (Instance is TInterfacedObject) then
-    Raise Exception.Create(Err_DontUseTInterfacedObject);
-  if length(IIDs)=0 then
-    Raise Exception.Create(Err_IIDsParamIsEmpty);
-
-  FOwnsObj:=OwnsObj;
-  self.FInstance:=Instance;
-  Inherited Create(IIDs);
-end;
-
-procedure TObjFactoryEx.CreateInstance(const IID: TGUID; out Obj);
-begin
-  if not FInstance.GetInterface(IID,Obj) then
-    Raise Exception.CreateFmt(Err_IntfNotSupport,[GUIDToString(IID)]);
-end;
-
-destructor TObjFactoryEx.Destroy;
-begin
-
-  inherited;
-end;
-
-procedure TObjFactoryEx.GetSvcInfo(Intf: ISvcInfoGetter);
-var SvcInfoIntf:ISvcInfo;
-    SvcInfoIntfEx:ISvcInfoEx;
-    SvcInfoRec:TSvcInfoRec;
-    i:Integer;
-begin
-  SvcInfoIntf:=nil;
-  if FInstance.GetInterface(ISvcInfoEx,SvcInfoIntfEx) then
-    SvcInfoIntfEx.GetSvcInfo(Intf)
-  else begin
-    with SvcInfoRec do
-    begin
-      GUID      :='';
-      ModuleName:='';
-      Title     :='';
-      Version   :='';
-      Comments  :='';
-    end;
-    if FInstance.GetInterface(ISvcInfo,SvcInfoIntf) then
-    begin
-      with SvcInfoRec do
-      begin
-        //GUID      :=GUIDToString(self.FIntfGUID);
-        ModuleName:=SvcInfoIntf.GetModuleName;
-        Title     :=SvcInfoIntf.GetTitle;
-        Version   :=SvcInfoIntf.GetVersion;
-        Comments  :=SvcInfoIntf.GetComments;
-      end;
-    end;
-    for i:=0 to self.FIIDList.Count-1 do
-    begin
-      SvcInfoRec.GUID:=self.FIIDList[i];
-      Intf.SvcInfo(SvcInfoRec);
-    end;
-  end;
-end;
-
-procedure TObjFactoryEx.ReleaseInstance;
-begin
-  inherited;
-  if FOwnsObj then
-    FreeAndNil(self.FInstance);
-end;
-
 { TSingletonFactoryEx }
 
 constructor TSingletonFactoryEx.Create(IIDs: array of TGUID;
-  IntfCreatorFunc: TIntfCreatorFunc);
+  IntfCreatorFunc: TIntfCreatorFunc;IntfRelease:Boolean);
 begin
   if length(IIDs)=0 then
-    Raise Exception.Create(Err_IIDsParamIsEmpty);
+    raise Exception.Create(Err_IIDsParamIsEmpty);
 
-  FInstance:=nil;
+  FInstance       :=nil;
+  FIntfRef        := nil;
+  FIntfRelease    :=IntfRelease;
   FIntfCreatorFunc:=IntfCreatorFunc;
   Inherited Create(IIDs);
 end;
 
-procedure TSingletonFactoryEx.CreateInstance(const IID: TGUID; out Obj);
+function TSingletonFactoryEx.GetIntf(const IID: TGUID; out Obj):HResult;
 begin
-  if FInstance=nil then
-    FIntfCreatorFunc(FInstance);
+  //if not Assigned(FIntfCreatorFunc) then//不能这样，因为后代TObjFactoryEx时FIntfCreatorFunc为空
+  //  raise Exception.CreateFmt(Err_IntfCreatorFuncIsNil,[GUIDToString(IID)]);
 
-  if FInstance.QueryInterface(IID,Obj)<>S_OK then
-    Raise Exception.CreateFmt(Err_IntfNotSupport,[GUIDToString(IID)]);
+  Result := E_NOINTERFACE;
+  if FIntfRef = nil then
+  begin
+    FInstance := FIntfCreatorFunc(Self.FParam);
+    if FInstance <> nil then
+    begin
+      if FInstance.GetInterface(IID, FIntfRef) then
+      begin
+        Result := S_OK;
+        IInterface(Obj):=FIntfRef;
+      end else
+        Raise Exception.CreateFmt(Err_IntfNotSupport, [GUIDToString(IID)]);
+    end;
+  end else begin
+    Result := FIntfRef.QueryInterface(IID,Obj);
+  end;
+end;
+
+function TSingletonFactoryEx.GetObj(out Obj: TObject;
+  out AutoFree: Boolean): Boolean;
+begin
+  Obj := Self.FInstance;
+  AutoFree := False;
+  Result := True;
 end;
 
 destructor TSingletonFactoryEx.Destroy;
 begin
-  FInstance:=nil;
+
   inherited;
 end;
 
@@ -227,12 +179,15 @@ var SvcInfoIntf:ISvcInfo;
 begin
   SvcInfoIntf:=nil;
   if FInstance=nil then
-    FIntfCreatorFunc(FInstance);
+  begin
+    FInstance:=FIntfCreatorFunc(self.FParam);
+    if FInstance=nil then exit;
+  end;
 
-  if FInstance.QueryInterface(ISvcInfoEx,SvcInfoIntfEx)=S_OK then
+  if FInstance.GetInterface(ISvcInfoEx,SvcInfoIntfEx) then
     SvcInfoIntfEx.GetSvcInfo(Intf)
   else begin
-    if FInstance.QueryInterface(ISvcInfo,SvcInfoIntf)=S_OK then
+    if FInstance.GetInterface(ISvcInfo,SvcInfoIntf) then
     begin
       with SvcInfoRec do
       begin
@@ -261,10 +216,41 @@ begin
   end;
 end;
 
-procedure TSingletonFactoryEx.ReleaseInstance;
+procedure TSingletonFactoryEx.ReleaseIntf;
 begin
+  if FInstance=nil then exit;
+
+  if (FInstance is TInterfacedObject) or FIntfRelease then
+    FIntfRef:=nil
+  else FInstance.Free;
+end;
+
+{ TObjFactoryEx }
+
+constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
+  Instance: TObject;OwnsObj:Boolean;IntfRelease:Boolean);
+var tmpIntf:IInterface;
+begin
+  if Instance=nil then exit;
+  if length(IIDs)=0 then
+    Raise Exception.Create(Err_IIDsParamIsEmpty);
+
+  Inherited Create(IIDs,nil,IntfRelease);//往上后FIntfRef会被赋为nil
+  FOwnsObj := OwnsObj;
+  FInstance:= Instance;
+  FIntfRef :=tmpIntf;
+end;
+
+destructor TObjFactoryEx.Destroy;
+begin
+
   inherited;
-  FInstance:=nil;
+end;
+
+procedure TObjFactoryEx.ReleaseIntf;
+begin
+  if FOwnsObj then
+    Inherited;
 end;
 
 end.
