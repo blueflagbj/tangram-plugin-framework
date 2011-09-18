@@ -58,4 +58,13 @@ object FrmMain: TFrmMain
       #12290#20320#21482#38656#35201#30693#36947#25509#21475#23601#21487#20197#35843#29992#65292#32780#19981#24517#20851#24515#23427#26159#22312#21738#37324#12289#22914#20309#23454#29616#30340#12290
     TabOrder = 2
   end
+  object Button3: TButton
+    Left = 56
+    Top = 248
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 3
+    OnClick = Button3Click
+  end
 end

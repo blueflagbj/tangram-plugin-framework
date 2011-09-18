@@ -9,9 +9,11 @@ unit FactoryIntf;
 
 interface
 
-uses uIntfObj;
+uses uIntfObj,ObjRefIntf;
 
 Type
+  TIntfCreatorFunc = function(param:Integer):TObject;
+
   IEnumKey=Interface
     ['{BCF06768-CF57-41C8-AC40-C17135A80089}']
     procedure EnumKey(const IIDStr:String);
@@ -19,20 +21,81 @@ Type
 
   TFactory=Class(TIntfObj)
   private
-  protected
 
+  protected
+    FParam:Integer;
+
+    function GetObj(out Obj:TObject;out AutoFree:Boolean):Boolean;virtual;
   public
     //Constructor Create;
     //Destructor Destroy;override;
 
-    procedure CreateInstance(const IID : TGUID; out Obj);virtual;abstract;
-    procedure ReleaseInstance;virtual;abstract;
+    function GetIntf(const IID : TGUID; out Obj):HResult;virtual;abstract;
+    procedure ReleaseIntf;virtual;abstract;
 
     function Supports(IID:TGUID):Boolean;virtual;abstract;
     procedure EnumKeys(Intf:IEnumKey); virtual;abstract;
+
+    function GetObjRef:IObjRef;dynamic;
+
+    procedure prepare(param:Integer);
   end;
+
+  ///////////////////////////////////////////
+
+  TObjRef=Class(TInterfacedObject,IObjRef)
+  private
+    FObj:TObject;
+    FAutoFree:Boolean;
+  protected
+    {IObjRef}
+    function Obj:TObject;
+  public
+    constructor Create(Obj:TObject;AutoFree:Boolean=True);
+    destructor Destroy;override;
+  End;
+
 implementation
 
+{ TObjRef }
+
+constructor TObjRef.Create(Obj: TObject; AutoFree: Boolean);
+begin
+  FAutoFree:=AutoFree;
+  FObj:=Obj;
+end;
+
+destructor TObjRef.Destroy;
+begin
+  if FAutoFree then
+    Obj.Free;
+  inherited;
+end;
+
+function TObjRef.Obj: TObject;
+begin
+  Result:=FObj;
+end;
+
 { TFactory }
+
+function TFactory.GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean;
+begin
+  Result:=False;
+end;
+
+function TFactory.GetObjRef: IObjRef;
+var autoFree:Boolean;
+    obj:TObject;
+begin
+  Result:=nil;
+  if self.GetObj(obj,autoFree) then
+    Result:=TObjRef.Create(obj,autoFree);
+end;
+
+procedure TFactory.prepare(param: Integer);
+begin
+  Fparam:=param;
+end;
 
 end.

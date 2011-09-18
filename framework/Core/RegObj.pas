@@ -13,7 +13,7 @@ uses SysUtils, Classes, RegIntf, XMLDoc, XMLIntf, Variants, ActiveX,
   SvcInfoIntf, MenuRegIntf;
 
 Type
-  TRegObj = Class(TInterfacedObject, IRegistry, ILoadRegistryFile, ISvcInfo,
+  TRegObj = Class(TInterfacedObject, IRegistry, ISvcInfo,
     IMenuReg)
   private
     FRegFile: String;
@@ -57,7 +57,6 @@ Type
 
     procedure SaveData;
 
-    { ILoadRegistryFile }
     procedure LoadRegistryFile(const FileName: Widestring);
     { ISvcInfo }
     function GetModuleName: String;
@@ -70,7 +69,7 @@ Type
     procedure RegToolItem(const key, aCaption, aHint: Widestring);
     procedure UnRegToolItem(const key: Widestring);
   public
-    constructor Create;
+    constructor Create(const FileName:Widestring);
     Destructor Destroy; override;
   End;
 
@@ -84,10 +83,10 @@ const
   MenuKey = 'SYSTEM\MENU';
   ToolKey = 'SYSTEM\TOOL';
 
-constructor TRegObj.Create;
+constructor TRegObj.Create(const FileName:Widestring);
 begin
   CoInitialize(nil);
-
+  self.LoadRegistryFile(FileName);
   {try
     //下面这两句用于解决加载DLL报No matching DOM Vendor: ""错误的问题
     //引用msxmldom,xmldom两单元

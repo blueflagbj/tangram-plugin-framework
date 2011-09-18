@@ -51,7 +51,8 @@ contains
   ModuleInstallerIntf in '..\Interfaces\ModuleInstallerIntf.pas',
   NotifyServiceIntf in '..\Interfaces\NotifyServiceIntf.pas',
   SysNotifyService in 'SysNotifyService.pas',
-  SysSvcIntf in 'SysSvcIntf.pas';
+  SysSvcIntf in 'SysSvcIntf.pas',
+  ObjRefIntf in '..\Interfaces\ObjRefIntf.pas';
 
 end.
 

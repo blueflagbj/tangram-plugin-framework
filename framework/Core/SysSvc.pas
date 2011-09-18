@@ -9,7 +9,7 @@ unit SysSvc;
 interface
 
 uses SysUtils,Windows,Classes,FactoryIntf,SysSvcIntf,NotifyServiceIntf,
-     ModuleLoaderIntf;
+     ModuleLoaderIntf,ObjRefIntf;
 
 Type
   TSysService=Class(TObject,IInterface,ISysService)
@@ -23,12 +23,13 @@ Type
     {ISysService}
     function Notify:INotifyService;
     function ModuleLoader:IModuleLoader;
+    function GetObjRef(const IID:TGUID):IObjRef;
   public
    // Constructor Create;
    // Destructor Destroy;override;
   end;
 
-  function SysService:ISysService;
+  function SysService(param:Integer=0):ISysService;
 
 implementation
 
@@ -36,10 +37,12 @@ uses SysFactoryMgr;
 
 var
   FSysService:ISysService;
+  FParam:Integer;
 
-function SysService:ISysService;
+function SysService(param:Integer=0):ISysService;
 begin
-  if not Assigned(FSysService) then
+  FParam:=param;
+  if FSysService=nil then
     FSysService:=TSysService.Create;
     
   Result:=FSysService;
@@ -69,8 +72,8 @@ begin
     aFactory:=FactoryManager.FindFactory(IID);
     if Assigned(aFactory) then
     begin
-      aFactory.CreateInstance(IID,Obj);
-      Result:=S_OK;
+      aFactory.prepare(FParam);
+      Result:=aFactory.GetIntf(IID,Obj);
     end;
   end;
 end;
@@ -83,6 +86,15 @@ end;
 function TSysService.ModuleLoader: IModuleLoader;
 begin
   Result:=Self as IModuleLoader;
+end;
+
+function TSysService.GetObjRef(const IID: TGUID): IObjRef;
+var aFactory:TFactory;
+begin
+  Result:=nil;
+  aFactory:=FactoryManager.FindFactory(IID);
+  if Assigned(aFactory) then
+    Result:=aFactory.GetObjRef;
 end;
 
 initialization

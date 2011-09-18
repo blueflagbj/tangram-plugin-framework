@@ -101,7 +101,7 @@ const
   SplashFormWaitTime=1500;
   key_LoadModule='SYSTEM\LOADMODULE';
 
-procedure CreateRegObj(out anInstance: IInterface);
+function CreateRegObj(Param:Integer):TObject;
 var RegFile,IniFile,AppPath:String;
     Ini:TIniFile;
 begin
@@ -110,16 +110,15 @@ begin
   ini:=TIniFile.Create(IniFile);
   try
     RegFile:=AppPath+ini.ReadString('Default','Reg','Tangram.xml');
-    anInstance:=TRegObj.Create;
-    (anInstance as ILoadRegistryFile).LoadRegistryFile(RegFile);
+    Result:=TRegObj.Create(RegFile);
   finally
     ini.Free;
   end;
 end;
 
-procedure Create_SvcInfoObj(out anInstance: IInterface);
+function Create_SvcInfoObj(Param:Integer):TObject;
 begin
-  anInstance:=TSvcInfoObj.Create;
+  Result:=TSvcInfoObj.Create;
 end;
 
 { TTangramModule }
@@ -529,7 +528,7 @@ begin
     end;
   end;
 
-  FactoryManager.ReleaseInstances;
+  FactoryManager.ReleaseIntf;
 end;
 
 procedure TModuleMgr.WriteErrFmt(const err: String;
