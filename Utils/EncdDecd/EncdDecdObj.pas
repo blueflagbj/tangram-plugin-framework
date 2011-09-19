@@ -153,9 +153,9 @@ begin
   Result := AnsiLowerCase(Result);
 end;
 
-procedure Create_EncdDecdObj(out anInstance: IInterface);
+function Create_EncdDecdObj(param:Integer):TObject;
 begin
-  anInstance:=TEncdDecdObj.Create;
+  Result:=TEncdDecdObj.Create;
 end;
 
 function TEncdDecdObj.GetComments: String;

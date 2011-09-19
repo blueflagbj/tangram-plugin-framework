@@ -74,10 +74,11 @@ begin
   end;
 end;
 
-procedure Create_LoginObj(out anInstance: IInterface);
+function Create_LoginObj(param:Integer):TObject;
 begin
-  anInstance:=TLogin.Create;
+  Result:=TLogin.Create;
 end;
+
 initialization
   TIntfFactory.Create(ILogin,@Create_LoginObj);
 finalization

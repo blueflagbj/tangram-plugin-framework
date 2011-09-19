@@ -64,9 +64,9 @@ begin
   FSplashForm.Refresh;
 end;
 
-procedure Create_SplashFormObj(out anInstance: IInterface);
+function Create_SplashFormObj(param:Integer):TObject;
 begin
-  anInstance:=TSplashFormObj.Create;
+  Result:=TSplashFormObj.Create;
 end;
 
 initialization

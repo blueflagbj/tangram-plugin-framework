@@ -222,23 +222,28 @@ begin
 
   if (FInstance is TInterfacedObject) or FIntfRelease then
     FIntfRef:=nil
-  else FInstance.Free;
+  else begin
+    FInstance.Free;
+    FIntfRef:=nil;
+  end;
+  FInstance:=nil;
 end;
 
 { TObjFactoryEx }
 
 constructor TObjFactoryEx.Create(const IIDs: array of TGUID;
   Instance: TObject;OwnsObj:Boolean;IntfRelease:Boolean);
-var tmpIntf:IInterface;
 begin
-  if Instance=nil then exit;
   if length(IIDs)=0 then
-    Raise Exception.Create(Err_IIDsParamIsEmpty);
+    raise Exception.Create(Err_IIDsParamIsEmpty);
+
+  if Instance=nil then
+    raise Exception.CreateFmt(Err_InstanceIsNil,[GUIDToString(IIDs[0])]);
 
   Inherited Create(IIDs,nil,IntfRelease);//往上后FIntfRef会被赋为nil
-  FOwnsObj := OwnsObj;
+  FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance:= Instance;
-  FIntfRef :=tmpIntf;
+  FInstance.GetInterface(IInterface,FIntfRef);
 end;
 
 destructor TObjFactoryEx.Destroy;

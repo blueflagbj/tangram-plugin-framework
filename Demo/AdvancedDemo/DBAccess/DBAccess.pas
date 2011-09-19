@@ -154,10 +154,10 @@ begin
   inherited;
 end;
 
-procedure CreateDBOperation(out anInstance: IInterface);
+function CreateDBOperation(param:Integer):TObject;
 begin
   CoInitialize(nil);
-  anInstance:=TDBOperation.Create;
+  Result:=TDBOperation.Create;
   CoUnInitialize;
 end;
 

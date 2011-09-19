@@ -85,9 +85,9 @@ begin
   end;
 end;
 
-procedure CreateSysInfoObj(out anInstance: IInterface);
+function CreateSysInfoObj(param:Integer):TObject;
 begin
-  anInstance:=TSysInfoObj.Create;
+  Result:=TSysInfoObj.Create;
 end;
 
 initialization

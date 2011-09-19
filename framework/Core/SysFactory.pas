@@ -204,9 +204,9 @@ end;
 constructor TSingletonFactory.Create(IID: TGUID;
   IntfCreatorFunc: TIntfCreatorFunc;IntfRelease:Boolean);
 begin
-  FInstance:=nil;
-  FIntfRef := nil;
-  FIntfRelease:=IntfRelease;
+  FInstance        := nil;
+  FIntfRef         := nil;
+  FIntfRelease     := IntfRelease;
   FIntfCreatorFunc := IntfCreatorFunc;
   inherited Create(IID);
 end;
@@ -292,10 +292,14 @@ end;
 procedure TSingletonFactory.ReleaseIntf;
 begin
   if FInstance=nil then exit;
-  
+
   if (FInstance is TInterfacedObject) or FIntfRelease then
     FIntfRef:=nil
-  else FInstance.Free;
+  else begin
+    FInstance.Free;
+    FIntfRef:=nil;
+  end;
+  FInstance:=nil;
 end;
 
 { TObjFactory }
@@ -304,14 +308,17 @@ constructor TObjFactory.Create(IID: TGUID; Instance: TObject;
   OwnsObj: Boolean;IntfRelease:Boolean);
 var tmpIntf:IInterface;
 begin
+  if Instance=nil then
+    raise Exception.CreateFmt(Err_InstanceIsNil,[GUIDToString(IID)]);
+
   if not Instance.GetInterface(IID, tmpIntf) then
-    Raise Exception.CreateFmt(Err_ObjNotImpIntf, [Instance.ClassName,
+    raise Exception.CreateFmt(Err_ObjNotImpIntf, [Instance.ClassName,
       GUIDToString(IID)]);
 
   Inherited Create(IID,nil,IntfRelease);//往上后FIntfRef会被赋为nil
-  FOwnsObj := OwnsObj;
+  FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance:= Instance;
-  FIntfRef :=tmpIntf;
+  FIntfRef := tmpIntf;
 end;
 
 destructor TObjFactory.Destroy;
@@ -322,6 +329,8 @@ end;
 
 procedure TObjFactory.ReleaseIntf;
 begin
+  if FInstance=nil then exit;
+
   if FOwnsObj then
     Inherited;
 end;

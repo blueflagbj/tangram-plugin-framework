@@ -53,9 +53,9 @@ Type
 
 implementation
 
-procedure Create_DataRecord(out anInstance: IInterface);
+function Create_DataRecord(param:Integer):TObject;
 begin
-  anInstance:=TDataRecord.Create;
+  Result:=TDataRecord.Create;
 end;
 
 { TDataRecord }

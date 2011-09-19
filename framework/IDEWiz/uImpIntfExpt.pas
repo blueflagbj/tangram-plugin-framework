@@ -272,9 +272,9 @@ begin
     +#13#10
     +'implementation'+#13#10
     +#13#10
-    +'procedure Create_'+FIntfClass+'(out anInstance: IInterface);'+#13#10
+    +'function Create_'+FIntfClass+'(param:Integer):TObject;'+#13#10
     +'begin'+#13#10
-    +'  anInstance:=T'+FIntfClass+'.Create;'+#13#10
+    +'  Result:=T'+FIntfClass+'.Create;'+#13#10
     +'end;'+#13#10
     +#13#10;
   if FIntfInfoEnable then

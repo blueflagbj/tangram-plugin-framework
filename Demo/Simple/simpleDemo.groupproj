@@ -12,9 +12,6 @@
 			<Projects Include="BPL_Module\bplModule1.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\..\framework\Core\Tangram_Core.dproj">
-				<Dependencies/>
-			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -50,23 +47,14 @@
 		<Target Name="bplModule1:Make">
 			<MSBuild Targets="Make" Projects="BPL_Module\bplModule1.dproj"/>
 		</Target>
-		<Target Name="Tangram_Core">
-			<MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
-		<Target Name="Tangram_Core:Clean">
-			<MSBuild Targets="Clean" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
-		<Target Name="Tangram_Core:Make">
-			<MSBuild Targets="Make" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
-		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="SimpleHost;DllModule1;bplModule1;Tangram_Core"/>
+			<CallTarget Targets="SimpleHost;DllModule1;bplModule1"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="SimpleHost:Clean;DllModule1:Clean;bplModule1:Clean;Tangram_Core:Clean"/>
+			<CallTarget Targets="SimpleHost:Clean;DllModule1:Clean;bplModule1:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="SimpleHost:Make;DllModule1:Make;bplModule1:Make;Tangram_Core:Make"/>
+			<CallTarget Targets="SimpleHost:Make;DllModule1:Make;bplModule1:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

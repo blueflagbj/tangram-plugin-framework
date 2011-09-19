@@ -98,9 +98,9 @@ begin
   inherited;
 end;
 
-procedure Create_DialogObj(out anInstance: IInterface);
+function Create_DialogObj(param:Integer):TObject;
 begin
-  anInstance:=TDialogs.Create;
+  Result:=TDialogs.Create;
 end;
 
 function TDialogs.GetComments: String;
