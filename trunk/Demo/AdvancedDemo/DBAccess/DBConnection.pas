@@ -130,10 +130,10 @@ begin
   inherited;
 end;
 
-procedure CreateDBConnection(out anInstance: IInterface);
+function CreateDBConnection(param:Integer):TObject;
 begin
   CoInitialize(nil);
-  anInstance:=TDBConnection.Create;
+  Result:=TDBConnection.Create;
   CoUnInitialize;
 end;
 

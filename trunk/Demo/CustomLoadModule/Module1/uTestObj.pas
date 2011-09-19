@@ -15,9 +15,9 @@ Type
 
 implementation
 
-procedure Create_TestObj(out anInstance: IInterface);
+function Create_TestObj(param:Integer):TObject;
 begin
-  anInstance:=TTestObj.Create;
+  Result:=TTestObj.Create;
 end;
 
 

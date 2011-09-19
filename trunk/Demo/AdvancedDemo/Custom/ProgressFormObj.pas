@@ -110,9 +110,9 @@ begin
   application.ProcessMessages;
 end;
 
-procedure Create_ProgressFormObj(out anInstance: IInterface);
+function Create_ProgressFormObj(param:Integer):TObject;
 begin
-  anInstance:=TProgressFormObj.Create;
+  Result:=TProgressFormObj.Create;
 end;
 
 initialization

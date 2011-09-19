@@ -57,9 +57,9 @@ begin
   (SysService as IFormMgr).CreateForm(TfrmMDI);
 end;
 
-procedure CreateTestObject(out anInstance: IInterface);
+function CreateTestObject(param:Integer):TObject;
 begin
-  anInstance:=TtestObj.Create;
+  Result:=TtestObj.Create;
 end;
 
 initialization

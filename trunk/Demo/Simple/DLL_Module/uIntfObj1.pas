@@ -59,7 +59,8 @@ begin
   end;
 end;
 
-initialization  //TSingletonFactory
+initialization
   TIntfFactory.Create(IIntf2,@Create_IntfObj1);
 finalization
+
 end.

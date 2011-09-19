@@ -44,9 +44,9 @@ implementation
 uses SysSvc,DBIntf,ProgressFormIntf,NotifyServiceIntf,uConst,
      DialogIntf,SysInfoIntf;
 
-procedure Create_AuthoritySvr(out anInstance: IInterface);
+function Create_AuthoritySvr(param:Integer):TObject;
 begin
-  anInstance:=TAuthoritySvr.Create;
+  Result:=TAuthoritySvr.Create;
 end;
 
 { TTAuthoritySvr }

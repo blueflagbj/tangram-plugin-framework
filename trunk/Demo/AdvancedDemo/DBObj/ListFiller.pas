@@ -33,9 +33,9 @@ implementation
 
 uses SysSvc;
 
-procedure Create_ListFiller(out anInstance: IInterface);
+function Create_ListFiller(param:Integer):TObject;
 begin
-  anInstance:=TListFiller.Create;
+  Result:=TListFiller.Create;
 end;
 
 { TListFiller }

@@ -103,9 +103,9 @@ begin
   end;
 end;
 
-procedure Create_LogObj(out anInstance: IInterface);
+function Create_LogObj(param:Integer):TObject;
 begin
-  anInstance:=TLogObj.Create;
+  Result:=TLogObj.Create;
 end;
 
 initialization
