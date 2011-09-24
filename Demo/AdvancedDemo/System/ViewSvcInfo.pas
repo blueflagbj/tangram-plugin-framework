@@ -10,12 +10,12 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, ComCtrls,SvcInfoIntf, StdCtrls, ImgList, Menus,
-  ToolWin,uBaseForm;
+  Dialogs, ExtCtrls, ComCtrls,SvcInfoIntf, StdCtrls, ImgList,ToolWin,
+  uBaseForm;
 
 type
   PSvcInfoRec=^TSvcInfoRec;
-  
+
   Tfrm_SvcInfo = class(TBaseForm,ISvcInfoGetter)
     tv_Svc: TTreeView;
     Splitter1: TSplitter;

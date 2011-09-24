@@ -23,7 +23,7 @@ Type
     {ISysService}
     function Notify:INotifyService;
     function ModuleLoader:IModuleLoader;
-    function GetObjRef(const IID:TGUID):IObjRef;
+    function GetObjRef(const IID:TGUID;out ObjRef:IObjRef):Boolean;
   public
    // Constructor Create;
    // Destructor Destroy;override;
@@ -88,13 +88,17 @@ begin
   Result:=Self as IModuleLoader;
 end;
 
-function TSysService.GetObjRef(const IID: TGUID): IObjRef;
+function TSysService.GetObjRef(const IID: TGUID;out ObjRef:IObjRef): Boolean;
 var aFactory:TFactory;
 begin
-  Result:=nil;
+  Result:=False;
   aFactory:=FactoryManager.FindFactory(IID);
   if Assigned(aFactory) then
-    Result:=aFactory.GetObjRef;
+  begin
+    aFactory.prepare(FParam);
+    ObjRef:=aFactory.GetObjRef;
+    Result:=True;
+  end;
 end;
 
 initialization

@@ -13,3 +13,6 @@
 
 5.CustomLoadModule
   演示如何自已加载包，框架默认是自动从框架注册表加载包的，那样需要事先用ConfigTool.exe安装包。
+
+6.ObjRef
+  演示如何使用ObjRef功能。通过ObjRef可以创建某个接口实现对象的实例。

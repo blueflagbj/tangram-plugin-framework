@@ -62,7 +62,7 @@ begin
   Result:=TtestObj.Create;
 end;
 
-initialization
+initialization  //TIntfFactory
   TSingletonFactory.Create(ITest,@CreateTestObject);
 
 finalization
