@@ -182,6 +182,7 @@ begin
   begin
     FInstance:=FIntfCreatorFunc(self.FParam);
     if FInstance=nil then exit;
+    FInstance.GetInterface(IInterface,FIntfRef);
   end;
 
   if FInstance.GetInterface(ISvcInfoEx,SvcInfoIntfEx) then
@@ -218,7 +219,7 @@ end;
 
 procedure TSingletonFactoryEx.ReleaseIntf;
 begin
-  if FInstance=nil then exit;
+  if (FIntfRef=nil) or (FInstance=nil) then exit;
 
   if (FInstance is TInterfacedObject) or FIntfRelease then
     FIntfRef:=nil

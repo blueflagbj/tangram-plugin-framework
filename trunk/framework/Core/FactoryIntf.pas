@@ -50,6 +50,7 @@ Type
   protected
     {IObjRef}
     function Obj:TObject;
+    function ObjIsNil:Boolean;
   public
     constructor Create(Obj:TObject;AutoFree:Boolean=True);
     destructor Destroy;override;
@@ -67,7 +68,7 @@ end;
 
 destructor TObjRef.Destroy;
 begin
-  if FAutoFree then
+  if FAutoFree and (Obj<>nil) then
     Obj.Free;
   inherited;
 end;
@@ -75,6 +76,11 @@ end;
 function TObjRef.Obj: TObject;
 begin
   Result:=FObj;
+end;
+
+function TObjRef.ObjIsNil: Boolean;
+begin
+  Result:=FObj=nil;
 end;
 
 { TFactory }
@@ -90,7 +96,8 @@ var autoFree:Boolean;
 begin
   Result:=nil;
   if self.GetObj(obj,autoFree) then
-    Result:=TObjRef.Create(obj,autoFree);
+    Result:=TObjRef.Create(obj,autoFree)
+  else Result:=TObjRef.Create(nil,autoFree);
 end;
 
 procedure TFactory.prepare(param: Integer);

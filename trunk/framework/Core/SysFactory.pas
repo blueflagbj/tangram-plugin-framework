@@ -32,7 +32,7 @@ Type
     Flag: Integer;
     FSvcInfoRec: TSvcInfoRec;
     FIntfCreatorFunc: TIntfCreatorFunc;
-    procedure InnerGetSvcInfo(Obj: TObject; SvcInfoGetter: ISvcInfoGetter);
+    procedure InnerGetSvcInfo(Intf:IInterface; SvcInfoGetter: ISvcInfoGetter);
   protected
     procedure GetSvcInfo(Intf: ISvcInfoGetter); override;
     function GetObj(out Obj: TObject; out AutoFree: Boolean): Boolean; override;
@@ -78,7 +78,7 @@ Type
 
 implementation
 
-uses SysFactoryMgr, SysMsg,Dialogs;
+uses SysFactoryMgr, SysMsg;
 
 { TBaseFactory }
 
@@ -123,6 +123,7 @@ end;
 function TIntfFactory.GetIntf(const IID: TGUID; out Obj): HResult;
 var
   tmpObj: TObject;
+  tmpIntf:IInterface;
 begin
   Result := E_NOINTERFACE;
   if Assigned(Self.FIntfCreatorFunc) then
@@ -130,12 +131,16 @@ begin
     tmpObj := Self.FIntfCreatorFunc(FParam);
     if tmpObj <> nil then
     begin
-      if tmpObj.GetInterface(IID, Obj) then
+      if tmpObj.GetInterface(IID, tmpIntf) then
       begin
         Result := S_OK;
+        IInterface(Obj):=tmpIntf;
         if Flag = 0 then
-          InnerGetSvcInfo(tmpObj, nil);
-      end;
+        begin
+          if tmpObj.GetInterface(IInterface,tmpIntf) then
+            InnerGetSvcInfo(tmpIntf, nil);
+        end;
+      end else tmpObj.Free;
     end;
   end;
 end;
@@ -156,40 +161,51 @@ end;
 procedure TIntfFactory.GetSvcInfo(Intf: ISvcInfoGetter);
 var
   Obj: TObject;
+  tmpIntf:IInterface;
 begin
   if (Flag = 0) or (Flag = 2) then
   begin
     Obj:=Self.FIntfCreatorFunc(self.FParam);
     if Obj<>nil then
-      InnerGetSvcInfo(Obj, Intf);
+    begin
+      if Obj.GetInterface(IInterface,tmpIntf) then
+      begin
+        InnerGetSvcInfo(tmpIntf, Intf);
+        tmpIntf:=nil;
+      end;
+    end;
   end;
   Intf.SvcInfo(FSvcInfoRec);
 end;
 
-procedure TIntfFactory.InnerGetSvcInfo(Obj: TObject;
+procedure TIntfFactory.InnerGetSvcInfo(Intf: IInterface;
   SvcInfoGetter: ISvcInfoGetter);
 var
   SvcInfoIntf: ISvcInfo;
   SvcInfoIntfEx: ISvcInfoEx;
 begin
+  if Intf=nil then exit;
+  
   FSvcInfoRec.GUID := GUIDToString(Self.FIntfGUID);
-  if Obj.GetInterface(ISvcInfo, SvcInfoIntf) then
+  if Intf.QueryInterface(ISvcInfo, SvcInfoIntf)=S_OK then
   begin
     Self.Flag := 1;
     with FSvcInfoRec do
     begin
       // GUID      :=GUIDToString(self.FIntfGUID);
       ModuleName := SvcInfoIntf.GetModuleName;
-      Title := SvcInfoIntf.GetTitle;
-      Version := SvcInfoIntf.GetVersion;
-      Comments := SvcInfoIntf.GetComments;
+      Title      := SvcInfoIntf.GetTitle;
+      Version    := SvcInfoIntf.GetVersion;
+      Comments   := SvcInfoIntf.GetComments;
     end;
+    SvcInfoIntf:=nil;
   end
-  else if Obj.GetInterface(ISvcInfoEx, SvcInfoIntfEx) then
+  else if Intf.QueryInterface(ISvcInfoEx, SvcInfoIntfEx)=S_OK then
   begin
     Flag := 2;
     if SvcInfoGetter <> nil then
       SvcInfoIntfEx.GetSvcInfo(SvcInfoGetter);
+    SvcInfoIntfEx:=nil;
   end;
 end;
 
@@ -230,8 +246,7 @@ begin
         Raise Exception.CreateFmt(Err_IntfNotSupport, [GUIDToString(IID)]);
     end;
   end else begin
-    Result := S_OK;
-    IInterface(Obj):=FIntfRef;
+    Result:=FIntfRef.QueryInterface(IID,Obj);
   end;
 end;
 
@@ -259,6 +274,7 @@ begin
   begin
     FInstance:=FIntfCreatorFunc(self.FParam);
     if FInstance=nil then exit;
+    FInstance.GetInterface(IInterface,FIntfRef);
   end;
 
   if FInstance.GetInterface(ISvcInfo, SvcInfoIntf) then
@@ -291,8 +307,7 @@ end;
 
 procedure TSingletonFactory.ReleaseIntf;
 begin
-  if FInstance=nil then exit;
-
+  if (FIntfRef=nil) or (FInstance=nil) then exit;
   if (FInstance is TInterfacedObject) or FIntfRelease then
     FIntfRef:=nil
   else begin
@@ -329,8 +344,6 @@ end;
 
 procedure TObjFactory.ReleaseIntf;
 begin
-  if FInstance=nil then exit;
-
   if FOwnsObj then
     Inherited;
 end;
