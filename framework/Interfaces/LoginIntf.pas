@@ -11,7 +11,7 @@ interface
 Type
   ILogin=Interface
     ['{694033A7-8C4F-4FCC-ABA9-01ECD1FF4F28}']
-    procedure CheckLogin;
+    function Login:Boolean;
     procedure ChangeUser;
     procedure LockSystem;
   End;

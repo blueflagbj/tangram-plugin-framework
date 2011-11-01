@@ -10,7 +10,8 @@ interface
 
 uses SysUtils, Classes, Windows, Contnrs, RegIntf, SplashFormIntf,
   ModuleInfoIntf, SvcInfoIntf, SysModule,ModuleLoaderIntf,StrUtils,
-  uIntfObj,ModuleInstallerIntf,SysNotifyService,NotifyServiceIntf;
+  uIntfObj,ModuleInstallerIntf,SysNotifyService,NotifyServiceIntf,
+  Forms;
 
 Type
   TGetModuleClassPro = function :TModuleClass;
@@ -399,7 +400,13 @@ begin
   end;
   // ¼ì²éµÇÂ¼
   if SysService.QueryInterface(ILogin, LoginIntf) = S_OK then
-    LoginIntf.CheckLogin;
+  begin
+    if not LoginIntf.Login then
+    begin
+      Application.ShowMainForm:=False;
+      Application.Terminate;
+    end;
+  end;
 end;
 
 procedure TModuleMgr.LoadModules;

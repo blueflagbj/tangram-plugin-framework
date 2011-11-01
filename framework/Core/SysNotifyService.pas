@@ -35,10 +35,10 @@ Type
   ////////////////////////////////////////////
   TEventNotify=Class(TNotifyObj)
   private
-    FNotifyEvent:TNotifyEvent;
+    FNotifyEvent:TSysNotifyEvent;
   public
     procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(NotifyEvent:TNotifyEvent);
+    Constructor Create(NotifyEvent:TSysNotifyEvent);
   End;
   ////////////////////////////////////////////
   TEventNotifyEx=Class(TEventNotify)
@@ -46,7 +46,7 @@ Type
     FFlags:Integer;
   public
     procedure SendNotify(Flags: Integer; Intf: IInterface;Param:Integer);override;
-    Constructor Create(Flags:Integer;NotifyEvent:TNotifyEvent);
+    Constructor Create(Flags:Integer;NotifyEvent:TSysNotifyEvent);
   End;
   ///////////////////////////////////////////
 
@@ -68,11 +68,11 @@ Type
     procedure RegisterNotifyEx(Flags:Integer;Notify:INotify);
     procedure UnRegisterNotifyEx(Notify:INotify);
 
-    procedure RegisterNotifyEvent(NotifyEvent:TNotifyEvent);
-    procedure UnRegisterNotifyEvent(NotifyEvent:TNotifyEvent);
+    procedure RegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
+    procedure UnRegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
 
-    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TNotifyEvent);
-    procedure UnRegisterNotifyEventEx(NotifyEvent:TNotifyEvent);
+    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TSysNotifyEvent);
+    procedure UnRegisterNotifyEventEx(NotifyEvent:TSysNotifyEvent);
     {ISvcInfo}
     function GetModuleName:String;
     function GetTitle:String;
@@ -157,13 +157,13 @@ begin
   self.RegNotify(Integer(Pointer(Notify)),TIntfNotify.Create(Notify));
 end;
 
-procedure TNotifyService.RegisterNotifyEvent(NotifyEvent: TNotifyEvent);
+procedure TNotifyService.RegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
 begin
   self.RegNotify(Integer(@NotifyEvent),TEventNotify.Create(NotifyEvent));
 end;
 
 procedure TNotifyService.RegisterNotifyEventEx(Flags: Integer;
-  NotifyEvent: TNotifyEvent);
+  NotifyEvent: TSysNotifyEvent);
 begin
   self.RegNotify(Integer(@NotifyEvent),TEventNotifyEx.Create(Flags,NotifyEvent));
 end;
@@ -199,12 +199,12 @@ begin
   self.UnRegisterNotify(Notify);
 end;
 
-procedure TNotifyService.UnRegisterNotifyEvent(NotifyEvent: TNotifyEvent);
+procedure TNotifyService.UnRegisterNotifyEvent(NotifyEvent: TSysNotifyEvent);
 begin
   self.UnRegNotify(Integer(@NotifyEvent));
 end;
 
-procedure TNotifyService.UnRegisterNotifyEventEx(NotifyEvent: TNotifyEvent);
+procedure TNotifyService.UnRegisterNotifyEventEx(NotifyEvent: TSysNotifyEvent);
 begin
   self.UnRegisterNotifyEvent(NotifyEvent);
 end;
@@ -244,7 +244,7 @@ end;
 
 { TEventNotify }
 
-constructor TEventNotify.Create(NotifyEvent: TNotifyEvent);
+constructor TEventNotify.Create(NotifyEvent: TSysNotifyEvent);
 begin
   self.FNotifyEvent:=NotifyEvent;
 end;
@@ -257,7 +257,7 @@ end;
 
 { TEventNotifyEx }
 
-constructor TEventNotifyEx.Create(Flags: Integer; NotifyEvent: TNotifyEvent);
+constructor TEventNotifyEx.Create(Flags: Integer; NotifyEvent: TSysNotifyEvent);
 begin
   self.FFlags:=Flags;
   Inherited Create(NotifyEvent);

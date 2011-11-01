@@ -16,7 +16,7 @@ Type
   private
   protected
     {ILogin}
-    procedure CheckLogin;
+    function Login:Boolean;
     procedure ChangeUser;
     procedure LockSystem;
     {ISvcInfo}
@@ -63,12 +63,11 @@ begin
   //sys.Dialogs.ShowError('ILogin.LockSystem方法未实现！');
 end;
 
-procedure TLogin.CheckLogin;
+function TLogin.Login:Boolean;
 begin
   frm_Login:=Tfrm_Login.Create(nil);
   try
-    if frm_Login.ShowModal<>mrOK then
-      application.Terminate;//登录失败，退出...
+    Result:= frm_Login.ShowModal=mrOK;
   finally
     frm_Login.Free;
   end;
