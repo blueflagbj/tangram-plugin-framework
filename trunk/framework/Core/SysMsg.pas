@@ -22,9 +22,9 @@ ResourceString
   Err_IntfCreatorFuncIsNil='接口创建函数为nil(接口:%s)！';
   Err_InstanceIsNil       ='接口对象为nil(接口:%s)！';
 
-  Msg_InitingModule='正在初始化包[%s]';
+  Msg_InitingModule='正在初始化模块[%s]';
   Msg_WaitingLogin ='正准备进入系统，请稍等...';
-  Msg_LoadingModule='正在加载包[%s]...';
+  Msg_LoadingModule='正在加载模块[%s]...';
 implementation
 
 end.

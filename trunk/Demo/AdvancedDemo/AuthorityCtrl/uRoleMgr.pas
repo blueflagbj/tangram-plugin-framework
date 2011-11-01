@@ -21,7 +21,7 @@ type
     aDefault:Boolean;
     Key:String;
   end;
-  
+
   TFrmRoleMgr = class(TBaseForm)
     ToolBar1: TToolBar;
     Panel1: TPanel;
@@ -236,7 +236,7 @@ begin
       New(NodeData);
       NodeData^.State:=0;
       NodeData^.Key:=tmpCds.fieldbyname('aKey').AsString;
-      NodeData^.aDefault:=tmpCds.fieldbyname('aDefault').AsBoolean;
+      NodeData^.aDefault:=tmpCds.fieldbyname('aDefault').AsInteger<>0;
       NewNode.Data:=NodeData;
       
       tmpCds.Next;
@@ -311,9 +311,9 @@ begin
         begin
           if cds_Authority.Locate('aKey',NodeData^.Key,[]) then
           begin
-            if cds_Authority.FieldByName('aEnable').AsBoolean then
-              NodeData^.State:=2
-            else NodeData^.State:=0;
+            if cds_Authority.FieldByName('aEnable').AsInteger=0 then
+              NodeData^.State:=0
+            else NodeData^.State:=2;
           end else begin
             if NodeData^.aDefault then
               NodeData^.State:=2
@@ -498,7 +498,7 @@ begin
           else tmpCds.Append;
           tmpCds.FieldByName('RoleID').AsInteger:=self.FCurRoleID;
           tmpCds.FieldByName('aKey').AsString:=NodeData^.Key;
-          tmpCds.FieldByName('aEnable').AsBoolean:=NodeData^.State=2;
+          tmpCds.FieldByName('aEnable').AsInteger:=NodeData^.State;
           tmpCds.Post;
         end;
       end;

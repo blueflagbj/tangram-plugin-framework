@@ -14,7 +14,7 @@ Type
     procedure Notify(Flags: Integer; Intf: IInterface;Param:Integer);
   End;
 
-  TNotifyEvent=procedure (Flags: Integer; Intf: IInterface;Param:Integer) of Object;
+  TSysNotifyEvent=procedure (Flags: Integer; Intf: IInterface;Param:Integer) of Object;
 
   INotifyService=Interface
   ['{F347E481-F6C3-48DA-BDD5-9452C69FCE30}']
@@ -26,11 +26,11 @@ Type
     procedure RegisterNotifyEx(Flags:Integer;Notify:INotify);
     procedure UnRegisterNotifyEx(Notify:INotify);
 
-    procedure RegisterNotifyEvent(NotifyEvent:TNotifyEvent);
-    procedure UnRegisterNotifyEvent(NotifyEvent:TNotifyEvent);
+    procedure RegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
+    procedure UnRegisterNotifyEvent(NotifyEvent:TSysNotifyEvent);
 
-    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TNotifyEvent);
-    procedure UnRegisterNotifyEventEx(NotifyEvent:TNotifyEvent);
+    procedure RegisterNotifyEventEx(Flags: Integer;NotifyEvent:TSysNotifyEvent);
+    procedure UnRegisterNotifyEventEx(NotifyEvent:TSysNotifyEvent);
   End;
 
 implementation
