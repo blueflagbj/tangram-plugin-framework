@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{cb37bd49-57a2-498b-b170-f5dde4f8e9fe}</ProjectGuid>
+    <MainSource>ConfigTool.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>..\编译\ConfigTool.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>$(PlatFormPath)\编译</DCC_ExeOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_ExeOutput>$(PlatFormPath)\编译</DCC_ExeOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2052</VersionInfo><VersionInfo Name="CodePage">936</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="$(BDS)\BPL\DclTee710.bpl">TeeChart Standard 7 Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\BPL\AstaD2006.bpl">ASTA Wireless Web Services</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsded2007.bpl">File C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsded2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsd2007.bpl">File C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsd2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsgridded2007.bpl">File C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsgridded2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsgridd2007.bpl">File C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsgridd2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsxlsd2007.bpl">File C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\iw9tmsxlsd2007.bpl not found</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\BPL\IWEliteSuite_90_Delphi2007w32_dsn.bpl">Arcana IntraWeb Elite Suite</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">ConfigTool.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="ConfigTool.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\接口\MenuRegIntf.pas" />
+    <DCCReference Include="..\注册表DLL\RegObj.pas" />
+    <DCCReference Include="ABOUT.pas">
+      <Form>AboutBox</Form>
+    </DCCReference>
+    <DCCReference Include="ConfigToolUnit.pas">
+      <Form>frm_Main</Form>
+    </DCCReference>
+    <DCCReference Include="editValue.pas">
+      <Form>frm_EditValue</Form>
+    </DCCReference>
+    <DCCReference Include="MenuEditor.pas">
+      <Form>Frm_MenuEditor</Form>
+    </DCCReference>
+    <DCCReference Include="newKey.pas">
+      <Form>frm_newKey</Form>
+    </DCCReference>
+    <DCCReference Include="PackageMgr.pas">
+      <Form>frm_PackageMgr</Form>
+    </DCCReference>
+    <DCCReference Include="ToolEditor.pas">
+      <Form>frm_ToolEditor</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

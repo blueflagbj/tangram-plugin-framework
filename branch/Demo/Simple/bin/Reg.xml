@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Doc Version="2.0">
+	<SYSTEM>
+		<LOADMODULE>
+			<USER BPLMODULE1.BPL="Module=($APP_PATH)\BPLMODULE1.BPL;Load=True" DLLMODULE1.DLL="Module=($APP_PATH)\DLLMODULE1.DLL;Load=True"/></LOADMODULE>
+	</SYSTEM>
+</Doc>

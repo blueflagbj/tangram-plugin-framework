@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{A4DD3294-8EE4-4497-BADA-B9AF895CCB47}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="EncdDecd\EncdDecd.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Log\Log.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="EncdDecd">
+			<MSBuild Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="EncdDecd:Clean">
+			<MSBuild Targets="Clean" Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="EncdDecd:Make">
+			<MSBuild Targets="Make" Projects="EncdDecd\EncdDecd.dproj"/>
+		</Target>
+		<Target Name="Log">
+			<MSBuild Projects="Log\Log.dproj"/>
+		</Target>
+		<Target Name="Log:Clean">
+			<MSBuild Targets="Clean" Projects="Log\Log.dproj"/>
+		</Target>
+		<Target Name="Log:Make">
+			<MSBuild Targets="Make" Projects="Log\Log.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="EncdDecd;Log"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="EncdDecd:Clean;Log:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="EncdDecd:Make;Log:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
