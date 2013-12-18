@@ -46,6 +46,7 @@ const
 constructor TAuthorityPlugin.Create;
 var EventReg:IMenuEventBinder;
 begin
+  inherited;
   EventReg:=SysService as IMenuEventBinder;
   //°ó¶¨ÊÂ¼þ
   EventReg.RegMenuEvent(Key_RoleMgr,self.RoleMgrClick);

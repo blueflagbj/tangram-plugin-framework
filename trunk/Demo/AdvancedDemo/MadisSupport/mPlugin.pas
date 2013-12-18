@@ -33,6 +33,7 @@ const
 
 constructor TmPlugin.Create;
 begin
+  inherited;
   (SysService as IMainForm).RegShortCut('Midas远程方法调用',self.SortCutClick);
 
   dm:=Tdm.Create(nil);
