@@ -236,7 +236,7 @@ begin
       New(NodeData);
       NodeData^.State:=0;
       NodeData^.Key:=tmpCds.fieldbyname('aKey').AsString;
-      NodeData^.aDefault:=tmpCds.fieldbyname('aDefault').AsInteger<>0;
+      NodeData^.aDefault:=tmpCds.fieldbyname('aDefault').AsBoolean;
       NewNode.Data:=NodeData;
       
       tmpCds.Next;
@@ -311,7 +311,7 @@ begin
         begin
           if cds_Authority.Locate('aKey',NodeData^.Key,[]) then
           begin
-            if cds_Authority.FieldByName('aEnable').AsInteger=0 then
+            if cds_Authority.FieldByName('aEnable').AsBoolean then
               NodeData^.State:=0
             else NodeData^.State:=2;
           end else begin
@@ -498,7 +498,7 @@ begin
           else tmpCds.Append;
           tmpCds.FieldByName('RoleID').AsInteger:=self.FCurRoleID;
           tmpCds.FieldByName('aKey').AsString:=NodeData^.Key;
-          tmpCds.FieldByName('aEnable').AsInteger:=NodeData^.State;
+          tmpCds.FieldByName('aEnable').AsBoolean:=NodeData^.State=2;
           tmpCds.Post;
         end;
       end;

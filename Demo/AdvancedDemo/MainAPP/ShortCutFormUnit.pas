@@ -10,7 +10,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls,  jpeg, Buttons, ImgList, ComCtrls,
+  Dialogs, ExtCtrls, Buttons, ImgList, ComCtrls,
   MainFormIntf,uMain;
 
 type

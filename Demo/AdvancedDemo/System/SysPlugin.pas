@@ -99,6 +99,7 @@ end;
 
 constructor TSysPlugin.Create;
 begin
+  inherited;
   TObjFactory.Create(IMenuEventBinder,TMenuDispatcher.Create,True);
 end;
 
