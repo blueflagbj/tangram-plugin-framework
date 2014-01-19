@@ -16,7 +16,7 @@ Type
 
   IEnumKey=Interface
     ['{BCF06768-CF57-41C8-AC40-C17135A80089}']
-    procedure EnumKey(const IIDStr:String);
+    procedure EnumKey(const IntfName:String);
   End;
 
   TFactory=Class(TIntfObj)
@@ -30,10 +30,10 @@ Type
     //Constructor Create;
     //Destructor Destroy;override;
 
-    function GetIntf(const IID : TGUID; out Obj):HResult;virtual;abstract;
+    function GetIntf(const IID: TGUID; out Obj):HResult;virtual;abstract;
     procedure ReleaseIntf;virtual;abstract;
 
-    function Supports(IID:TGUID):Boolean;virtual;abstract;
+    function Supports(const IntfName:string):Boolean;virtual;abstract;
     procedure EnumKeys(Intf:IEnumKey); virtual;abstract;
 
     function GetObjRef:IObjRef;dynamic;

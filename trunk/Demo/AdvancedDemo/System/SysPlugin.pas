@@ -98,9 +98,11 @@ begin
 end;
 
 constructor TSysPlugin.Create;
+var obj:TObject;
 begin
   inherited;
-  TObjFactory.Create(IMenuEventBinder,TMenuDispatcher.Create,True);
+  obj:=TMenuDispatcher.Create;
+  TObjFactory.Create(IMenuEventBinder,obj,True);
 end;
 
 destructor TSysPlugin.Destroy;

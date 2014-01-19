@@ -30,7 +30,7 @@ uses SysSvc,ObjRefIntf,TestIntf;
 procedure TFrmMain.ShowForm(param: Integer);
 var ObjRef:IObjRef;
 begin
-  if SysService(param).GetObjRef(Itest,ObjRef) then
+  if SysService('',param).GetObjRef(Itest,ObjRef) then
   begin
     if not ObjRef.ObjIsNil then
       TForm(ObjRef.Obj).ShowModal;
