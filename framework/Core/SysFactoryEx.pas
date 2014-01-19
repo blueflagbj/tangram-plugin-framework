@@ -26,7 +26,7 @@ Type
     function GetIntf(const IID : TGUID; out Obj):HResult;override;
     procedure ReleaseIntf;override;
 
-    function Supports(IID:TGUID):Boolean;override;
+    function Supports(const IntfName:string):Boolean;override;
     procedure EnumKeys(Intf:IEnumKey);override;
   end;
 
@@ -69,15 +69,17 @@ uses SysFactoryMgr,SysMsg;
 
 constructor TBaseFactoryEx.Create(const IIDs: array of TGUID);
 var i:Integer;
+    IIDStr:string;
 begin
   FIIDList:=TStringList.Create;
   
   for i:=low(IIDs) to high(IIDs) do
   begin
-    if FactoryManager.Exists(IIDs[i]) then
-      Raise Exception.CreateFmt(Err_IntfExists,[GUIDToString(IIDs[i])]);
+    IIDStr:=GUIDToString(IIDs[i]);
+    if FactoryManager.Exists(IIDStr) then
+      Raise Exception.CreateFmt(Err_IntfExists,[IIDStr]);
       
-    FIIDList.Add(GUIDToString(IIDs[i]));
+    FIIDList.Add(IIDStr);
   end;
   FactoryManager.RegisterFactory(self);
 end;
@@ -114,9 +116,9 @@ begin
 
 end;
 
-function TBaseFactoryEx.Supports(IID: TGUID): Boolean;
+function TBaseFactoryEx.Supports(const IntfName:string): Boolean;
 begin
-  Result:=FIIDList.IndexOf(GUIDToString(IID))<>-1;
+  Result:=FIIDList.IndexOf(IntfName)<>-1;
 end;
 
 { TSingletonFactoryEx }

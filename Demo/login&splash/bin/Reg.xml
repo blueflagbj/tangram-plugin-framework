@@ -2,6 +2,6 @@
 <Doc Version="2.0">
 	<SYSTEM>
 		<LOADMODULE>
-			<USER MODULE1.DLL="Module=F:\tangram-plugin-framework\Demo\login&amp;splash\bin\Module1.dll;load=True"/></LOADMODULE>
+			<USER MODULE1.DLL="Module=($APP_PATH)\MODULE1.DLL;Load=True"/></LOADMODULE>
 	</SYSTEM>
 </Doc>

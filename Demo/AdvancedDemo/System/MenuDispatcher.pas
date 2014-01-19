@@ -92,6 +92,7 @@ begin
   FList:=TObjectList.Create(True);
   self.CreateMenu;
   self.CreateTool;
+  inherited;
 end;
 
 destructor TMenuDispatcher.Destroy;

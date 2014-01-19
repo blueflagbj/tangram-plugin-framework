@@ -23,9 +23,9 @@ Type
     Destructor Destroy;override;
 
     function Add(aFactory: TFactory): integer;
-    function IndexOfIID(const IID:TGUID):Integer;
-    function GetFactory(const IID: TGUID): TFactory;
-    function FindFactory(const IID:TGUID): TFactory;
+    function IndexOf(const IntfName:string):Integer;
+    function GetFactory(const IntfName: string): TFactory;
+    function FindFactory(const IntfName: string): TFactory;
     function Remove(aFactory:TFactory):Integer;
     property Items[Index: integer]: TFactory read GetItems; default;
     property Count:Integer Read GetCount;
@@ -38,13 +38,13 @@ Type
     FKeyList:TStrings;
   protected
     {IEnumKey}
-    procedure EnumKey(const IIDStr:String);
+    procedure EnumKey(const IntfName:String);
   public
     procedure RegisterFactory(aIntfFactory:TFactory);
     procedure UnRegisterFactory(aFactory:TFactory); overload;
-    function FindFactory(const IID:TGUID): TFactory;
+    function FindFactory(const IntfName:string): TFactory;
     property FactoryList:TSysFactoryList Read FSysFactoryList;
-    function Exists(const IID:TGUID):Boolean;
+    function Exists(const IntfName:string):Boolean;
     procedure ReleaseIntf;
 
     Constructor Create;
@@ -93,12 +93,12 @@ begin
   inherited Destroy;
 end;
 
-function TSysFactoryList.FindFactory(const IID: TGUID): TFactory;
+function TSysFactoryList.FindFactory(const IntfName: string): TFactory;
 var
   idx:integer;
 begin
   result := nil;
-  idx:=self.IndexOfIID(IID);
+  idx:=self.IndexOf(IntfName);
   if idx<>-1 then
     Result:=TFactory(FList[idx]);
 end;
@@ -108,11 +108,11 @@ begin
   Result:=FList.Count;
 end;
 
-function TSysFactoryList.GetFactory(const IID: TGUID): TFactory;
+function TSysFactoryList.GetFactory(const IntfName: string): TFactory;
 begin
-  Result := FindFactory(IID);
+  Result := FindFactory(IntfName);
   if not Assigned(result) then
-    Raise Exception.CreateFmt(Err_IntfNotFound,[GUIDToString(IID)]);
+    Raise Exception.CreateFmt(Err_IntfNotFound,[IntfName]);
 end;
 
 function TSysFactoryList.GetItems(Index: integer): TFactory;
@@ -120,14 +120,14 @@ begin
   Result := TFactory(FList[Index]);
 end;
 
-function TSysFactoryList.IndexOfIID(const IID: TGUID): Integer;
+function TSysFactoryList.IndexOf(const IntfName:string): Integer;
 var
   i:integer;
 begin
   result := -1;
   for i := 0 to (FList.Count - 1) do
   begin
-    if TFactory(FList[i]).Supports(IID) then
+    if TFactory(FList[i]).Supports(IntfName) then
     begin
       result := i;
       Break;
@@ -156,46 +156,42 @@ begin
   inherited;
 end;
 
-function TSysFactoryManager.Exists(const IID: TGUID): Boolean;
+function TSysFactoryManager.Exists(const IntfName: string): Boolean;
 begin
-  Result:=FSysFactoryList.IndexOfIID(IID)<>-1;
+  Result:=FSysFactoryList.IndexOf(IntfName)<>-1;
 end;
 
-function TSysFactoryManager.FindFactory(const IID: TGUID): TFactory;
-var IIDStr:String;
-    PFactory:Pointer;
+function TSysFactoryManager.FindFactory(const IntfName: string): TFactory;
+var PFactory:Pointer;
 begin
   Result:=nil;
-  IIDStr:=GUIDToString(IID);
-  PFactory:=FIndexList.ValueOf(IIDStr);
+  PFactory:=FIndexList.ValueOf(IntfName);
   if PFactory<>nil then
     Result:=TFactory(PFactory)
   else begin
-    if FKeyList.IndexOf(IIDStr)=-1 then
+    if FKeyList.IndexOf(IntfName)=-1 then
     begin
-      Result:=FSysFactoryList.FindFactory(IID);
+      Result:=FSysFactoryList.FindFactory(IntfName);
       if Result=nil then
-        FKeyList.Add(IIDStr)
+        FKeyList.Add(IntfName)
       else
-        FIndexList.Add(IIDStr,Result);
+        FIndexList.Add(IntfName,Result);
     end;
   end;
 end;
 
 procedure TSysFactoryManager.RegisterFactory(aIntfFactory: TFactory);
 var i:Integer;
-    IIDStr:String;
-    IID:TGUID;
+    IntfName:String;
 begin
   FSysFactoryList.Add(aIntfFactory);
 
   for i := FKeyList.Count - 1 downto 0 do
   begin
-    IIDStr:=FKeyList[i];
-    IID   :=StringToGUID(IIDStr);
-    if aIntfFactory.Supports(IID) then
+    IntfName:=FKeyList[i];
+    if aIntfFactory.Supports(IntfName) then
     begin
-      FIndexList.Add(IIDStr,Pointer(aIntfFactory));
+      FIndexList.Add(IntfName,Pointer(aIntfFactory));
       FKeyList.Delete(i);
     end;
   end;
@@ -208,9 +204,9 @@ begin
     self.FSysFactoryList.Items[i].ReleaseIntf;
 end;
 
-procedure TSysFactoryManager.EnumKey(const IIDStr: String);
+procedure TSysFactoryManager.EnumKey(const IntfName: String);
 begin
-  self.FIndexList.Remove(IIDStr);
+  self.FIndexList.Remove(IntfName);
 end;
 
 procedure TSysFactoryManager.UnRegisterFactory(aFactory: TFactory);

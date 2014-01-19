@@ -29,7 +29,7 @@ Type
    // Destructor Destroy;override;
   end;
 
-  function SysService(param:Integer=0):ISysService;
+  function SysService(const IntfName:string='';param:Integer=0):ISysService;
 
 implementation
 
@@ -37,11 +37,13 @@ uses SysFactoryMgr;
 
 var
   FSysService:ISysService;
+  FIntfName:string;
   FParam:Integer;
 
-function SysService(param:Integer=0):ISysService;
+function SysService(const IntfName:string='';param:Integer=0):ISysService;
 begin
-  FParam:=param;
+  FIntfName:=IntfName;
+  FParam   :=param;
   if FSysService=nil then
     FSysService:=TSysService.Create;
     
@@ -69,7 +71,9 @@ begin
   if self.GetInterface(IID,Obj) then
     Result:=S_OK
   else begin
-    aFactory:=FactoryManager.FindFactory(IID);
+    if FIntfName='' then
+      FIntfName:=GUIDToString(IID);
+    aFactory:=FactoryManager.FindFactory(FIntfName);
     if Assigned(aFactory) then
     begin
       aFactory.prepare(FParam);
@@ -92,7 +96,9 @@ function TSysService.GetObjRef(const IID: TGUID;out ObjRef:IObjRef): Boolean;
 var aFactory:TFactory;
 begin
   Result:=False;
-  aFactory:=FactoryManager.FindFactory(IID);
+  if FIntfName='' then
+    FIntfName:=GUIDToString(IID);
+  aFactory:=FactoryManager.FindFactory(FIntfName);
   if Assigned(aFactory) then
   begin
     aFactory.prepare(FParam);

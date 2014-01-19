@@ -39,6 +39,9 @@
 			<Projects Include="MadisSvr\MidServer.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\..\framework\Core\Tangram_Core.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -155,14 +158,23 @@
 		<Target Name="MidServer:Make">
 			<MSBuild Targets="Make" Projects="MadisSvr\MidServer.dproj"/>
 		</Target>
+		<Target Name="Tangram_Core">
+			<MSBuild Projects="..\..\framework\Core\Tangram_Core.dproj"/>
+		</Target>
+		<Target Name="Tangram_Core:Clean">
+			<MSBuild Targets="Clean" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
+		</Target>
+		<Target Name="Tangram_Core:Make">
+			<MSBuild Targets="Make" Projects="..\..\framework\Core\Tangram_Core.dproj"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="MainAPP;MainAPP2;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer"/>
+			<CallTarget Targets="MainAPP;MainAPP2;Base;Sys;Custom;DBObj;DBSupport;MidasSupport;AuthorityCtrl;test2;test;MidServer;Tangram_Core"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean"/>
+			<CallTarget Targets="MainAPP:Clean;MainAPP2:Clean;Base:Clean;Sys:Clean;Custom:Clean;DBObj:Clean;DBSupport:Clean;MidasSupport:Clean;AuthorityCtrl:Clean;test2:Clean;test:Clean;MidServer:Clean;Tangram_Core:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make"/>
+			<CallTarget Targets="MainAPP:Make;MainAPP2:Make;Base:Make;Sys:Make;Custom:Make;DBObj:Make;DBSupport:Make;MidasSupport:Make;AuthorityCtrl:Make;test2:Make;test:Make;MidServer:Make;Tangram_Core:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>
