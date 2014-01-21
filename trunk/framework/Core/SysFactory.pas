@@ -248,13 +248,10 @@ end;
 
 function TSingletonFactory.GetIntf(const IID: TGUID; out Obj): HResult;
 begin
-  //if not Assigned(FIntfCreatorFunc) then//不能这样，因为后代TObjFactory时FIntfCreatorFunc为空
-  //  raise Exception.CreateFmt(Err_IntfCreatorFuncIsNil,[GUIDToString(IID)]);
-
   Result := E_NOINTERFACE;
   if FIntfRef = nil then
   begin
-    if (FInstance=nil) and (FIntfCreatorFunc<>nil) then
+    if (FInstance=nil) and Assigned(FIntfCreatorFunc) then
       FInstance := FIntfCreatorFunc(Self.FParam);
     if FInstance <> nil then
     begin
@@ -349,7 +346,6 @@ begin
   Inherited Create(IntfName,nil,IntfRelease);//往上后FIntfRef会被赋为nil
   FOwnsObj := OwnsObj or IntfRelease or (Instance is TInterfacedObject);
   FInstance:= Instance;
-  //Instance.GetInterface(IInterface, FIntfRef)
 end;
 
 constructor TObjFactory.Create(const IID: TGUID; Instance: TObject;

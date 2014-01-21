@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2011-09-24 14:27:12.140.groupproj,C:\Documents and Settings\wei\My Documents\RAD Studio\Projects\ProjectGroup3.groupproj=F:\tangram-plugin-framework\Demo\ObjRef\ObjRef.groupproj</Transaction>
+    <Transaction>2014/01/20 22:06:33.031.groupproj,F:\tangram-plugin-framework\Demo\IntfName\ObjRef.groupproj=F:\tangram-plugin-framework\Demo\IntfName\IntfName.groupproj</Transaction>
+  </Transactions>
+	<Default.Personality>
+		<Projects ActiveProject="Host.exe"/>
+	</Default.Personality>
+</BorlandProject>
