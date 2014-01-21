@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{93201950-1429-4776-99C1-C45FB0DAE00F}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="Host\Host.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Module\Module.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="Host">
+			<MSBuild Projects="Host\Host.dproj"/>
+		</Target>
+		<Target Name="Host:Clean">
+			<MSBuild Targets="Clean" Projects="Host\Host.dproj"/>
+		</Target>
+		<Target Name="Host:Make">
+			<MSBuild Targets="Make" Projects="Host\Host.dproj"/>
+		</Target>
+		<Target Name="Module">
+			<MSBuild Projects="Module\Module.dproj"/>
+		</Target>
+		<Target Name="Module:Clean">
+			<MSBuild Targets="Clean" Projects="Module\Module.dproj"/>
+		</Target>
+		<Target Name="Module:Make">
+			<MSBuild Targets="Make" Projects="Module\Module.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="Host;Module"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="Host:Clean;Module:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="Host:Make;Module:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
