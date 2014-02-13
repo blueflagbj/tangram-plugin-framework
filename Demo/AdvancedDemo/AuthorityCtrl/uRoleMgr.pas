@@ -312,8 +312,8 @@ begin
           if cds_Authority.Locate('aKey',NodeData^.Key,[]) then
           begin
             if cds_Authority.FieldByName('aEnable').AsBoolean then
-              NodeData^.State:=0
-            else NodeData^.State:=2;
+              NodeData^.State:=2
+            else NodeData^.State:=0;
           end else begin
             if NodeData^.aDefault then
               NodeData^.State:=2
