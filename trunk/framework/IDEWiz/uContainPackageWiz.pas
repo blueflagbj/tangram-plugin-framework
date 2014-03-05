@@ -218,8 +218,12 @@ end;
 
 procedure TContainPackageWiz.NewDefaultProjectModule(
   const Project: IOTAProject);
+var i:Integer;
 begin
-
+  for i:=0 to FUnitList.Count-1 do
+  begin
+    Project.AddFile(FUnitList[i]+'.dcu',False);
+  end;
 end;
 
 function TContainPackageWiz.NewOptionSource(
@@ -230,12 +234,8 @@ end;
 
 procedure TContainPackageWiz.NewProjectResource(
   const Project: IOTAProject);
-var i:Integer;
 begin
-  for i:=0 to FUnitList.Count-1 do
-  begin
-    Project.AddFile(FUnitList[i]+'.dcu',False);
-  end;
+
 end;
 
 function TContainPackageWiz.NewProjectSource(
