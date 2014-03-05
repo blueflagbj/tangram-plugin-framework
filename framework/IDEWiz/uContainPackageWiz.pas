@@ -222,7 +222,12 @@ var i:Integer;
 begin
   for i:=0 to FUnitList.Count-1 do
   begin
-    Project.AddFile(FUnitList[i]+'.dcu',False);
+    try
+      Project.AddFile(FUnitList[i]+'.dcu',False);
+    except
+      on E: Exception do
+        OutputDebugString(PChar(E.Message));
+    end;
   end;
 end;
 
@@ -234,8 +239,12 @@ end;
 
 procedure TContainPackageWiz.NewProjectResource(
   const Project: IOTAProject);
+//var i:Integer;
 begin
-
+  //for i:=0 to FUnitList.Count-1 do
+  //begin
+  //  Project.AddFile(FUnitList[i]+'.dcu',False);
+  //end;
 end;
 
 function TContainPackageWiz.NewProjectSource(
